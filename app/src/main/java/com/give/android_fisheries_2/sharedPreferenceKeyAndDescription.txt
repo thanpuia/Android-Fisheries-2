@@ -1,0 +1,5 @@
+1. mToken       = (String) store the token id until change
+2. mName        = (String) name of the user
+3. mContact     = (String) contact number of the user
+4. mLoginStatus = (Boolean) true- user is login; false- user is logout
+5. mRole        = (String) FARMER/ADMIN/SUPER_ADMIN

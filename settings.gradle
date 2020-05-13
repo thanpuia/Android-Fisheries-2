@@ -1,0 +1,2 @@
+rootProject.name='Android-Fisheries-2'
+include ':app'
