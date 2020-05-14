@@ -26,9 +26,10 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         for(int i=0;i<schemeName.length;i++){
-            holder.checkBox.setText(schemeName[i]);
+            holder.checkBox.setText(schemeName[position]);
         }
 
+       // holder.checkBox
     }
 
     @Override
@@ -36,12 +37,15 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
         return schemeName.length;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
+    public  class ViewHolder extends RecyclerView.ViewHolder{
 
         CheckBox checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            checkBox = itemView.findViewById(R.id.rowCheckBox);
+
+
+
+            //checkBox.
         }
     }
 }
