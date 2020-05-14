@@ -13,6 +13,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         startActivity(new Intent(this,MainActivity.class));
+        finish();
 
     }
 }
