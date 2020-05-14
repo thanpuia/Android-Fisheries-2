@@ -1,9 +1,14 @@
 package com.give.android_fisheries_2.adapter;
 
+import android.content.Context;
+import android.nfc.Tag;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.give.android_fisheries_2.R;
 
 public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.ViewHolder> {
-    String[] schemeName = {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
+    String[] schemeName;
+    Context mContext;
+    public SchemeListAdapter(Context applicationContext, String[] schemes) {
+        schemeName  = schemes;
+        mContext = applicationContext;
+    }
 
     @NonNull
     @Override
@@ -25,11 +35,22 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        for(int i=0;i<schemeName.length;i++){
-            holder.checkBox.setText(schemeName[position]);
-        }
 
-       // holder.checkBox
+        //::CHECKBOX IS POPULATE DYNAMICALLY . THE LINEAR LAYOUT IS USED TO POPULATE THE CHECKBOX ARRAY
+        CheckBox cb = new CheckBox(mContext);
+        cb.setText(schemeName[position]);
+        //cb.setTextSize(27);
+        // cb.setTextColor(Color.rgb(150, 190, 200));
+        //cb.setTypeface(Typeface.MONOSPACE);
+        //cb.setButtonDrawable(R.drawable.checkboxselector);
+        holder.checkBox.addView(cb);
+
+        cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d("TAG","CompoundButton-" +compoundButton.getText()+"  "+ b);
+            }
+        });
     }
 
     @Override
@@ -39,10 +60,11 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
 
     public  class ViewHolder extends RecyclerView.ViewHolder{
 
-        CheckBox checkBox;
+        LinearLayout checkBox;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            checkBox = itemView.findViewById(R.id.rowCheckBox);
 
 
             //checkBox.

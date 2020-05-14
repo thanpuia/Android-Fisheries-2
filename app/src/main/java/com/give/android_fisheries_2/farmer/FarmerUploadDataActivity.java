@@ -22,7 +22,7 @@ import com.give.android_fisheries_2.adapter.SchemeListAdapter;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class FarmerUploadDataActivity extends AppCompatActivity {
-
+    String[] schemes;
     SharedPreferences sharedPreferences;
     private ProgressBar progressBar;
     private ProgressBar locationConfirmProgressBar;
@@ -60,6 +60,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     String mContact;
     String mName;
     int mId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,8 +103,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         selectPhoto = findViewById(R.id.selectPhoto);
         profileImageViewButton = findViewById(R.id.imageViewDateProfilePicture);
 
-
-        schemeListAdapter = new SchemeListAdapter();
+        schemes = new String[] {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
+        schemeListAdapter = new SchemeListAdapter(getApplicationContext(), schemes);
         listOfSchemeRV.setAdapter(schemeListAdapter);
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(this));
     }
