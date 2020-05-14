@@ -39,6 +39,7 @@ public class AdminCenterActivity extends AppCompatActivity {
     }
 
     public void fragmentCommit(){
+        //:: getSupportFragmentManager().beginTransaction()  <-- is should be called every time fragment is going to be replace or error will throw
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.mFragmentFrameLayout,mFragment);
         fragmentTransaction.commit();

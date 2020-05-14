@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.give.android_fisheries_2.admin.AdminCenterActivity;
 import com.give.android_fisheries_2.farmer.FarmerUploadDataActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             mRole = sharedPreferences.getString("mRole","noRole");
 
             //TODO :://ROLE IS ASSAIGN FOR TESTING PURPOSE ONLY. START. THIS IS FOR TESTING PURPOSE ONLY
-            mRole = "FARMER";
+            mRole = "ADMIN";
             //mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";
             //END
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
                 case "ADMIN":
                     Log.d(TAG,"Role: Admin")  ;
+                    startActivity(new Intent(this, AdminCenterActivity.class));
+
                     break;
 
                 case "SUPER_ADMIN":
