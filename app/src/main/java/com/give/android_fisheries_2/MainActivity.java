@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
             mRole = sharedPreferences.getString("mRole","noRole");
 
             //TODO :://ROLE IS ASSAIGN FOR TESTING PURPOSE ONLY. START. THIS IS FOR TESTING PURPOSE ONLY
+            //mRole = "FARMER";
             mRole = "ADMIN";
-            //mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";
             //END
 

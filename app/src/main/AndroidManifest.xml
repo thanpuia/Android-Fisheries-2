@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".admin.AdminCenterActivity"></activity>
-        <activity android:name=".farmer.FarmerUploadDataActivity" />
+        <activity android:name=".farmer.FarmerUploadDataActivity"
+            android:theme="@style/AppThemeFarmer"/>
         <activity android:name=".registration.LoginActivity" />
         <activity android:name=".registration.RegistrationActivity" />
         <activity
@@ -22,7 +23,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppThemeFarmer"/>
     </application>
 
 </manifest>

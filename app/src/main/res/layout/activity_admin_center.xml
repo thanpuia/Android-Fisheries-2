@@ -7,22 +7,6 @@
     android:id="@+id/body"
     tools:context=".admin.AdminCenterActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/top"
-        android:background="@color/colorPrimary">
-
-        <EditText
-            android:id="@+id/main_search_bar_edittext"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffff"
-
-            android:hint="Search for fish ponds"/>
-    </LinearLayout>
-
     <FrameLayout
         android:id="@+id/mFragmentFrameLayout"
         android:layout_width="match_parent"
@@ -41,7 +25,7 @@
             android:id="@+id/pondsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PONDS"
+            android:text="PONDS map"
             android:onClick="pondsBtnClick"/>
         <Button
             android:id="@+id/farmersBtn"

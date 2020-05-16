@@ -58,7 +58,7 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
         return schemeName.length;
     }
 
-    public  class ViewHolder extends RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder{
 
         LinearLayout checkBox;
         public ViewHolder(@NonNull View itemView) {

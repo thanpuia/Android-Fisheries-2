@@ -11,6 +11,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true">
 
         <Button
@@ -34,11 +35,17 @@
             android:layout_height="wrap_content"
             android:text="Download"
             android:onClick="downloadBtnClick"/>
-    </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hi farmer!" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/downloadBtn"
+
+        android:id="@+id/farmerRecyclerList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    </RelativeLayout>
 
 </FrameLayout>
