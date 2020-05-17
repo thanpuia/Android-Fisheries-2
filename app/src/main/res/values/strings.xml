@@ -17,4 +17,20 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="app_name2">FISH-INFO</string>
+    <string name="aizawl">Aizawl</string>
+    <string name="kolasib">Kolasib</string>
+    <string name="lawngtlai">Lawngtlai</string>
+    <string name="lunglei">Lunglei</string>
+    <string name="mamit">Mamit</string>
+    <string name="siaha">Siaha</string>
+    <string name="serchhip">Serchhip</string>
+    <string name="champhai">Champhai</string>
+    <string name="hnahthial">Hnahthial</string>
+    <string name="khawzawl">Khawzawl</string>
+    <string name="saitual">Saitual</string>
+
+    <string name="nfdb">NFDB</string>
+    <string name="blue_revolution">Blue Revolution</string>
+    <string name="rkvy">RKVY</string>
+    <string name="nlup">NLUP</string>
 </resources>

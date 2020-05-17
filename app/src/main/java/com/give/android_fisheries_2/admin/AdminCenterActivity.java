@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,9 @@ public class AdminCenterActivity extends AppCompatActivity {
 
     String districtsAndScheme[] = {"Kolasib","Champhai","Lawngtlai","Aizawl","others","PMEGY","Blue Revolution","other"};
     boolean[] checkednames= new boolean[]{false,false,false,false,false,false,false,false};
+
+    String test[] = {"test1","test2"};
+    boolean[] testboo = new boolean[]{false,false};
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -113,7 +117,7 @@ public class AdminCenterActivity extends AppCompatActivity {
 
     public void filtersBtnClick(View view) {
        // Log.d("TAG","FILTER CLCK");
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+       /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select District and Scheme");
         builder.setMultiChoiceItems(districtsAndScheme, checkednames, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
@@ -125,7 +129,11 @@ public class AdminCenterActivity extends AppCompatActivity {
         builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Log.d("TAG",""+i);
+                for(int j =0;j<checkednames.length;j++){
+                    if(checkednames[j]){
+                        Log.d("TAG","SELECT ITEM: "+ districtsAndScheme[j]);
+                    }
+                }
             }
         });
 
@@ -138,7 +146,58 @@ public class AdminCenterActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+*/
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select Filters");
 
+        //SET THE CUSTOM LAYOUT
+        final View customLayout = getLayoutInflater().inflate(R.layout.custom_alert_dialog,null);
+        builder.setView(customLayout);
+
+        CheckBox allDistrictCB,aizawlCB,kolasibCB,lawngtlaiCB,lungleiCB,mamitCB,siahaCB,serchhipCB,champhaiCB,hnahthialCB,khawzawlCB,saitualCB,nfdbCB,nlupCB,rkvyCB,blueRevolutionCB,otherSchemeCB;
+        aizawlCB = customLayout.findViewById(R.id.aizawl);    kolasibCB = customLayout.findViewById(R.id.khawzawl);    lawngtlaiCB = customLayout.findViewById(R.id.lawngtlai);
+        lungleiCB = customLayout.findViewById(R.id.lunglei);    mamitCB = customLayout.findViewById(R.id.mamit);    siahaCB = customLayout.findViewById(R.id.siaha);
+        serchhipCB = customLayout.findViewById(R.id.serchhip);    champhaiCB = customLayout.findViewById(R.id.champhai);    hnahthialCB = customLayout.findViewById(R.id.hnahthial);
+        khawzawlCB = customLayout.findViewById(R.id.khawzawl);    saitualCB = customLayout.findViewById(R.id.saitual);    nfdbCB = customLayout.findViewById(R.id.nfdb);
+        rkvyCB = customLayout.findViewById(R.id.rkvy);    nlupCB = customLayout.findViewById(R.id.nlup);    blueRevolutionCB = customLayout.findViewById(R.id.blue_revolution);
+        allDistrictCB = customLayout.findViewById(R.id.all);    otherSchemeCB = customLayout.findViewById(R.id.others);
+
+        final CheckBox[] districtCheckBoxes = new CheckBox[]{allDistrictCB,aizawlCB,kolasibCB,lawngtlaiCB,lungleiCB,mamitCB,siahaCB,serchhipCB,champhaiCB,hnahthialCB, khawzawlCB,saitualCB};
+        final boolean[] districtChecked = new boolean[]{false,false,false,false,false,false,false,false,false,false,false,false};
+        final CheckBox[] schemeCheckBoxex = new CheckBox[]{nfdbCB,rkvyCB,nlupCB,blueRevolutionCB,otherSchemeCB};
+        final boolean[] schemeChecked = new boolean[]{false,false,false,false,false};
+
+        builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                // ::THE CHECKBOX IS MAKER FOR FURTHER USES
+                for(int i=0;i<districtCheckBoxes.length;i++)
+                    if(districtCheckBoxes[i].isChecked()){
+                        districtChecked[i]=true;
+                        Log.d("TAG","check:"+districtCheckBoxes[i]);
+                    }
+
+                for(int j=0;j<schemeCheckBoxex.length;j++)
+                    if(schemeCheckBoxex[j].isChecked()) {
+                        schemeChecked[j]=true;
+                        Log.d("TAG","check:"+schemeCheckBoxex[j]);
+
+                    }
+
+
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 }
