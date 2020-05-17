@@ -45,6 +45,8 @@
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
             android:background="@drawable/ic_dehaze_black_24dp"/>
+
+
     </RelativeLayout>
 
     <EditText
@@ -54,7 +56,10 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:hint="Search for fish ponds"
+        android:inputType="text"
+        android:lines="1"
         android:textColorHint="#777272"
         android:drawableLeft="@drawable/ic_search_black_24dp"
-        android:textColor="#000"/>
+        android:textColor="#000"
+        android:imeOptions="actionDone"/>
 </LinearLayout>
