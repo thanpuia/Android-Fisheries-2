@@ -29,7 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
 
-    private String URLs= String.valueOf(R.string.IP_ADDRESS)+"api/register";
+    private String URLs= String.valueOf(R.string.IP_ADDRESS);
     String mContact;
     String mName;
 
@@ -56,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
              mContact = phone.getText().toString();
 
             Ion.with(getApplicationContext())
-                    .load("http://10.180.243.6:8000/api/register")
+                    .load("http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/register")
                     .uploadProgressHandler(new ProgressCallback() {
                         @Override
                         public void onProgress(long downloaded, long total) {
@@ -74,14 +74,14 @@ public class RegistrationActivity extends AppCompatActivity {
 
                             Log.e("TAG","RESULT::"+result);
                             if(result!=null){
-                                JsonElement statusAsJson = result.get("success");
+                              //  JsonElement statusAsJson = result.get("success");
                                 JsonElement tokenAsJson = result.get("token");
 
                                 Log.e("TAG","RESULT::"+result.get("success"));
                                 Log.e("TAG","TOKEN::"+result.get("token"));
 
 
-                                if(result.get("success").getAsBoolean()==true){
+                                if(tokenAsJson!=null){
                                     Toasty.success(getApplicationContext(),"Register Successfully!",Toasty.LENGTH_SHORT).show();
 
                                     //STORED IN THE SHARED PREFERENCE FOR LATER REFERENCE

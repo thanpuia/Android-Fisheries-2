@@ -58,9 +58,11 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_email_icon"
                 android:drawablePadding="6dp"
+                android:maxLines="1"
                 android:inputType="textEmailAddress"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelAlwaysShown="true"
+                android:textSize="@dimen/text_size_fisheries"
                 app:met_floatingLabelText="Phone" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -70,9 +72,12 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_password_icon"
                 android:drawablePadding="6dp"
+                android:maxLines="1"
                 android:inputType="textVisiblePassword"
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelAlwaysShown="true"
+                android:textSize="@dimen/text_size_fisheries"
+
                 app:met_floatingLabelText="Password" />
 
             <Button

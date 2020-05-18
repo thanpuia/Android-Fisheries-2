@@ -13,11 +13,15 @@ import android.widget.ProgressBar;
 
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.rengwuxian.materialedittext.MaterialEditText;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import es.dmoral.toasty.Toasty;
 
@@ -28,8 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout loginLinearLayout;
     ProgressBar loginProgressBar;
 
-    private String URLs=String.valueOf(R.string.IP_ADDRESS)+"api/login";
-
+   private String URLs=String.valueOf(R.string.IP_ADDRESS);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
         loginPassword = findViewById(R.id.loginPassword);
         loginLinearLayout = findViewById(R.id.loginFormLinearLayout);
         loginProgressBar = findViewById(R.id.simpleProgressBarLogin);
+
+
     }
 
     public void mLoginButtonClick(View view) {
@@ -49,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
         loginProgressBar.setVisibility(View.VISIBLE);
         loginLinearLayout.setVisibility(View.INVISIBLE);
         Ion.with(getApplicationContext())
-                .load("http://10.180.243.6:8000/api/login")
+                .load("http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/login")
                 .uploadProgressHandler(new ProgressCallback() {
                     @Override
                     public void onProgress(long downloaded, long total) {
@@ -63,13 +68,14 @@ public class LoginActivity extends AppCompatActivity {
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, final JsonObject result) {  /* NOTE: Login Success   result{  "success":"true" }     Login Unsuccess  result{   "success":"false"  }  */
+                        Log.e("TAG","TESTING: "+result.get("success").getAsBoolean());
+                        Log.e("TAG","result: "+result);
 
-                        Boolean success = result.get("success").getAsBoolean();
+                        boolean success = result.get("success").getAsBoolean();
                         String mToken = result.get("token").getAsString();
                         String mName = result.get("name").getAsString();
                         String mContact = result.get("contact").getAsString();
                         int mId = result.get("id").getAsInt();
-
 
 
                         Log.e("TAG","TESTING: "+result.get("success"));

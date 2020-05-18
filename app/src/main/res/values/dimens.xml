@@ -2,4 +2,5 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="toolbar_height">100dp</dimen>
+    <dimen name="text_size_fisheries">23dp</dimen>
 </resources>
