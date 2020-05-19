@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-        <item android:title="English"
+        <item android:title="nothing"
             android:id="@+id/english"/>
-        <item android:title="Spanish"
-            android:id="@+id/spanish"/>
+        <item android:title="Logout"
+            android:id="@+id/logout"/>
 </menu>

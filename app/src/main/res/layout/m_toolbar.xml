@@ -38,13 +38,13 @@
             android:textSize="10dp"
             android:layout_below="@id/header_appName"/>
 
-        <Button
-            android:layout_width="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/ic_dehaze_black_24dp"/>
+<!--        <Button-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:background="@drawable/ic_dehaze_black_24dp"/>-->
 
 
     </RelativeLayout>

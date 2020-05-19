@@ -1,6 +1,7 @@
 package com.give.android_fisheries_2;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,11 +9,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.give.android_fisheries_2.admin.AdminCenterActivity;
 import com.give.android_fisheries_2.farmer.FarmerUploadDataActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
+import com.give.android_fisheries_2.registration.Logout;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +25,30 @@ public class MainActivity extends AppCompatActivity {
     Boolean mLoginStatus;
     String mRole;
     String TAG = "tag";
+    Menu menu;
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        this.menu = menu;
+
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.header_menu,menu);
+
+        menu.getItem(0).setIcon(ContextCompat.getDrawable(this,R.drawable.ic_dehaze_black_24dp));
+
+        return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.english)
+            new Logout(getApplicationContext());
+        else if (item.getItemId() == R.id.logout)
+            new Logout(getApplicationContext());
+        return true;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginStatus = sharedPreferences.getBoolean("mLoginStatus",false);
 
         //TODO :: START :: THIS IS FOR TESTING PURPOSE
-        //mLoginStatus = true;
+        mLoginStatus = true;
         //END
 
         //IF mLoginStatus IS FALSE GO TO LOGIN PAGE

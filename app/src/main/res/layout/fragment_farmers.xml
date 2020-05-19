@@ -11,30 +11,42 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:padding="5dp"
         android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/sortBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
             android:text="Sort"
+            android:textSize="11dp"
+            android:background="@drawable/button_filters"
+            android:layout_marginTop="5dp"
+
             android:onClick="sortBtnClick"/>
         <Button
             android:id="@+id/filtersBtn"
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
             android:text="Filters"
+            android:textSize="11dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_filters"
             android:onClick="filtersBtnClick"/>
 
         <Button
             android:id="@+id/downloadBtn"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="110dp"
+            android:layout_height="30dp"
             android:text="Download"
+            android:textSize="11dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/button_filters"
+
             android:onClick="downloadBtnClick"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/downloadBtn"

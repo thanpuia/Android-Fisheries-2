@@ -89,7 +89,9 @@ public class RegistrationActivity extends AppCompatActivity {
                                     sharedPreferences.edit().putString("mToken",result.get("token").toString()).apply();
 
                                     //GET THE ROLE FROM THE SERVER
-                                    sharedPreferences.edit().putString("mRole","FARMER").apply();
+                                    //sharedPreferences.edit().putString("mRole","FARMER").apply();
+
+                                    sharedPreferences.edit().putString("mRole","ADMIN").apply();
                                     sharedPreferences.edit().putString("mName",mName).apply();
                                     sharedPreferences.edit().putString("mContact",mContact).apply();
                                     Log.e("TAG","RESULT::"+result);

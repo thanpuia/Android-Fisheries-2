@@ -27,6 +27,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.registration.Logout;
 
 public class AdminCenterActivity extends AppCompatActivity {
 
@@ -56,10 +57,10 @@ public class AdminCenterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-//        if(item.getItemId() == R.id.english)
-//           // setLanguage("English");
-//        else if (item.getItemId() == R.id.spanish)
-//         //   setLanguage("Spanish");
+        if(item.getItemId() == R.id.english)
+            new Logout(getApplicationContext());
+        else if (item.getItemId() == R.id.logout)
+            new Logout(getApplicationContext());
         return true;
     }
 
