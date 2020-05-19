@@ -19,13 +19,17 @@
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:background="#DFDFDF">
 
         <Button
             android:id="@+id/pondsBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PONDS map"
+            android:drawableTop="@drawable/ic_home_black_24dp"
+            android:textSize="10dp"
+            android:background="@drawable/button_transparent_shadow"
             android:onClick="pondsBtnClick"/>
         <Button
             android:id="@+id/farmersBtn"
@@ -33,6 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FARMERS"
+            android:drawableTop="@drawable/ic_person_black_24dp"
+            android:textSize="10dp"
+            android:background="@drawable/button_transparent_shadow"
             android:onClick="farmersBtnClick"/>
 
         <Button
@@ -41,6 +48,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SMS"
+            android:drawableTop="@drawable/ic_message_black_24dp"
+            android:textSize="10dp"
+            android:background="@drawable/button_transparent_shadow"
             android:onClick="smsBtnClick"/>
     </RelativeLayout>
 </RelativeLayout>
