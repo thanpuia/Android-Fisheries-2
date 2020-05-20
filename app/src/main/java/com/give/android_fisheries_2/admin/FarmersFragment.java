@@ -1,17 +1,21 @@
 package com.give.android_fisheries_2.admin;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.FarmerListAdapter;
@@ -45,7 +49,7 @@ public class FarmersFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_farmers, container, false);
+        final View view = inflater.inflate(R.layout.fragment_farmers, container, false);
         sharedPreferences = view.getContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
         mToken = sharedPreferences.getString("mToken","");
@@ -59,11 +63,13 @@ public class FarmersFragment extends Fragment {
         String[] areas = {"area1","area2","area3"};
         farmerEntities = new ArrayList<>();
         //TODO :: GENERATING FAKE DATA
-//        for(int i=0;i< names.length;i++){
-//            FarmerEntity mFarmer = new FarmerEntity(names[i],address[i],tehsils[i],areas[i]);
-//            farmerEntities.add(mFarmer);
-//        }
+        for(int i=0;i< names.length;i++){
+            FarmerEntity mFarmer = new FarmerEntity(names[i],address[i],tehsils[i],areas[i]);
+            farmerEntities.add(mFarmer);
+        }
+        farmerListAdapter = new FarmerListAdapter(farmerEntities, getContext());
 
+        farmerRecyclerView.setAdapter(farmerListAdapter);
         Ion.with(getContext())
                 .load("http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/fishponds/pondlist")
                 .setHeader("Accept","application/json")
@@ -88,9 +94,11 @@ public class FarmersFragment extends Fragment {
                                 farmerEntities.add(mFarmerEntity);
 
                             }
-                            farmerListAdapter = new FarmerListAdapter(farmerEntities);
+                            farmerListAdapter = new FarmerListAdapter(farmerEntities, getContext());
 
                             farmerRecyclerView.setAdapter(farmerListAdapter);
+
+
                         }catch (Exception f){}
 
                     }
@@ -98,9 +106,10 @@ public class FarmersFragment extends Fragment {
 
 
 
-        Log.d("TAG"," list AL: "+mToken);
-
+        //Log.d("TAG"," list AL: "+mToken);
 
         return view;
     }
+
+
 }

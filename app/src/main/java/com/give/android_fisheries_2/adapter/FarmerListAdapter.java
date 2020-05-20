@@ -1,5 +1,10 @@
 package com.give.android_fisheries_2.adapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.admin.FarmersFragment;
 import com.give.android_fisheries_2.entity.FarmerEntity;
 
 import java.util.ArrayList;
@@ -17,9 +23,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.ViewHolder> {
     ArrayList<FarmerEntity> mFarmerEntities;
+    Context mContext;
 
-    public FarmerListAdapter(ArrayList<FarmerEntity> farmerEntities) {
+    public FarmerListAdapter(ArrayList<FarmerEntity> farmerEntities, Context context) {
     this.mFarmerEntities = farmerEntities;
+    this.mContext = context;
     }
 
     @NonNull
@@ -41,13 +49,59 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         holder.nameTv.setText(mFarmerEntities.get(position).getName());
         holder.addressTv.setText(mFarmerEntities.get(position).getAddress());
         holder.tehsilTv.setText(mFarmerEntities.get(position).getTehsil());
         holder.areaTv.setText(mFarmerEntities.get(position).getArea());
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG","veiw: "+view.getId()+"  postion:"+position);
+                LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+                //Call the alert box
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setTitle(mFarmerEntities.get(position).getName()+"'s Details");
 
+                //SET THE CUSTOM LAYOUT
+                View customLayout = layoutInflater.inflate(R.layout.custom_farmer_list_details,null);
+                builder.setView(customLayout);
+
+                //DECLARATION AND INITIALIZATION
+                TextView name,fname,address,district,tehsil,area,epic,scheme;
+                name = customLayout.findViewById(R.id.name_value);
+                fname = customLayout.findViewById(R.id.fname_value);
+                address = customLayout.findViewById(R.id.address_value);
+                district = customLayout.findViewById(R.id.district_value);
+                tehsil = customLayout.findViewById(R.id.tehsil_value);
+                area = customLayout.findViewById(R.id.area_value);
+                epic = customLayout.findViewById(R.id.epic_value);
+                scheme = customLayout.findViewById(R.id.scheme_value);
+
+                //DEFINITION
+                name.setText(mFarmerEntities.get(position).getName());
+                address.setText(mFarmerEntities.get(position).getAddress());
+                tehsil.setText(mFarmerEntities.get(position).getTehsil());
+                area.setText(mFarmerEntities.get(position).getArea());
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                builder.setNegativeButton("Print", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     @Override
@@ -62,6 +116,7 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
         TextView addressTv;
         TextView tehsilTv;
         TextView areaTv;
+        View mView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +126,7 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
             addressTv = itemView.findViewById(R.id.address_tv);
             tehsilTv = itemView.findViewById(R.id.tehsil_tv);
             areaTv = itemView.findViewById(R.id.area_tv);
+            mView = itemView;
         }
     }
 }

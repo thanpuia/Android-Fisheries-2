@@ -17,6 +17,8 @@ public class Logout {
         sharedPreferences.edit().putString("mName",null).apply();
         sharedPreferences.edit().putString("mToken",null).apply();
         sharedPreferences.edit().putString("mContact",null).apply();
+      //  sharedPreferences.edit().putString("mRole",null).apply();
+
         Toast.makeText(c,"LOGOUT!",Toast.LENGTH_SHORT).show();
     }
 }

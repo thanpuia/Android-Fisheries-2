@@ -21,6 +21,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -337,24 +338,23 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
     public void apiFirst(){
 
-//        String fname = fathersNameEditText.getText().toString();
-//        String address= addressEditText.getText().toString();
-//        String district= districtSpinner.getSelectedItem().toString();;
-//        String location_of_pond= "TESTING";//HEI HI ENG KAN CIAG LO
-//        String tehsil = tehsilEditText.getText().toString();
-//        String area= areaEditText.getText().toString();
-//        String epic_no= epicOrAadhaarEditText.getText().toString();
-     //   String name_of_scheme= String.join(",",schemeCheckLists);
-        String fname = "TESTIGN";
+
+        String fname = fathersNameEditText.getText().toString();
+        String address= addressEditText.getText().toString();
+        String district= districtSpinner.getSelectedItem().toString();;
+        String location_of_pond= "TESTING";//HEI HI ENG KAN CIAG LO
+        String tehsil = tehsilEditText.getText().toString();
+        String area= areaEditText.getText().toString();
+        String epic_no= epicOrAadhaarEditText.getText().toString();
+        String name_of_scheme= TextUtils.join(",",SchemeListAdapter.schemeChecked);
+
+/*        String fname = "TESTIGN";
         String address= "TESTIGN";
         String district= "TESTIGN";
         String location_of_pond= "TESTIGN";
         String tehsil = "TESTIGN";
         String area= "TESTIGN";
-        String epic_no= "TESTIGN";
-
-
-        String name_of_scheme= "SCHWEMW";
+        String epic_no= "TESTIGN";*/
 
         Log.d("TAG",""+fname+address+district+location_of_pond+tehsil+area+epic_no+name_of_scheme);
 
@@ -386,7 +386,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
                         public void onCompleted(Exception e, JsonObject result) {
                             Log.d("TAG","FILE "+real_path_profileImage);
 
-                            Log.d("TAG","URL 1 URL 1 URL 1: "+result);
+                            Log.d("TAG","URL 1: "+result);
                         }
                     });
         }catch (Exception e){

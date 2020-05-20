@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="Name: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="name_value"
+            android:layout_toRightOf="@+id/name"
+            />
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fname"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="Father's Name: "
+            android:layout_below="@id/name"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fname_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="fname_value"
+            android:layout_below="@id/name_value"
+            android:layout_toRightOf="@+id/fname"/>
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/address"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="Address: "
+            android:layout_below="@id/fname"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/address_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="address_value"
+            android:layout_below="@id/fname_value"
+            android:layout_toRightOf="@+id/address"/>
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/district"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="District: "
+            android:layout_below="@id/address" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/district_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="district_value"
+            android:layout_below="@id/address_value"
+            android:layout_toRightOf="@+id/address"/>
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tehsil"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="Tehsil: "
+            android:layout_below="@id/district" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tehsil_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="tehsil_value"
+            android:layout_below="@id/district_value"
+            android:layout_toRightOf="@+id/tehsil"/>
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/area"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="Area: "
+            android:layout_below="@id/tehsil" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/area_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="area_value"
+            android:layout_below="@id/tehsil_value"
+            android:layout_toRightOf="@+id/area"/>
+
+        <TextView
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/epic"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="Epic/Aadhar: "
+            android:layout_below="@id/area"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/epic_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="epic_value"
+            android:layout_below="@id/area_value"
+            android:layout_toRightOf="@+id/epic"/>
+
+        <TextView
+            android:id="@+id/scheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scheme: "
+            android:textSize="@dimen/text_size_fisheries"
+            android:layout_below="@id/epic"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scheme_value"
+            android:textSize="@dimen/text_size_fisheries"
+            android:text="scheme_value"
+            android:layout_below="@id/epic_value"
+            android:layout_toRightOf="@+id/scheme"/>
+    </RelativeLayout>
+
+</ScrollView>
