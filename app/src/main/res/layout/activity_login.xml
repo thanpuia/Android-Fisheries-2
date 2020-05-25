@@ -5,39 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="5dp"
-    android:background="@drawable/map_blur_dark"
     tools:context=".registration.LoginActivity">
 
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-
-        <ProgressBar
-            android:id="@+id/simpleProgressBarLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:visibility="invisible"
-            android:foregroundGravity="center"/>
-    </LinearLayout>
 
 
     <LinearLayout
         android:id="@+id/loginFormLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_margin="10dp"
+        android:layout_margin="20dp"
+
         android:background="#fff">
 
         <ImageView
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="5dp"
             android:src="@drawable/fish_logo"
             android:layout_marginBottom="20dp"
             android:layout_gravity="center"
@@ -46,9 +31,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            android:orientation="vertical">
 
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -63,6 +46,7 @@
                 app:met_floatingLabel="highlight"
                 app:met_floatingLabelAlwaysShown="true"
                 android:textSize="@dimen/text_size_fisheries"
+                android:background="@drawable/rectangle_edittext"
                 app:met_floatingLabelText="Phone" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
@@ -81,12 +65,14 @@
                 app:met_floatingLabelText="Password" />
 
             <Button
+                android:id="@+id/loginInButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="80dp"
                 android:layout_marginTop="5dp"
                 android:background="@color/colorPrimary"
                 android:onClick="mLoginButtonClick"
                 android:text="Login"
+                android:textSize="@dimen/text_size_fisheries"
                 android:textColor="#FFF" />
 
             <TextView
@@ -98,8 +84,23 @@
                 android:text="Not yet register! Register Now" />
         </LinearLayout>
 
+
     </LinearLayout>
 
 
+    <LinearLayout
+        android:id="@+id/simpleProgressBarLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading_fade_70"
+        android:visibility="invisible"
+        android:gravity="center">
 
+        <ProgressBar
+            android:id="@+id/simpleProgressBarLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:foregroundGravity="center"/>
+    </LinearLayout>
 </RelativeLayout>

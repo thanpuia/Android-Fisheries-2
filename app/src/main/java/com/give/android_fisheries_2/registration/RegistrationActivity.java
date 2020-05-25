@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
@@ -28,6 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private Button registerNowButton;
     private ProgressBar progressBar;
     private SharedPreferences sharedPreferences;
+    RelativeLayout registrationProgressBarRelativeLayout;
 
     private String URLs= String.valueOf(R.string.IP_ADDRESS);
     String mContact;
@@ -44,26 +46,31 @@ public class RegistrationActivity extends AppCompatActivity {
 
         registerNowButton = findViewById(R.id.registerNowButton);
         progressBar = findViewById(R.id.simpleProgressBarRegistration);
+        registrationProgressBarRelativeLayout = findViewById(R.id.registration_progress_bar_relative_layout);
 
     }
 
     public void registerNowClick(View view) {
+
+        //:::: SHOW THE PROGRESS BAR AND DISABLE THE REGISTRATION BUTTON ::::
+        registrationProgressBarRelativeLayout.setVisibility(View.VISIBLE);
+        registerNowButton.setEnabled(false);
+
         Toasty.info(this,"REGISTER click",Toasty.LENGTH_SHORT).show();
         try{
-
-             mName = name.getText().toString();
+            mName = name.getText().toString();
             String mPassword = password.getText().toString();
-             mContact = phone.getText().toString();
+            mContact = phone.getText().toString();
 
             Ion.with(getApplicationContext())
-                    .load("http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/register")
-                    .uploadProgressHandler(new ProgressCallback() {
-                        @Override
-                        public void onProgress(long downloaded, long total) {
-                            progressBar.setVisibility(View.VISIBLE);
-                            registerNowButton.setVisibility(View.INVISIBLE);
-                        }
-                    })
+                    .load("http://192.168.43.205:8000/api/register")
+//                    .uploadProgressHandler(new ProgressCallback() {
+//                        @Override
+//                        public void onProgress(long downloaded, long total) {
+//                            progressBar.setVisibility(View.VISIBLE);
+//                            registerNowButton.setVisibility(View.INVISIBLE);
+//                        }
+//                    })
                     .setMultipartParameter("name",mName)
                     .setMultipartParameter("contact",mContact)
                     .setMultipartParameter("password",mPassword)
@@ -71,6 +78,9 @@ public class RegistrationActivity extends AppCompatActivity {
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
+
+                            registrationProgressBarRelativeLayout.setVisibility(View.INVISIBLE);
+                            registerNowButton.setEnabled(true);
 
                             Log.e("TAG","RESULT::"+result);
                             if(result!=null){
@@ -100,14 +110,10 @@ public class RegistrationActivity extends AppCompatActivity {
                                     registerNowButton.setVisibility(View.VISIBLE);
                                 }else{
                                     Toasty.error(getApplicationContext(),"Email already taken or password should be more than 8 char",Toasty.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    registerNowButton.setVisibility(View.VISIBLE);
                                 }
-                            }else
-
-                                progressBar.setVisibility(View.INVISIBLE);
-                            registerNowButton.setVisibility(View.VISIBLE);
-
+                            }else{
+                                Toasty.error(getApplicationContext(),"Error!",Toasty.LENGTH_SHORT).show();
+                            }
 
                         }
                     });

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -30,7 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
     MaterialEditText loginEmail,loginPassword;
     LinearLayout loginLinearLayout;
-    ProgressBar loginProgressBar;
+    LinearLayout simpleProgressBarLinearLayout;
+    Button loginButton;
+    //ProgressBar loginProgressBar;
 
    private String URLs=String.valueOf(R.string.IP_ADDRESS);
     @Override
@@ -41,8 +44,9 @@ public class LoginActivity extends AppCompatActivity {
         loginEmail = findViewById(R.id.loginContact);
         loginPassword = findViewById(R.id.loginPassword);
         loginLinearLayout = findViewById(R.id.loginFormLinearLayout);
-        loginProgressBar = findViewById(R.id.simpleProgressBarLogin);
-
+        //loginProgressBar = findViewById(R.id.simpleProgressBarLogin);
+        simpleProgressBarLinearLayout = findViewById(R.id.simpleProgressBarLinearLayout);
+        loginButton = findViewById(R.id.loginInButton);
 
     }
 
@@ -51,23 +55,31 @@ public class LoginActivity extends AppCompatActivity {
         String mLoginContact = loginEmail.getText().toString();
         String mLoginPassword = loginPassword.getText().toString();
 
-        loginProgressBar.setVisibility(View.VISIBLE);
-        loginLinearLayout.setVisibility(View.INVISIBLE);
+        // ::THIS SHOW THE PROGRESS BAR LAYOUT AND MAKE THE LOGIN BUTTON DISABLE SO THAT USER WILL NOT CONSTANTLY PUSH THE BUTTON ::
+        simpleProgressBarLinearLayout.setVisibility(View.VISIBLE);
+        loginButton.setEnabled(false);
+
+        //loginLinearLayout.setVisibility(View.INVISIBLE);
+
         Ion.with(getApplicationContext())
-                .load("http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/login")
-                .uploadProgressHandler(new ProgressCallback() {
+                .load("http://192.168.43.205:8000/api/login")
+/*                .uploadProgressHandler(new ProgressCallback() {
                     @Override
                     public void onProgress(long downloaded, long total) {
                         loginLinearLayout.setVisibility(View.INVISIBLE);
                         loginProgressBar.setVisibility(View.VISIBLE);
                     }
-                })
+                })*/
                 .setMultipartParameter("contact",mLoginContact)
                 .setMultipartParameter("password",mLoginPassword)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, final JsonObject result) {  /* NOTE: Login Success   result{  "success":"true" }     Login Unsuccess  result{   "success":"false"  }  */
+                        //::::HIDE THE PROGRESS BAR AND MAKE THE BUTTON ENABLE AGAIN
+                        simpleProgressBarLinearLayout.setVisibility(View.INVISIBLE);
+                        loginButton.setEnabled(true);
+
                         Log.e("TAG","TESTING: "+result.get("success").getAsBoolean());
                         Log.e("TAG","result: "+result);
 
@@ -80,14 +92,9 @@ public class LoginActivity extends AppCompatActivity {
 
                         Log.e("TAG","TESTING: "+result.get("success"));
 
-                        loginLinearLayout.setVisibility(View.VISIBLE);
-                        loginProgressBar.setVisibility(View.INVISIBLE);
-
                         Log.e("TAG","result:"+result);
                         //THIS GET AS BOOLEAN IS VERY IMP
                         if(result.get("success").getAsBoolean()==true){
-                            loginLinearLayout.setVisibility(View.VISIBLE);
-                            loginProgressBar.setVisibility(View.INVISIBLE);
 
                             sharedPreferences = getApplication().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
                             sharedPreferences.edit().putBoolean("mLoginStatus",true).apply();
@@ -103,8 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }else{
-                            loginLinearLayout.setVisibility(View.VISIBLE);
-                            loginProgressBar.setVisibility(View.INVISIBLE);
+
                             Toasty.error(getApplicationContext(),"Incorrect Input",Toasty.LENGTH_SHORT).show();
                         }
                     }
