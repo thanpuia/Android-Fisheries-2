@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             //TODO :://ROLE IS ASSAIGN FOR TESTING PURPOSE ONLY. START. THIS IS FOR TESTING PURPOSE ONLY
            // mRole = "FARMER";
-            mRole = "ADMIN";
+           // mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";
             //END
 
