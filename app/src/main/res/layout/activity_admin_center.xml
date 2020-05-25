@@ -14,7 +14,6 @@
         android:layout_below="@+id/top"
         android:layout_above="@+id/bottom"/>
 
-
     <RelativeLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
@@ -27,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PONDS map"
-            android:drawableTop="@drawable/ic_home_black_24dp"
+            android:drawableTop="@drawable/btn_ponds"
             android:textSize="10dp"
             android:background="@drawable/button_transparent_shadow"
             android:onClick="pondsBtnClick"/>
@@ -37,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="FARMERS"
-            android:drawableTop="@drawable/ic_person_black_24dp"
+            android:drawableTop="@drawable/btn_farmer"
             android:textSize="10dp"
             android:background="@drawable/button_transparent_shadow"
             android:onClick="farmersBtnClick"/>
@@ -48,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SMS"
-            android:drawableTop="@drawable/ic_message_black_24dp"
+            android:drawableTop="@drawable/btn_sms"
             android:textSize="10dp"
             android:background="@drawable/button_transparent_shadow"
             android:onClick="smsBtnClick"/>
