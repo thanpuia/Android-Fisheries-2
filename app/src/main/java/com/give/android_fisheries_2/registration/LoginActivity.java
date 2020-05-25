@@ -87,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
                         String mToken = result.get("token").getAsString();
                         String mName = result.get("name").getAsString();
                         String mContact = result.get("contact").getAsString();
+                   //     String mRole = result.get("role").getAsString();
+
                         int mId = result.get("id").getAsInt();
 
 
@@ -102,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                             sharedPreferences.edit().putString("mName",mName).apply();
                             sharedPreferences.edit().putString("mToken",mToken).apply();
                             sharedPreferences.edit().putString("mContact",mContact).apply();
+                          //  sharedPreferences.edit().putString("mRole",mRole).apply();
 
 
                             Log.e("TAG","LOGIN");

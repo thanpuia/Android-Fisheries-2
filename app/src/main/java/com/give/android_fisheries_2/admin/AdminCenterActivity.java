@@ -68,7 +68,8 @@ public class AdminCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_center);
-        
+
+
         final ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setCustomView(R.layout.m_toolbar);
 
@@ -201,4 +202,6 @@ public class AdminCenterActivity extends AppCompatActivity {
         dialog.show();
 
     }
+
+
 }

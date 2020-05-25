@@ -15,12 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.give.android_fisheries_2.R;
 
+import java.util.ArrayList;
+
 public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.ViewHolder> {
     String[] schemeName;
     Context mContext;
+    public static ArrayList<String> schemeChecked;
     public SchemeListAdapter(Context applicationContext, String[] schemes) {
         schemeName  = schemes;
         mContext = applicationContext;
+        schemeChecked = new ArrayList<>();
     }
 
     @NonNull
@@ -49,6 +53,10 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Log.d("TAG","CompoundButton-" +compoundButton.getText()+"  "+ b);
+                if(b){
+                    schemeChecked.add(String.valueOf(compoundButton.getText()));
+                }
+
             }
         });
     }

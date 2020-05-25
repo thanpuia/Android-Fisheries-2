@@ -6,9 +6,11 @@
     tools:context=".admin.PondsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <fragment
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/maps"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hi ponds!" />
+        android:layout_height="match_parent"/>
+
 
 </FrameLayout>
