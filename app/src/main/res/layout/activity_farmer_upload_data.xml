@@ -59,17 +59,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/editTextDataName"
-                        app:met_floatingLabelText="Name"
-                        app:met_floatingLabel="highlight"
-                        android:layout_gravity="bottom"
-                        android:text="not needed! already "
-                        android:gravity="top"
-                        android:textSize="@dimen/text_size_fisheries"
-                        app:met_floatingLabelAlwaysShown="true"/>
+<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+<!--                        android:layout_width="200dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/editTextDataName"-->
+<!--                        app:met_floatingLabelText="Name"-->
+<!--                        app:met_floatingLabel="highlight"-->
+<!--                        android:layout_gravity="bottom"-->
+<!--                        android:gravity="top"-->
+<!--                        android:textSize="@dimen/text_size_fisheries"-->
+<!--                        app:met_floatingLabelAlwaysShown="true"/>-->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -102,7 +101,8 @@
                     app:met_floatingLabelText="Father's Name"
                     app:met_floatingLabel="highlight"
                     android:textSize="@dimen/text_size_fisheries"
-
+                    android:inputType="text"
+                    android:maxLines="1"
                     app:met_floatingLabelAlwaysShown="true"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -112,7 +112,8 @@
                     app:met_floatingLabelText="Address"
                     app:met_floatingLabel="highlight"
                     android:textSize="@dimen/text_size_fisheries"
-
+                    android:inputType="text"
+                    android:maxLines="1"
                     app:met_floatingLabelAlwaysShown="true"/>
 
                 <LinearLayout
@@ -139,6 +140,8 @@
                     app:met_floatingLabelText="Tehsil"
                     app:met_floatingLabel="highlight"
                     android:textSize="@dimen/text_size_fisheries"
+                    android:inputType="text"
+                    android:maxLines="1"
                     app:met_floatingLabelAlwaysShown="true"/>
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -148,17 +151,19 @@
                     app:met_floatingLabelText="EPIC No/ Aadhaar No"
                     app:met_floatingLabel="highlight"
                     android:textSize="@dimen/text_size_fisheries"
+                    android:inputType="text"
+                    android:maxLines="1"
                     app:met_floatingLabelAlwaysShown="true"/>
 
 
-                <com.rengwuxian.materialedittext.MaterialEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/editTextDataContact"
-                    app:met_floatingLabelText="Contact"
-                    app:met_floatingLabel="highlight"
-                    android:textSize="@dimen/text_size_fisheries"
-                    app:met_floatingLabelAlwaysShown="true"/>
+<!--                <com.rengwuxian.materialedittext.MaterialEditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/editTextDataContact"-->
+<!--                    app:met_floatingLabelText="Contact"-->
+<!--                    app:met_floatingLabel="highlight"-->
+<!--                    android:textSize="@dimen/text_size_fisheries"-->
+<!--                    app:met_floatingLabelAlwaysShown="true"/>-->
 
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -169,7 +174,8 @@
                     app:met_floatingLabel="highlight"
                     android:inputType="number"
                     android:textSize="@dimen/text_size_fisheries"
-                    app:met_floatingLabelAlwaysShown="true"/>
+                    app:met_floatingLabelAlwaysShown="true"
+                    android:maxLines="1"/>
 
                 <TextView
                     android:layout_width="wrap_content"

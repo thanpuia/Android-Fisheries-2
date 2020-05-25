@@ -43,10 +43,14 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId() == R.id.english)
+        if(item.getItemId() == R.id.english){
+          //  new Logout(getApplicationContext());
+
+        }
+        else if (item.getItemId() == R.id.logout){
             new Logout(getApplicationContext());
-        else if (item.getItemId() == R.id.logout)
-            new Logout(getApplicationContext());
+            startActivity(new Intent(this,LoginActivity.class));
+        }
         return true;
     }
 
@@ -68,7 +72,14 @@ public class MainActivity extends AppCompatActivity {
         else{
             mRole = sharedPreferences.getString("mRole","noRole");
 
+            //TODO ::::TESTING , SINCE THERE IS NO ROLE IN THE DATABASE. THE ROLE IS CREATED FOR USER FOR TESTING PURPOSE
+
             //TODO :://ROLE IS ASSAIGN FOR TESTING PURPOSE ONLY. START. THIS IS FOR TESTING PURPOSE ONLY
+            String testContact = sharedPreferences.getString("mContact","000");
+            if (testContact.equals("9436153649"))
+                mRole = "FARMER";
+            else if (testContact.equals("7810911046"))
+                mRole = "ADMIN";
            // mRole = "FARMER";
            // mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";

@@ -56,7 +56,7 @@ public class RegistrationActivity extends AppCompatActivity {
         registrationProgressBarRelativeLayout.setVisibility(View.VISIBLE);
         registerNowButton.setEnabled(false);
 
-        Toasty.info(this,"REGISTER click",Toasty.LENGTH_SHORT).show();
+        //Toasty.info(this,"REGISTER click",Toasty.LENGTH_SHORT).show();
         try{
             mName = name.getText().toString();
             String mPassword = password.getText().toString();

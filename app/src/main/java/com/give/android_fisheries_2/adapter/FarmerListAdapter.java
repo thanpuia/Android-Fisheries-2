@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.admin.FarmersFragment;
 import com.give.android_fisheries_2.entity.FarmerEntity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,23 +40,25 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
         FarmerListAdapter.ViewHolder viewHolder = new FarmerListAdapter.ViewHolder(frame);
 
         return viewHolder;
-
 //        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 //        View frame = layoutInflater.inflate(R.layout.row_scheme,parent,false);
 //        SchemeListAdapter.ViewHolder viewHolder = new SchemeListAdapter.ViewHolder(frame);
-//
 //        return viewHolder;
-
-
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
-        holder.nameTv.setText(mFarmerEntities.get(position).getName());
+        holder.nameTv.setText(mFarmerEntities.get(position).getFname()+"(Father's Name)");
         holder.addressTv.setText(mFarmerEntities.get(position).getAddress());
         holder.tehsilTv.setText(mFarmerEntities.get(position).getTehsil());
-        holder.areaTv.setText(mFarmerEntities.get(position).getArea());
+        holder.areaTv.setText(mFarmerEntities.get(position).getArea()+ Html.fromHtml("m<sup><small>2</small></sup>"));
+        Picasso.get()
+                .load("http://192.168.43.205:8000/public/image/"+mFarmerEntities.get(position).getImage())
+                .placeholder(R.drawable.ic_email_icon)
+                .error(R.mipmap.ic_fish_logo_ic)
+                .into(holder.profileImagecircleImageView);
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +88,9 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
                 address.setText(mFarmerEntities.get(position).getAddress());
                 tehsil.setText(mFarmerEntities.get(position).getTehsil());
                 area.setText(mFarmerEntities.get(position).getArea());
+
+
+
 
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

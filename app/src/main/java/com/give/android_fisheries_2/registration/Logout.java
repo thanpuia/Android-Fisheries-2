@@ -1,6 +1,7 @@
 package com.give.android_fisheries_2.registration;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,8 +18,11 @@ public class Logout {
         sharedPreferences.edit().putString("mName",null).apply();
         sharedPreferences.edit().putString("mToken",null).apply();
         sharedPreferences.edit().putString("mContact",null).apply();
-      //  sharedPreferences.edit().putString("mRole",null).apply();
+        sharedPreferences.edit().putString("mRole",null).apply();
+
+        //  sharedPreferences.edit().putString("mRole",null).apply();
 
         Toast.makeText(c,"LOGOUT!",Toast.LENGTH_SHORT).show();
+
     }
 }

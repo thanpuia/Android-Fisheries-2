@@ -3,6 +3,7 @@ package com.give.android_fisheries_2.admin;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.FarmerListAdapter;
@@ -24,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,6 +39,7 @@ import java.util.ArrayList;
 public class FarmersFragment extends Fragment {
 
     RecyclerView farmerRecyclerView;
+    ProgressBar progressBarFarmerList;
     ArrayList<FarmerEntity> farmerEntities;
     FarmerListAdapter farmerListAdapter;
     SharedPreferences sharedPreferences;
@@ -53,25 +57,30 @@ public class FarmersFragment extends Fragment {
         sharedPreferences = view.getContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
         mToken = sharedPreferences.getString("mToken","");
-
+        progressBarFarmerList = view.findViewById(R.id.simpleProgressBarFarmerList);
         farmerRecyclerView = view.findViewById(R.id.farmerRecyclerList);
         farmerRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        String[] names = {"name1","name2","name3"};
-        String[] address = {"address1","address2","address3"};
-        String[] tehsils = {"tehsil1","tehsil2","tehsil3"};
-        String[] areas = {"area1","area2","area3"};
         farmerEntities = new ArrayList<>();
-        //TODO :: GENERATING FAKE DATA
-        for(int i=0;i< names.length;i++){
-            FarmerEntity mFarmer = new FarmerEntity(names[i],address[i],tehsils[i],areas[i]);
-            farmerEntities.add(mFarmer);
-        }
-        farmerListAdapter = new FarmerListAdapter(farmerEntities, getContext());
+//        String[] names = {"name1","name2","name3"};
+//        String[] address = {"address1","address2","address3"};
+//        String[] tehsils = {"tehsil1","tehsil2","tehsil3"};
+//        String[] areas = {"area1","area2","area3"};
+//        farmerEntities = new ArrayList<>();
+//        //TODO :: GENERATING FAKE DATA
+//        for(int i=0;i< names.length;i++){
+//            FarmerEntity mFarmer = new FarmerEntity(names[i],address[i],tehsils[i],areas[i]);
+//            farmerEntities.add(mFarmer);
+//        }
+//        farmerListAdapter = new FarmerListAdapter(farmerEntities, getContext());
+//
+//        farmerRecyclerView.setAdapter(farmerListAdapter);
 
-        farmerRecyclerView.setAdapter(farmerListAdapter);
+        progressBarFarmerList.setVisibility(View.VISIBLE);
+        farmerRecyclerView.setVisibility(View.INVISIBLE);
+
+
         Ion.with(getContext())
-                .load("http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/fishponds/pondlist")
+                .load("http://192.168.43.205:8000/api/fishponds/pondlist")
                 .setHeader("Accept","application/json")
                 //  .setHeader("Content-Type","application/x-www-form-urlencoded")
                 .setHeader("Authorization","Bearer "+mToken)
@@ -88,26 +97,28 @@ public class FarmersFragment extends Fragment {
                                 String fname = singleRow.getString("fname");
                                 String address = singleRow.getString("address");
                                 String district = singleRow.getString("district");
+                                String location_of_pond = singleRow.getString("location_of_pond");
+                                String tehsil = singleRow.getString("tehsil");
+                                String area = singleRow.getString("area");
+                                String epicOrAadhaar = singleRow.getString("epic_no");
+                                String nameOfScheme = singleRow.getString("name_of_scheme");
                                 String image = singleRow.getString("image");
+                                Double lat = singleRow.getDouble("lat");
+                                Double lng = singleRow.getDouble("lng");
 
-                                FarmerEntity mFarmerEntity= new FarmerEntity(fname,address,district,image);
+                                FarmerEntity mFarmerEntity= new FarmerEntity("name",fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng);
                                 farmerEntities.add(mFarmerEntity);
-
                             }
                             farmerListAdapter = new FarmerListAdapter(farmerEntities, getContext());
-
                             farmerRecyclerView.setAdapter(farmerListAdapter);
-
-
-                        }catch (Exception f){}
-
+                            progressBarFarmerList.setVisibility(View.INVISIBLE);
+                            farmerRecyclerView.setVisibility(View.VISIBLE);
+                        }catch (Exception f){
+                            Log.d("TAG","Error in farmer data manipulate: "+f);
+                        }
                     }
                 });
-
-
-
         //Log.d("TAG"," list AL: "+mToken);
-
         return view;
     }
 

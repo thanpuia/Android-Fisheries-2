@@ -143,11 +143,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         fathersNameEditText = findViewById(R.id.editTextDataFathersName);
         addressEditText= findViewById(R.id.editTextDataAddress);
         epicOrAadhaarEditText= findViewById(R.id.editTextDataEpicNo);
-        contactEditText = findViewById(R.id.editTextDataContact);
         areaEditText = findViewById(R.id.editTextDataArea);
         tehsilEditText = findViewById(R.id.editTextTehsil);
         districtSpinner = findViewById(R.id.spinner_district);
-
 
         checkBox = findViewById(R.id.checkbox);
         listOfSchemeRV = findViewById(R.id.list_of_scheme);
@@ -172,9 +170,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(this));
     }
 
-
     public void selectPhoto(View view) {
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -342,7 +338,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         String fname = fathersNameEditText.getText().toString();
         String address= addressEditText.getText().toString();
         String district= districtSpinner.getSelectedItem().toString();;
-        String location_of_pond= "TESTING";//HEI HI ENG KAN CIAG LO
+        String location_of_pond= "location of pond";//HEI HI ENG KAN CIAG LO
         String tehsil = tehsilEditText.getText().toString();
         String area= areaEditText.getText().toString();
         String epic_no= epicOrAadhaarEditText.getText().toString();
@@ -363,10 +359,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
         try{
             Ion.with(getApplicationContext())
-                    .load("POST","http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/fishponds/create")
+                    .load("POST","http://192.168.43.205:8000/api/fishponds/create")
                     .setHeader("Accept","application/json")
                     .setHeader("Authorization","Bearer "+mToken)
-
                     .setMultipartParameter("fname",fname)
                     .setMultipartParameter("address",address)
                     .setMultipartParameter("district",district)
@@ -385,8 +380,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             Log.d("TAG","FILE "+real_path_profileImage);
-
                             Log.d("TAG","URL 1: "+result);
+
+                            //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
+                            submitButton.setVisibility(View.VISIBLE);
+                            progressBar.setVisibility(GONE);
+                            //::::::            UPTO THIS::::::
                         }
                     });
         }catch (Exception e){

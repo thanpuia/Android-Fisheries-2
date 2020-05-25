@@ -8,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.drm.DrmStore;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.method.KeyListener;
@@ -20,6 +22,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
 
 public class AdminCenterActivity extends AppCompatActivity {
@@ -35,6 +39,8 @@ public class AdminCenterActivity extends AppCompatActivity {
     Fragment mFragment;
     Menu menu;
     EditText toolbarEdittext;
+    Button pondBtn, farmerBtn, smsBtn;
+    int pondFarmerSms = 0;// 1= ponds; 2= farmer; 3 = sms
 
     String districtsAndScheme[] = {"Kolasib","Champhai","Lawngtlai","Aizawl","others","PMEGY","Blue Revolution","other"};
     boolean[] checkednames= new boolean[]{false,false,false,false,false,false,false,false};
@@ -57,10 +63,14 @@ public class AdminCenterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId() == R.id.english)
+        if(item.getItemId() == R.id.english){
             new Logout(getApplicationContext());
-        else if (item.getItemId() == R.id.logout)
+
+        }
+        else if (item.getItemId() == R.id.logout){
             new Logout(getApplicationContext());
+            startActivity(new Intent(this, LoginActivity.class));
+        }
         return true;
     }
 
@@ -69,12 +79,15 @@ public class AdminCenterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_center);
 
-
         final ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setCustomView(R.layout.m_toolbar);
 
         toolbarEdittext = actionBar.getCustomView().findViewById(R.id.toobarEditText);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );
+
+        pondBtn = findViewById(R.id.pondsBtn);
+        farmerBtn = findViewById(R.id.farmersBtn);
+        smsBtn = findViewById(R.id.smsBtn);
 
         mFragment = null;
 
@@ -97,21 +110,49 @@ public class AdminCenterActivity extends AppCompatActivity {
 
     public void pondsBtnClick(View view) {
         mFragment = new PondsFragment();
+        pondFarmerSms = 1;
         fragmentCommit();
     }
 
     public void farmersBtnClick(View view) {
         mFragment = new FarmersFragment();
+        pondFarmerSms = 2;
         fragmentCommit();
     }
 
     public void smsBtnClick(View view) {
         mFragment = new SmsFragment();
+        pondFarmerSms = 3;
         fragmentCommit();
     }
 
     public void fragmentCommit(){
         //:: getSupportFragmentManager().beginTransaction()  <-- is should be called every time fragment is going to be replace or error will throw
+
+        Drawable pond_active = getResources().getDrawable(R.drawable.ic_fish_ponds_active);
+        Drawable pond_inactive = getResources().getDrawable(R.drawable.ic_fish_ponds_inactive);
+        Drawable farmer_active = getResources().getDrawable(R.drawable.ic_fish_farmer_active);
+        Drawable farmer_inactive = getResources().getDrawable(R.drawable.ic_fish_farmer_inactive);
+        Drawable sms_active = getResources().getDrawable(R.drawable.ic_fish_sms_active);
+        Drawable sms_inactive = getResources().getDrawable(R.drawable.ic_fish_sms_inactive);
+
+        switch (pondFarmerSms){
+            case 1:
+                pondBtn.setCompoundDrawablesWithIntrinsicBounds(null,pond_active,null,null);
+                farmerBtn.setCompoundDrawablesWithIntrinsicBounds(null,farmer_inactive,null,null);
+                smsBtn.setCompoundDrawablesWithIntrinsicBounds(null,sms_inactive,null,null);
+                break;
+            case 2:
+                pondBtn.setCompoundDrawablesWithIntrinsicBounds(null,pond_inactive,null,null);
+                farmerBtn.setCompoundDrawablesWithIntrinsicBounds(null,farmer_active,null,null);
+                smsBtn.setCompoundDrawablesWithIntrinsicBounds(null,sms_inactive,null,null);
+                break;
+            case 3:
+                pondBtn.setCompoundDrawablesWithIntrinsicBounds(null,pond_inactive,null,null);
+                farmerBtn.setCompoundDrawablesWithIntrinsicBounds(null,farmer_inactive,null,null);
+                smsBtn.setCompoundDrawablesWithIntrinsicBounds(null,sms_active,null,null);
+                break;
+        }
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.mFragmentFrameLayout,mFragment);
         fragmentTransaction.commit();

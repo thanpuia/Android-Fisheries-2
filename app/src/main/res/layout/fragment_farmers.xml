@@ -7,17 +7,17 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#E0E0EA"
-            android:layout_alignParentBottom="true">
+            android:padding="5dp"
+            android:layout_alignParentTop="true">
 
             <Button
                 android:id="@+id/sortBtn"
@@ -38,6 +38,7 @@
                 android:textSize="11dp"
                 android:background="@drawable/button_filters"
                 android:drawableRight="@drawable/ic_fish_filter"
+                android:paddingRight="20dp"
                 android:onClick="filtersBtnClick"/>
 
             <Button
@@ -48,21 +49,27 @@
                 android:text="Download"
                 android:textSize="11dp"
                 android:background="@drawable/button_filters"
+                android:paddingRight="15dp"
                 android:drawableRight="@drawable/ic_fish_download"
                 />
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_below="@+id/downloadBtn"
+        <ProgressBar
+            android:id="@+id/simpleProgressBarFarmerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/top"
             android:id="@+id/farmerRecyclerList"
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
-
         </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
