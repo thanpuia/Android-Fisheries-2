@@ -6,9 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.drm.DrmStore;
 import android.graphics.drawable.Drawable;
@@ -30,10 +34,22 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.adapter.FarmerListAdapter;
+import com.give.android_fisheries_2.entity.FarmerEntity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class AdminCenterActivity extends AppCompatActivity {
+
+    RecyclerView farmerRecyclerView;
 
     FragmentTransaction fragmentTransaction;
     Fragment mFragment;
@@ -41,6 +57,10 @@ public class AdminCenterActivity extends AppCompatActivity {
     EditText toolbarEdittext;
     Button pondBtn, farmerBtn, smsBtn;
     int pondFarmerSms = 0;// 1= ponds; 2= farmer; 3 = sms
+    String mToken;
+    SharedPreferences sharedPreferences;
+    ArrayList<FarmerEntity> farmerEntities;
+    FarmerListAdapter farmerListAdapter;
 
     String districtsAndScheme[] = {"Kolasib","Champhai","Lawngtlai","Aizawl","others","PMEGY","Blue Revolution","other"};
     boolean[] checkednames= new boolean[]{false,false,false,false,false,false,false,false};
@@ -84,13 +104,16 @@ public class AdminCenterActivity extends AppCompatActivity {
 
         toolbarEdittext = actionBar.getCustomView().findViewById(R.id.toobarEditText);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );
-
+//        farmerRecyclerView = findViewById(R.id.farmerRecyclerList);
+//        farmerRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        farmerEntities = new ArrayList<>();
         pondBtn = findViewById(R.id.pondsBtn);
         farmerBtn = findViewById(R.id.farmersBtn);
         smsBtn = findViewById(R.id.smsBtn);
+        sharedPreferences = this.getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
+        mToken = sharedPreferences.getString("mToken","");
         mFragment = null;
-
 
         toolbarEdittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -127,8 +150,8 @@ public class AdminCenterActivity extends AppCompatActivity {
     }
 
     public void fragmentCommit(){
-        //:: getSupportFragmentManager().beginTransaction()  <-- is should be called every time fragment is going to be replace or error will throw
 
+        //:::: THIS IS FOR THE BOTTOM BUTTON ACTIVE CHANGING COLOR
         Drawable pond_active = getResources().getDrawable(R.drawable.ic_fish_ponds_active);
         Drawable pond_inactive = getResources().getDrawable(R.drawable.ic_fish_ponds_inactive);
         Drawable farmer_active = getResources().getDrawable(R.drawable.ic_fish_farmer_active);
@@ -153,6 +176,7 @@ public class AdminCenterActivity extends AppCompatActivity {
                 smsBtn.setCompoundDrawablesWithIntrinsicBounds(null,sms_active,null,null);
                 break;
         }
+        //:: getSupportFragmentManager().beginTransaction()  <-- is should be called every time fragment is going to be replace or error will throw
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.mFragmentFrameLayout,mFragment);
         fragmentTransaction.commit();
@@ -198,10 +222,10 @@ public class AdminCenterActivity extends AppCompatActivity {
         builder.setView(customLayout);
 
         CheckBox allDistrictCB,aizawlCB,kolasibCB,lawngtlaiCB,lungleiCB,mamitCB,siahaCB,serchhipCB,champhaiCB,hnahthialCB,khawzawlCB,saitualCB,nfdbCB,nlupCB,rkvyCB,blueRevolutionCB,otherSchemeCB;
-        aizawlCB = customLayout.findViewById(R.id.aizawl);    kolasibCB = customLayout.findViewById(R.id.khawzawl);    lawngtlaiCB = customLayout.findViewById(R.id.lawngtlai);
-        lungleiCB = customLayout.findViewById(R.id.lunglei);    mamitCB = customLayout.findViewById(R.id.mamit);    siahaCB = customLayout.findViewById(R.id.siaha);
-        serchhipCB = customLayout.findViewById(R.id.serchhip);    champhaiCB = customLayout.findViewById(R.id.champhai);    hnahthialCB = customLayout.findViewById(R.id.hnahthial);
-        khawzawlCB = customLayout.findViewById(R.id.khawzawl);    saitualCB = customLayout.findViewById(R.id.saitual);    nfdbCB = customLayout.findViewById(R.id.nfdb);
+        aizawlCB = customLayout.findViewById(R.id.Aizawl);    kolasibCB = customLayout.findViewById(R.id.Khawzawl);    lawngtlaiCB = customLayout.findViewById(R.id.Lawngtlai);
+        lungleiCB = customLayout.findViewById(R.id.Lunglei);    mamitCB = customLayout.findViewById(R.id.Mamit);    siahaCB = customLayout.findViewById(R.id.Siaha);
+        serchhipCB = customLayout.findViewById(R.id.Serchhip);    champhaiCB = customLayout.findViewById(R.id.Champhai);    hnahthialCB = customLayout.findViewById(R.id.Hnahthial);
+        khawzawlCB = customLayout.findViewById(R.id.Khawzawl);    saitualCB = customLayout.findViewById(R.id.Saitual);    nfdbCB = customLayout.findViewById(R.id.nfdb);
         rkvyCB = customLayout.findViewById(R.id.rkvy);    nlupCB = customLayout.findViewById(R.id.nlup);    blueRevolutionCB = customLayout.findViewById(R.id.blue_revolution);
         allDistrictCB = customLayout.findViewById(R.id.all);    otherSchemeCB = customLayout.findViewById(R.id.others);
 
@@ -227,6 +251,15 @@ public class AdminCenterActivity extends AppCompatActivity {
                         Log.d("TAG","check:"+schemeCheckBoxex[j]);
 
                     }
+                for (int i=0;i<districtChecked.length;i++){
+                    if(districtChecked[i]){
+
+                        String testDistrict = String.valueOf(districtCheckBoxes[i].getText());
+                        Log.d("TAG",""+String.valueOf(districtCheckBoxes[i].getText()));
+                       FarmersFragment.search(getApplicationContext(),mToken,testDistrict);
+
+                    }
+                }
 
 
             }

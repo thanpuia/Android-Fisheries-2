@@ -76,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
             //TODO :://ROLE IS ASSAIGN FOR TESTING PURPOSE ONLY. START. THIS IS FOR TESTING PURPOSE ONLY
             String testContact = sharedPreferences.getString("mContact","000");
-            if (testContact.equals("9436153649"))
-                mRole = "FARMER";
-            else if (testContact.equals("7810911046"))
+            if (testContact.equals("7810911046"))
                 mRole = "ADMIN";
+            else
+                mRole = "FARMER";
+
            // mRole = "FARMER";
            // mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";

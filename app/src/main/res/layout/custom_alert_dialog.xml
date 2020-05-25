@@ -30,62 +30,62 @@
                 android:layout_height="wrap_content"
                 android:text="ALL"/>
             <CheckBox
-                android:id="@+id/aizawl"
+                android:id="@+id/Aizawl"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/aizawl"/>
             <CheckBox
-                android:id="@+id/kolasib"
+                android:id="@+id/Kolasib"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/kolasib"/>
             <CheckBox
-                android:id="@+id/lawngtlai"
+                android:id="@+id/Lawngtlai"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lawngtlai"/>
             <CheckBox
-                android:id="@+id/lunglei"
+                android:id="@+id/Lunglei"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/lunglei"/>
             <CheckBox
-                android:id="@+id/mamit"
+                android:id="@+id/Mamit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/mamit"/>
             <CheckBox
-                android:id="@+id/siaha"
+                android:id="@+id/Siaha"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/siaha"/>
             <CheckBox
-                android:id="@+id/serchhip"
+                android:id="@+id/Serchhip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/serchhip"/>
             <CheckBox
-                android:id="@+id/champhai"
+                android:id="@+id/Champhai"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/champhai"/>
             <CheckBox
-                android:id="@+id/hnahthial"
+                android:id="@+id/Hnahthial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/hnahthial"/>
             <CheckBox
-                android:id="@+id/khawzawl"
+                android:id="@+id/Khawzawl"
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/khawzawl"/>
             <CheckBox
-                android:id="@+id/saitual"
+                android:id="@+id/Saitual"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/saitual"/>

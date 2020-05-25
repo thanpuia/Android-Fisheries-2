@@ -55,7 +55,7 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
         holder.areaTv.setText(mFarmerEntities.get(position).getArea()+ Html.fromHtml("m<sup><small>2</small></sup>"));
         Picasso.get()
                 .load("http://192.168.43.205:8000/public/image/"+mFarmerEntities.get(position).getImage())
-                .placeholder(R.drawable.ic_email_icon)
+                .placeholder(R.drawable.ic_fish_good)
                 .error(R.mipmap.ic_fish_logo_ic)
                 .into(holder.profileImagecircleImageView);
 

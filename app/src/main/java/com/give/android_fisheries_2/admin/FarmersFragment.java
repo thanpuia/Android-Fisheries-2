@@ -38,10 +38,10 @@ import java.util.ArrayList;
  */
 public class FarmersFragment extends Fragment {
 
-    RecyclerView farmerRecyclerView;
-    ProgressBar progressBarFarmerList;
-    ArrayList<FarmerEntity> farmerEntities;
-    FarmerListAdapter farmerListAdapter;
+    static RecyclerView farmerRecyclerView;
+    static ProgressBar progressBarFarmerList;
+    static ArrayList<FarmerEntity> farmerEntities;
+    static FarmerListAdapter farmerListAdapter;
     SharedPreferences sharedPreferences;
     String mToken;
     public FarmersFragment() {
@@ -120,6 +120,52 @@ public class FarmersFragment extends Fragment {
                 });
         //Log.d("TAG"," list AL: "+mToken);
         return view;
+    }
+
+    //TODO:::: MULTIPLE DISTRICT SEARCH DUH DAWN TA ILA ENG TIN NGE KA THUN ANG
+    public static void search(final Context c, String mToken,String district){
+        farmerEntities.clear();
+        Ion.with(c)
+                .load("http://192.168.43.205:8000/api/fishponds/search")
+                .setHeader("Accept","application/json")
+                //  .setHeader("Content-Type","application/x-www-form-urlencoded")
+                .setHeader("Authorization","Bearer "+mToken)
+                .setMultipartParameter("district",district)
+
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                        try{
+                            Log.d("TAG"," list AL: "+result);
+                            JSONObject jsonObject = new JSONObject(String.valueOf(result));
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+                            for(int i=0;i<jsonArray.length();i++){
+                                JSONObject singleRow =  jsonArray.getJSONObject(i);
+                                String fname = singleRow.getString("fname");
+                                String address = singleRow.getString("address");
+                                String district = singleRow.getString("district");
+                                String location_of_pond = singleRow.getString("location_of_pond");
+                                String tehsil = singleRow.getString("tehsil");
+                                String area = singleRow.getString("area");
+                                String epicOrAadhaar = singleRow.getString("epic_no");
+                                String nameOfScheme = singleRow.getString("name_of_scheme");
+                                String image = singleRow.getString("image");
+                                Double lat = singleRow.getDouble("lat");
+                                Double lng = singleRow.getDouble("lng");
+
+                                FarmerEntity mFarmerEntity= new FarmerEntity("name",fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng);
+                                farmerEntities.add(mFarmerEntity);
+                            }
+                            farmerListAdapter = new FarmerListAdapter(farmerEntities, c);
+                            farmerRecyclerView.setAdapter(farmerListAdapter);
+                            progressBarFarmerList.setVisibility(View.INVISIBLE);
+                            farmerRecyclerView.setVisibility(View.VISIBLE);
+                        }catch (Exception f){
+                            Log.d("TAG","Error in farmer data manipulate: "+f);
+                        }
+                    }
+                });
     }
 
 
