@@ -1,43 +1,34 @@
 package com.give.android_fisheries_2.farmer;
 
-/***::::::::TODO:::::::::
-
-************ THIS ACTIVITY SHOULD BE DELETE,
- *          IT IS ALREADY CONVERTED TO FRAGMENT
- *          THIS ACTIVITY IS REDUNDANT
- *          ::::::::::::::::::::::::*/
-
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Location;
 import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -60,7 +51,10 @@ import es.dmoral.toasty.Toasty;
 
 import static android.view.View.GONE;
 
-public class FarmerUploadDataActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class FarmerUploadDataFragment extends Fragment {
 
     GoogleApiClient mGoogleApiClient;
 
@@ -75,7 +69,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
     //  private String URL1="http://10.180.243.6:8000/api/fishponds/create/";
 
-  //  private String URL2="";
+    //  private String URL2="";
 
     int LOCATION_CONFIRM_NO_CYCLES = 7;
 
@@ -120,12 +114,21 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
     String mName;
     int mId;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_farmer_upload_data);
+    public FarmerUploadDataFragment() {
+        // Required empty public constructor
+    }
 
-        sharedPreferences = this.getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_farmer_upload_data, container, false);
+
+
+
+
+        sharedPreferences = getActivity().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
         mToken = sharedPreferences.getString("mToken","");
         mContact = sharedPreferences.getString("mContact","");
@@ -135,47 +138,50 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
         Log.e("TAG","My Token: "+sharedPreferences.getString("mToken",""));
         //district = findViewById(R.id.spinner_districrt);
-        progressBar = findViewById(R.id.simpleProgressBar);
-        locationConfirmProgressBar = findViewById(R.id.locationConfirmProgressBar);
+        progressBar = view.findViewById(R.id.simpleProgressBar);
+        locationConfirmProgressBar = view.findViewById(R.id.locationConfirmProgressBar);
 
-        selectPhotoButton = findViewById(R.id.selectPhotoButton);
-        submitButton = findViewById(R.id.submitButton);
-        locationConfirmButton = findViewById(R.id.locationConfirm);
-        takePhotoButton = findViewById(R.id.takePhoto);
+        selectPhotoButton = view.findViewById(R.id.selectPhotoButton);
+        submitButton = view.findViewById(R.id.submitButton);
+        locationConfirmButton = view.findViewById(R.id.locationConfirm);
+        takePhotoButton = view.findViewById(R.id.takePhoto);
 
-        //progressBarLayout = findViewById(R.id.progressBarLayout);
-        linearLayoutConfirmLocation = findViewById(R.id.linearLayoutConfirmLocation);
-        linearLayoutMainForm = findViewById(R.id.linearLayoutMainForm);
+        //progressBarLayout = view.findViewById(R.id.progressBarLayout);
+        linearLayoutConfirmLocation = view.findViewById(R.id.linearLayoutConfirmLocation);
+        linearLayoutMainForm = view.findViewById(R.id.linearLayoutMainForm);
 
-        nameEditText = findViewById(R.id.editTextDataName);
-        fathersNameEditText = findViewById(R.id.editTextDataFathersName);
-        addressEditText= findViewById(R.id.editTextDataAddress);
-        epicOrAadhaarEditText= findViewById(R.id.editTextDataEpicNo);
-        areaEditText = findViewById(R.id.editTextDataArea);
-        tehsilEditText = findViewById(R.id.editTextTehsil);
-        districtSpinner = findViewById(R.id.spinner_district);
+        nameEditText = view.findViewById(R.id.editTextDataName);
+        fathersNameEditText = view.findViewById(R.id.editTextDataFathersName);
+        addressEditText= view.findViewById(R.id.editTextDataAddress);
+        epicOrAadhaarEditText= view.findViewById(R.id.editTextDataEpicNo);
+        areaEditText = view.findViewById(R.id.editTextDataArea);
+        tehsilEditText = view.findViewById(R.id.editTextTehsil);
+        districtSpinner = view.findViewById(R.id.spinner_district);
 
-        checkBox = findViewById(R.id.checkbox);
-        listOfSchemeRV = findViewById(R.id.list_of_scheme);
+        checkBox = view.findViewById(R.id.checkbox);
+        listOfSchemeRV = view.findViewById(R.id.list_of_scheme);
 
-        selectPhoto = findViewById(R.id.selectPhoto);
-        profileImageViewButton = findViewById(R.id.imageViewDateProfilePicture);
+        selectPhoto = view.findViewById(R.id.selectPhoto);
+        profileImageViewButton = view.findViewById(R.id.imageViewDateProfilePicture);
 
-        takePhotoButton.setEnabled(false);
+        //takePhotoButton.setEnabled(false);
 
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API).build();
+        /*mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addConnectionCallbacks(getActivity())
+                .addOnConnectionFailedListener(getActivity())
+                .addApi(LocationServices.API).build();*/
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.districts,android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         districtSpinner.setAdapter(adapter);
 
         schemes = new String[] {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
-        schemeListAdapter = new SchemeListAdapter(getApplicationContext(), schemes);
+        schemeListAdapter = new SchemeListAdapter(getActivity(), schemes);
         listOfSchemeRV.setAdapter(schemeListAdapter);
-        listOfSchemeRV.setLayoutManager(new LinearLayoutManager(this));
+        listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
+        return view;
     }
 
     public void selectPhoto(View view) {
@@ -192,7 +198,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         startActivityForResult(Intent.createChooser(intent, "Select Picture"),2);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             switch (requestCode) {
@@ -202,7 +208,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
                         //data gives you the image uri. Try to convert that to bitmap
                         Uri file_uri = data.getData(); // parse to Uri if your videoURI is string
-                        real_path_lake = getRealPathFromURI(getApplicationContext(), file_uri);                        //Log.e(TAG, "data: ") ;
+                        real_path_lake = getRealPathFromURI(getActivity(), file_uri);                        //Log.e(TAG, "data: ") ;
                         //path = getRealPathFromURI(data.getData());
                         Log.e(TAG, "Path: "+real_path_lake) ;
                         ExifInterface exif = new ExifInterface(String.valueOf(real_path_lake));
@@ -217,7 +223,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
                             formPicture = new LatLng(lat,lng);
                             if(lat==0.0 ||lng==0.0){
-                                Toast.makeText(this,"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
+                                Toast.makeText(getActivity(),"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
                             }
                         }else formPicture = new LatLng(0.0,0.0);
 
@@ -229,12 +235,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
                         break;
                     } else if (resultCode == Activity.RESULT_CANCELED) {
                         Log.e(TAG, "Selecting picture cancelled");
-                        Toast.makeText(this,"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
+                        Toast.makeText(getActivity(),"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
                     }
                     break;
                 case 2://PROFILE PICTURE SELECT
                     Uri fileUri = data.getData();
-                    real_path_profileImage = getRealPathFromURI(getApplicationContext(),fileUri);
+                    real_path_profileImage = getRealPathFromURI(getActivity(),fileUri);
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
                     break;
@@ -250,19 +256,19 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         submitButton.setVisibility(GONE);
         progressBar.setVisibility(View.VISIBLE);
         apiFirst();
-   //     apiSecond();
-       // Log.e("TAG",schemeCheckLists+"{}{}");
+        //     apiSecond();
+        // Log.e("TAG",schemeCheckLists+"{}{}");
     }
 
     /* Get the real path from the URI */
     public String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = getContentResolver().query(contentUri, null, null, null, null);
+        Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
         cursor.moveToFirst();
         String document_id = cursor.getString(0);
         document_id = document_id.substring(document_id.lastIndexOf(":")+1);
         cursor.close();
 
-        cursor = getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,null
+        cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,null
                 , MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
         cursor.moveToFirst();
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
@@ -322,20 +328,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 //        });
 //    }
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
 
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
 
     public void takePhotoClick(View view) {
     }
@@ -350,7 +343,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         String tehsil = tehsilEditText.getText().toString();
         String area= areaEditText.getText().toString();
         String epic_no= epicOrAadhaarEditText.getText().toString();
-        String name_of_scheme= TextUtils.join(",",SchemeListAdapter.schemeChecked);
+        String name_of_scheme= TextUtils.join(",", SchemeListAdapter.schemeChecked);
 
 /*        String fname = "TESTIGN";
         String address= "TESTIGN";
@@ -366,7 +359,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
         String lng="77";
 
         try{
-            Ion.with(getApplicationContext())
+            Ion.with(getActivity())
                     .load("POST","http://192.168.43.205:8000/api/fishponds/create")
                     .setHeader("Accept","application/json")
                     .setHeader("Authorization","Bearer "+mToken)
@@ -404,10 +397,10 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
 
         // if(lat==0.0 ||lng==0.0){
         if(false){
-            Toast.makeText(this,"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
+            Toast.makeText(getActivity(),"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
         }else{
             try{
-                Ion.with(getApplicationContext())
+                Ion.with(getActivity())
                         .load("PUT","http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/fishponds/uploadpond/"+mId)
                         .uploadProgressHandler(new ProgressCallback() {
                             @Override
@@ -436,19 +429,19 @@ public class FarmerUploadDataActivity extends AppCompatActivity implements Googl
                                 progressBar.setVisibility(GONE);
                                 Log.e(TAG,"result: "+result);
 
-                                Toasty.success(getApplicationContext(),"Upload Success!!",Toasty.LENGTH_SHORT).show();
+                                Toasty.success(getActivity(),"Upload Success!!",Toasty.LENGTH_SHORT).show();
                                 //startActivity(new Intent(getApplicationContext(),MapsActivity.class));
-                              //  finish();
+                                //  finish();
                             }
                         });
 
 
             }catch (Exception e){
-                Toast.makeText(this,"Some error in data:"+e,Toast.LENGTH_LONG).show ();
+                Toast.makeText(getActivity(),"Some error in data:"+e,Toast.LENGTH_LONG).show ();
 
             }
         }
 
     }
-}
 
+}

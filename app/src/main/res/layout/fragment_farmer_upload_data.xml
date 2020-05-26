@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".farmer.FarmerUploadDataActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".farmer.FarmerUploadDataFragment">
+
 
     <LinearLayout
         android:id="@+id/linearLayoutConfirmLocation"
@@ -57,16 +57,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-<!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                        android:layout_width="200dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:id="@+id/editTextDataName"-->
-<!--                        app:met_floatingLabelText="Name"-->
-<!--                        app:met_floatingLabel="highlight"-->
-<!--                        android:layout_gravity="bottom"-->
-<!--                        android:gravity="top"-->
-<!--                        android:textSize="@dimen/text_size_fisheries"-->
-<!--                        app:met_floatingLabelAlwaysShown="true"/>-->
+                    <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
+                    <!--                        android:layout_width="200dp"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:id="@+id/editTextDataName"-->
+                    <!--                        app:met_floatingLabelText="Name"-->
+                    <!--                        app:met_floatingLabel="highlight"-->
+                    <!--                        android:layout_gravity="bottom"-->
+                    <!--                        android:gravity="top"-->
+                    <!--                        android:textSize="@dimen/text_size_fisheries"-->
+                    <!--                        app:met_floatingLabelAlwaysShown="true"/>-->
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -154,14 +154,14 @@
                     app:met_floatingLabelAlwaysShown="true"/>
 
 
-<!--                <com.rengwuxian.materialedittext.MaterialEditText-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:id="@+id/editTextDataContact"-->
-<!--                    app:met_floatingLabelText="Contact"-->
-<!--                    app:met_floatingLabel="highlight"-->
-<!--                    android:textSize="@dimen/text_size_fisheries"-->
-<!--                    app:met_floatingLabelAlwaysShown="true"/>-->
+                <!--                <com.rengwuxian.materialedittext.MaterialEditText-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:id="@+id/editTextDataContact"-->
+                <!--                    app:met_floatingLabelText="Contact"-->
+                <!--                    app:met_floatingLabel="highlight"-->
+                <!--                    android:textSize="@dimen/text_size_fisheries"-->
+                <!--                    app:met_floatingLabelAlwaysShown="true"/>-->
 
 
                 <com.rengwuxian.materialedittext.MaterialEditText
@@ -218,6 +218,12 @@
                     android:textColor="#fff"
                     android:textSize="@dimen/text_size_fisheries"
                     android:onClick="submitClick"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="get location"
+                    android:onClick="getLocationClick"/>
                 <ProgressBar
                     android:id="@+id/simpleProgressBar"
                     android:layout_width="wrap_content"
@@ -244,7 +250,6 @@
 
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

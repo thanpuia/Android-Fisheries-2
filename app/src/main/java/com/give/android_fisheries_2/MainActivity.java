@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.give.android_fisheries_2.admin.AdminCenterActivity;
+import com.give.android_fisheries_2.farmer.FarmerCenterActivity;
 import com.give.android_fisheries_2.farmer.FarmerUploadDataActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             switch (mRole){
                 case "FARMER":
                     Log.d(TAG,"Role: Farmer");
-                    startActivity(new Intent(this, FarmerUploadDataActivity.class));
+                    startActivity(new Intent(this, FarmerCenterActivity.class));
                     break;
 
                 case "ADMIN":
