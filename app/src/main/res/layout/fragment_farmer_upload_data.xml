@@ -224,6 +224,12 @@
                     android:layout_height="wrap_content"
                     android:text="get location"
                     android:onClick="getLocationClick"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/pondsLocation"
+                    android:text="sadf"
+                    android:textSize="@dimen/text_size_fisheries"/>
                 <ProgressBar
                     android:id="@+id/simpleProgressBar"
                     android:layout_width="wrap_content"

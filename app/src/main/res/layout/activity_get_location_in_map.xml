@@ -14,8 +14,14 @@
         android:layout_height="match_parent"
         tools:context=".map_marker_drag.MapsActivity" />
     <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:src="@drawable/ic_my_location"
         android:layout_centerInParent="true"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="imageLockClick"
+        android:layout_alignParentBottom="true"
+        android:text="Location save"/>
 </RelativeLayout>

@@ -31,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.give.android_fisheries_2.R;
@@ -113,7 +114,10 @@ public class FarmerUploadDataFragment extends Fragment {
     String mContact;
     String mName;
     int mId;
-
+    TextView location;
+    String lat2 ="";
+    String lng2 ="";
+    String latLng="";
     public FarmerUploadDataFragment() {
         // Required empty public constructor
     }
@@ -126,6 +130,13 @@ public class FarmerUploadDataFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_farmer_upload_data, container, false);
 
 
+        try{
+             lat2 = String.valueOf(getArguments().getString("lat"));
+             lng2 = String.valueOf(getArguments().getString("lng"));
+             latLng = "Location: "+lat+","+lng;
+        }catch (Exception e){
+
+        }
 
 
         sharedPreferences = getActivity().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
@@ -135,7 +146,8 @@ public class FarmerUploadDataFragment extends Fragment {
         mName = sharedPreferences.getString("mName","");
         mId = sharedPreferences.getInt("mId",mId);
 
-
+        location = view.findViewById(R.id.pondsLocation);
+        location.setText(latLng);
         Log.e("TAG","My Token: "+sharedPreferences.getString("mToken",""));
         //district = findViewById(R.id.spinner_districrt);
         progressBar = view.findViewById(R.id.simpleProgressBar);
