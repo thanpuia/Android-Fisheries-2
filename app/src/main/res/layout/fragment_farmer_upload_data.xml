@@ -228,7 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/pondsLocation"
-                    android:text="sadf"
+                    android:text="Location: "
                     android:textSize="@dimen/text_size_fisheries"/>
                 <ProgressBar
                     android:id="@+id/simpleProgressBar"

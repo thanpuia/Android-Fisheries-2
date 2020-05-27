@@ -131,9 +131,12 @@ public class FarmerUploadDataFragment extends Fragment {
 
 
         try{
-             lat2 = String.valueOf(getArguments().getString("lat"));
-             lng2 = String.valueOf(getArguments().getString("lng"));
-             latLng = "Location: "+lat+","+lng;
+            Log.d("TAG","uplaod Fragmet  "+this.getArguments().getString("lat"));
+             lat2 = getArguments().getString("lat");
+             lng2 = getArguments().getString("lng");
+             latLng = "Location: "+lat2+","+lng2;
+            location = view.findViewById(R.id.pondsLocation);
+            location.setText(latLng);
         }catch (Exception e){
 
         }
@@ -146,8 +149,7 @@ public class FarmerUploadDataFragment extends Fragment {
         mName = sharedPreferences.getString("mName","");
         mId = sharedPreferences.getInt("mId",mId);
 
-        location = view.findViewById(R.id.pondsLocation);
-        location.setText(latLng);
+
         Log.e("TAG","My Token: "+sharedPreferences.getString("mToken",""));
         //district = findViewById(R.id.spinner_districrt);
         progressBar = view.findViewById(R.id.simpleProgressBar);

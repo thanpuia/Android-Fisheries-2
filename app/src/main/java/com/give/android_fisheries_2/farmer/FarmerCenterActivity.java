@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.give.android_fisheries_2.R;
@@ -23,21 +24,25 @@ public class FarmerCenterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_farmer_center);
 
         try{
-            Intent intent = getIntent();
-            mLat = intent.getStringExtra("lat");
-            mLng = intent.getStringExtra("lng");
-            from = intent.getStringExtra("from");
+            Bundle extras = getIntent().getExtras();
+            if(extras!=null){
 
-            //:::::TODO  SENDING DATA TO FRAGMENT FROM ACTIVITY
-            Bundle bundle = new Bundle();
-            bundle.putString("lat",mLat);
-            bundle.putString("lng",mLng);
+                    //:::::TODO  SENDING DATA TO FRAGMENT FROM ACTIVITY
+                    String lat = extras.getString("lat");
+                    String lng = extras.getString("lng");
+                    Log.d("TAG","FARMERCenter: "+lat);
 
-            if(from.equals("getLocation")){
-                mFragment = new FarmerUploadDataFragment();
-                mFragment.setArguments(bundle);
-                commitFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("lat",lat);
+                    bundle.putString("lng",lng);
+
+                    mFragment = new FarmerUploadDataFragment();
+                    mFragment.setArguments(bundle);
+                    commitFragment();
+
             }
+
+
         }catch (Exception e){}
 
         mFragment = null;
