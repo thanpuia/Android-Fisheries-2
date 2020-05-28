@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.give.android_fisheries_2.admin.AdminCenterActivity;
 import com.give.android_fisheries_2.farmer.FarmerCenterActivity;
-import com.give.android_fisheries_2.farmer.FarmerUploadDataActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
 

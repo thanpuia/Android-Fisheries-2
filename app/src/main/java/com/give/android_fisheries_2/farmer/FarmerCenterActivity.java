@@ -70,4 +70,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
     }
 
 
+    //FARMERS DATA UPLOAD XML ATANG
+    public void selectPhoto(View view) {
+    }
 }

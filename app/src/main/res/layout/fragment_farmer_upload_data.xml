@@ -244,11 +244,11 @@
                     android:onClick="takePhotoClick"
                     android:text="take pic"/>
 
-                <ImageView
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:id="@+id/selectPhoto"
-                    android:contentDescription="TODO" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ponds_image_view_recycler_view"
+                    android:orientation="horizontal"/>
 
             </LinearLayout>
 

@@ -20,11 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".farmer.GetLocationInMapActivity"></activity>
-        <activity android:name=".farmer.FarmerCenterActivity" />
+        <activity android:name=".farmer.FarmerCenterActivity"
+            android:theme="@style/AppThemeFarmer" />/>
         <activity android:name=".admin.AdminCenterActivity" />
-        <activity
-            android:name=".farmer.FarmerUploadDataActivity"
-            android:theme="@style/AppThemeFarmer" />
+
         <activity
             android:name=".registration.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
