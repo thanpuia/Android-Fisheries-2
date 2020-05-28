@@ -40,6 +40,7 @@ public class HorizontalImageViewAdapter extends RecyclerView.Adapter<HorizontalI
 
     @Override
     public int getItemCount() {
+        Log.d("TAG","size:"+realPathLakes.size());
         return realPathLakes.size();
     }
 

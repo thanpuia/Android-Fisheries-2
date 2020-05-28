@@ -275,34 +275,31 @@ public class FarmerUploadDataFragment extends Fragment {
                     if (resultCode == Activity.RESULT_OK) {
                         //testing multi img start
                         ClipData clipData = data.getClipData();
-                        int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
-                        Uri imageUri;
-                        for(int i = 0; i < count; i++){
+                        if(clipData!=null){
+                            int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                            Uri imageUri;
+                            for(int i = 0; i < count; i++){
 
-                            ClipData.Item item = clipData.getItemAt(i);
-                            //imageUri = data.getClipData().getItemAt(i).getUri();
-                            imageUri = item.getUri();
+                                ClipData.Item item = clipData.getItemAt(i);
+                                //imageUri = data.getClipData().getItemAt(i).getUri();
+                                imageUri = item.getUri();
 
-                            real_path_lake = getRealPathFromURI(getActivity(), imageUri);                        //Log.e(TAG, "data: ") ;
+                                real_path_lake = getRealPathFromURI(getActivity(), imageUri);                        //Log.e(TAG, "data: ") ;
 
-                            pondLists.add(real_path_lake);
-                           // fileList.add(new File(real_path_lake));
-                            Log.d("TAG","image: "+real_path_lake);
+                                pondLists.add(real_path_lake);
+                                // fileList.add(new File(real_path_lake));
+                                Log.d("TAG","image: "+real_path_lake);
+                            }
+
+                        }else{
+                            Uri uri = data.getData();
+                            String mRealPathLake = getRealPathFromURI(getActivity(),uri);
+                            pondLists.add(mRealPathLake);
                         }
                         horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
                         pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
                         pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true));
 
-
-
-//                        pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-                        //pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
-                        //final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                       // layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        //pondsImageHorizontalRecyclerView.setLayoutManager(layoutManager);
-
-                        //testing multi img stop
 /*
                         //do something with the image (save it to some directory or whatever you need to do with it here)
                         //data gives you the image uri. Try to convert that to bitmap
