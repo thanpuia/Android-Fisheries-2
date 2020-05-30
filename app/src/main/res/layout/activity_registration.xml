@@ -11,15 +11,15 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp">
 
-        <ImageView
-            android:id="@+id/header_logo"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/fish_logo"
-            android:layout_gravity="center"
-            android:contentDescription="TODO"
-            android:layout_centerHorizontal="true" />
+<!--        <ImageView-->
+<!--            android:id="@+id/header_logo"-->
+<!--            android:layout_width="140dp"-->
+<!--            android:layout_height="140dp"-->
+<!--            android:layout_marginTop="5dp"-->
+<!--            android:src="@drawable/fish_logo"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:contentDescription="TODO"-->
+<!--            android:layout_centerHorizontal="true" />-->
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -32,10 +32,11 @@
             android:drawablePadding="6dp"
             android:maxLines="1"
             android:inputType="text"
-            android:textSize="@dimen/text_size_fisheries"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/text_size_fisheries"/>
 
-            android:layout_below="@id/header_logo"
-            />
+<!--            android:layout_below="@id/header_logo"-->
+
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -44,7 +45,7 @@
             app:met_floatingLabelText="Your Phone"
             app:met_floatingLabel="highlight"
             app:met_floatingLabelAlwaysShown="true"
-            android:drawableLeft="@drawable/ic_email_icon"
+            android:drawableLeft="@drawable/ic_local_phone_black_24dp"
             android:drawablePadding="6dp"
             android:inputType="phone"
             android:maxLines="1"
@@ -68,6 +69,22 @@
 
             android:layout_below="@id/userPhone"
             />
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userPasswordConfirm"
+            app:met_floatingLabelText="Confirm Password"
+            android:inputType="textVisiblePassword"
+            android:maxLines="1"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            android:drawableLeft="@drawable/ic_password_icon"
+            android:drawablePadding="6dp"
+            android:textSize="@dimen/text_size_fisheries"
+
+            android:layout_below="@id/userPassword"
+            />
+
 
 
         <Button
@@ -80,7 +97,7 @@
             android:textColor="#fff"
             android:onClick="registerNowClick"
             android:textSize="@dimen/text_size_fisheries"
-            android:layout_below="@id/userPassword"
+            android:layout_below="@id/userPasswordConfirm"
             android:layout_centerHorizontal="true"/>
 
 
@@ -92,6 +109,7 @@
             android:text="Already register. Login?"
             android:onClick="loginInTextClick"
             android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
             android:layout_below="@id/registerNowButton"
             android:imeOptions="actionSend"/>
 
