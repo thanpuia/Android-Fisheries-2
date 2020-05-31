@@ -1,6 +1,6 @@
 <resources>
     <string name="IP_ADDRESS">http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com</string>
-    <string name="app_name">Android-Fisheries-2</string>
+    <string name="app_name">Fish-Info</string>
     <string name="title_activity_splash_screen">SplashScreen</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

@@ -1,39 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".farmer.FarmerCenterActivity">
-
-    <FrameLayout
-        android:id="@+id/farmer_frame_layout"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top"
-        android:layout_above="@+id/bottom"/>
+        tools:context=".farmer.FarmerCenterActivity"
+        android:background="#F6F3F6"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp">
+        <TextView
+            android:id="@+id/farmer_dashboard_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_fisheries_xxl"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="50dp"
+            android:textStyle="bold"
+            android:textColor="@color/ic_fish_logo_ic_background"
+            android:text="See how other"/>
+        <RelativeLayout
+            android:layout_below="@id/farmer_dashboard_textview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:background="@drawable/farmer_dashboard_background">
+            <Button
+                android:id="@+id/farmer_dashboard_button"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_fisheries_xxxl"
+                android:background="@drawable/button_farmer_dashboard"
+                android:text="example"
+                android:textSize="@dimen/text_size_fisheries_xl"
+                android:textColor="#E8E8E8"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:onClick="dashboardButtonClick"
+                />
 
-    <RelativeLayout
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:background="#DFDFDF">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_above="@id/farmer_dashboard_address"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="-30dp"
+                android:src="@drawable/ashoka_pillar" />
 
+            <TextView
+                android:id="@+id/farmer_dashboard_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Department of Fisheries \n New Capital Complex, Khatla \nAizawl, Mizoram \n Ph: 0328-2334676"
+                android:textAlignment="center"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:textColor="#979797"
+                android:layout_marginTop="30dp"
+                android:layout_alignParentBottom="true"
+                android:onClick="departmentLabelClick"
+                />
 
-<!--        <Button-->
-<!--            android:id="@+id/two"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="check Status"-->
-<!--            android:textSize="10dp"-->
-<!--            android:paddingTop="10dp"-->
-<!--            android:onClick="twoBtnClick"/>-->
-
+        </RelativeLayout>
 
     </RelativeLayout>
-
-
-
-</RelativeLayout>

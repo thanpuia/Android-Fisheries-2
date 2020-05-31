@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -19,11 +19,13 @@
         android:roundIcon="@mipmap/ic_fish_logo_ic_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".farmer.GetLocationInMapActivity"></activity>
-        <activity android:name=".farmer.FarmerCenterActivity"
+        <activity android:name=".farmer.FarmerUploadDataActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".farmer.GetLocationInMapActivity" />
+        <activity
+            android:name=".farmer.FarmerCenterActivity"
             android:theme="@style/AppThemeFarmer" />
         <activity android:name=".admin.AdminCenterActivity" />
-
         <activity
             android:name=".registration.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -46,7 +48,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC_CkpevG9pkM2p2dtyI-MYHhjUBvJJk4o  " />
-
     </application>
 
 </manifest>

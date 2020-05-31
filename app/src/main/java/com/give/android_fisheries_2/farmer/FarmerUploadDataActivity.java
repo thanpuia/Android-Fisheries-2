@@ -1,5 +1,9 @@
 package com.give.android_fisheries_2.farmer;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ClipData;
@@ -13,18 +17,10 @@ import android.graphics.BitmapFactory;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,7 +35,6 @@ import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.HorizontalImageViewAdapter;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
 import com.give.android_fisheries_2.adapter.SchemeListAdapter;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -55,14 +50,7 @@ import es.dmoral.toasty.Toasty;
 
 import static android.view.View.GONE;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class FarmerUploadDataFragment extends Fragment {
-
-    GoogleApiClient mGoogleApiClient;
-
-    static final int REQUEST_IMAGE_CAPTURE = 1;
+public class FarmerUploadDataActivity extends AppCompatActivity {
     private static String real_path_lake;
     private static String real_path_profileImage;
 
@@ -120,35 +108,27 @@ public class FarmerUploadDataFragment extends Fragment {
     String lat2 ="";
     String lng2 ="";
     String latLng="";
+    int position;
 
-    List<File>  fileList;
+    List<File> fileList;
     ArrayList<String> pondLists;
     RecyclerView pondsImageHorizontalRecyclerView;
     HorizontalImageViewAdapter horizontalImageViewAdapter;
 
-    public FarmerUploadDataFragment() {
-        // Required empty public constructor
-    }
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_farmer_upload_data, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_farmer_upload_data);
+
         pondLists = new ArrayList<>();
-        try{
-            Log.d("TAG","uplaod Fragmet  "+this.getArguments().getString("lat"));
-             lat2 = getArguments().getString("lat");
-             lng2 = getArguments().getString("lng");
-             latLng = "Location: "+lat2+","+lng2;
-            location = view.findViewById(R.id.pondsLocation);
-            location.setText(latLng);
-        }catch (Exception e){
+        location = findViewById(R.id.pondsLocation);
 
-        }
+        lat2 = getIntent().getStringExtra("lat");
+        lng2 = getIntent().getStringExtra("lng");
 
-        sharedPreferences = getActivity().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
+        location.setText(lat2+ ", "+lng2);
+
+        sharedPreferences = getApplicationContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
         mToken = sharedPreferences.getString("mToken","");
         mContact = sharedPreferences.getString("mContact","");
@@ -157,31 +137,30 @@ public class FarmerUploadDataFragment extends Fragment {
 
         Log.e("TAG","My Token: "+sharedPreferences.getString("mToken",""));
         //district = findViewById(R.id.spinner_districrt);
-        progressBar = view.findViewById(R.id.simpleProgressBar);
-        locationConfirmProgressBar = view.findViewById(R.id.locationConfirmProgressBar);
+        progressBar = findViewById(R.id.simpleProgressBar);
+        locationConfirmProgressBar = findViewById(R.id.locationConfirmProgressBar);
 
-        selectPhotoButton = view.findViewById(R.id.selectPhotoButton);
-        submitButton = view.findViewById(R.id.submitButton);
-        locationConfirmButton = view.findViewById(R.id.locationConfirm);
-        takePhotoButton = view.findViewById(R.id.takePhoto);
+        selectPhotoButton = findViewById(R.id.selectPhotoButton);
+        submitButton =findViewById(R.id.submitButton);
+        locationConfirmButton = findViewById(R.id.locationConfirm);
+        takePhotoButton = findViewById(R.id.takePhoto);
 
         //progressBarLayout = view.findViewById(R.id.progressBarLayout);
-        linearLayoutConfirmLocation = view.findViewById(R.id.linearLayoutConfirmLocation);
-        linearLayoutMainForm = view.findViewById(R.id.linearLayoutMainForm);
+        linearLayoutConfirmLocation = findViewById(R.id.linearLayoutConfirmLocation);
+        linearLayoutMainForm = findViewById(R.id.linearLayoutMainForm);
 
-        nameEditText = view.findViewById(R.id.editTextDataName);
-        fathersNameEditText = view.findViewById(R.id.editTextDataFathersName);
-        addressEditText= view.findViewById(R.id.editTextDataAddress);
-        epicOrAadhaarEditText= view.findViewById(R.id.editTextDataEpicNo);
-        areaEditText = view.findViewById(R.id.editTextDataArea);
-        tehsilEditText = view.findViewById(R.id.editTextTehsil);
-        districtSpinner = view.findViewById(R.id.spinner_district);
+        fathersNameEditText = findViewById(R.id.editTextDataFathersName);
+        addressEditText= findViewById(R.id.editTextDataAddress);
+        epicOrAadhaarEditText= findViewById(R.id.editTextDataEpicNo);
+        areaEditText = findViewById(R.id.editTextDataArea);
+        tehsilEditText = findViewById(R.id.editTextTehsil);
+        districtSpinner = findViewById(R.id.spinner_district);
 
-        checkBox = view.findViewById(R.id.checkbox);
-        listOfSchemeRV = view.findViewById(R.id.list_of_scheme);
+        checkBox = findViewById(R.id.checkbox);
+        listOfSchemeRV = findViewById(R.id.list_of_scheme);
 
-        profileImageViewButton = view.findViewById(R.id.imageViewDateProfilePicture);
-        pondsImageHorizontalRecyclerView = view.findViewById(R.id.ponds_image_view_recycler_view);
+        profileImageViewButton = findViewById(R.id.imageViewDateProfilePicture);
+        pondsImageHorizontalRecyclerView = findViewById(R.id.ponds_image_view_recycler_view);
 
         //takePhotoButton.setEnabled(false);
 
@@ -189,14 +168,14 @@ public class FarmerUploadDataFragment extends Fragment {
                 .addConnectionCallbacks(getActivity())
                 .addOnConnectionFailedListener(getActivity())
                 .addApi(LocationServices.API).build();*/
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         districtSpinner.setAdapter(adapter);
 
         schemes = new String[] {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
-        schemeListAdapter = new SchemeListAdapter(getActivity(), schemes);
+        schemeListAdapter = new SchemeListAdapter(getApplicationContext(), schemes);
         listOfSchemeRV.setAdapter(schemeListAdapter);
-        listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
         selectPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,12 +198,14 @@ public class FarmerUploadDataFragment extends Fragment {
             }
         });
 
+
+
         //RecyclerItemClickListener.class IS USER DEFINE CLASS
-        pondsImageHorizontalRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), pondsImageHorizontalRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+        pondsImageHorizontalRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), pondsImageHorizontalRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
                 Log.d("TAG","pos "+position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
                 builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -242,8 +223,7 @@ public class FarmerUploadDataFragment extends Fragment {
                     }
                 });
                 AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-            }
+                alertDialog.show();            }
 
             @Override
             public void onLongItemClick(View view, int position) {
@@ -251,22 +231,7 @@ public class FarmerUploadDataFragment extends Fragment {
             }
         }));
 
-        return view;
     }
-//
-//    public void selectPhoto(View view) {
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
-//    }
-//
-//    public void profilePictureButtonClick(View view) {
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        startActivityForResult(Intent.createChooser(intent, "Select Picture"),2);
-//    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -285,7 +250,7 @@ public class FarmerUploadDataFragment extends Fragment {
                                 //imageUri = data.getClipData().getItemAt(i).getUri();
                                 imageUri = item.getUri();
 
-                                real_path_lake = getRealPathFromURI(getActivity(), imageUri);                        //Log.e(TAG, "data: ") ;
+                                real_path_lake = getRealPathFromURI(this, imageUri);                        //Log.e(TAG, "data: ") ;
 
                                 pondLists.add(real_path_lake);
                                 // fileList.add(new File(real_path_lake));
@@ -294,12 +259,12 @@ public class FarmerUploadDataFragment extends Fragment {
 
                         }else{
                             Uri uri = data.getData();
-                            String mRealPathLake = getRealPathFromURI(getActivity(),uri);
+                            String mRealPathLake = getRealPathFromURI(this,uri);
                             pondLists.add(mRealPathLake);
                         }
                         horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
                         pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
-                        pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,true));
+                        pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
 
 /*
                         //do something with the image (save it to some directory or whatever you need to do with it here)
@@ -332,12 +297,12 @@ public class FarmerUploadDataFragment extends Fragment {
                         break;
                     } else if (resultCode == Activity.RESULT_CANCELED) {
                         Log.e(TAG, "Selecting picture cancelled");
-                        Toast.makeText(getActivity(),"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
+                        Toast.makeText(this,"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
                     }
                     break;
                 case 2://PROFILE PICTURE SELECT
                     Uri fileUri = data.getData();
-                    real_path_profileImage = getRealPathFromURI(getActivity(),fileUri);
+                    real_path_profileImage = getRealPathFromURI(this,fileUri);
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
                     break;
@@ -447,7 +412,7 @@ public class FarmerUploadDataFragment extends Fragment {
         String lat= "77";
         String lng="77";
         try{
-            Ion.with(getActivity())
+            Ion.with(this)
                     .load("POST","http://192.168.43.205:8000/api/fishponds/create")
                     .setHeader("Accept","application/json")
                     .setHeader("Authorization","Bearer "+mToken)
@@ -485,10 +450,10 @@ public class FarmerUploadDataFragment extends Fragment {
 
         // if(lat==0.0 ||lng==0.0){
         if(false){
-            Toast.makeText(getActivity(),"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
+            Toast.makeText(this,"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
         }else{
             try{
-                Ion.with(getActivity())
+                Ion.with(this)
                         .load("PUT","http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/fishponds/uploadpond/"+mId)
                         .uploadProgressHandler(new ProgressCallback() {
                             @Override
@@ -508,7 +473,7 @@ public class FarmerUploadDataFragment extends Fragment {
                         .setMultipartParameter("_method", "PUT")
 //                        .setMultipartFile("pondImages[]","multipart/form-data",new File(real_path_lake))
                         //::::TODO UPLOAD THE PONDS IMAGE HERE
-                       // .setMultipartFile("pondImages[]","multipart/form-data",fileList)
+                        // .setMultipartFile("pondImages[]","multipart/form-data",fileList)
 
                         //json ang nilo in MULTIPART ANGIN HANDLE MAI RAWH SE SERV
                         // ER AH. A HMA A DIK SA ANG KHAN. JSON BODY LEH MULTIPART A AWM KOP THEI SI LO
@@ -521,7 +486,7 @@ public class FarmerUploadDataFragment extends Fragment {
                                 progressBar.setVisibility(GONE);
                                 Log.e(TAG,"result: "+result);
 
-                                Toasty.success(getActivity(),"Upload Success!!",Toasty.LENGTH_SHORT).show();
+                                Toasty.success(getApplicationContext(),"Upload Success!!",Toasty.LENGTH_SHORT).show();
                                 //startActivity(new Intent(getApplicationContext(),MapsActivity.class));
                                 //  finish();
                             }
@@ -529,7 +494,7 @@ public class FarmerUploadDataFragment extends Fragment {
 
 
             }catch (Exception e){
-                Toast.makeText(getActivity(),"Some error in data:"+e,Toast.LENGTH_LONG).show ();
+                Toast.makeText(this,"Some error in data:"+e,Toast.LENGTH_LONG).show ();
 
             }
         }
@@ -547,4 +512,8 @@ public class FarmerUploadDataFragment extends Fragment {
         });
     }
 
+    public void getLocationClick(View view) {
+        startActivity(new Intent(this,GetLocationInMapActivity.class));
+
+    }
 }
