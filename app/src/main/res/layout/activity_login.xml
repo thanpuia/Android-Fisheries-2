@@ -79,7 +79,7 @@
                 android:layout_gravity="center"
                 android:onClick="notYetRegisterClick"
                 android:padding="15dp"
-                android:text="Not yet register! Register Now" />
+                android:text="Not yet register! Click here" />
         </LinearLayout>
 
 

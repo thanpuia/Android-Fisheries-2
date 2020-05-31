@@ -17,89 +17,23 @@
         android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/bottom2"
-        android:background="#DFDFDF">
-
-        <Button
-            android:id="@+id/one"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upload Data"
-            android:paddingTop="10dp"
-            android:textSize="10dp"
-            android:onClick="oneBtnClick"/>
-        <Button
-            android:id="@+id/two"
-            android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="check Status"
-            android:textSize="10dp"
-            android:paddingTop="10dp"
-            android:onClick="twoBtnClick"/>
-
-        <Button
-            android:id="@+id/three"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact office"
-            android:textSize="10dp"
-            android:paddingTop="10dp"
-            android:onClick="threeBtnClick"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/bottom2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="#DFDFDF">
-        <Button
-            android:id="@+id/zero2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:paddingTop="10dp"
-            android:textSize="10dp"
-            android:onClick="zero2TestingBtnClick"/>
-        <Button
-            android:id="@+id/one2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:paddingTop="10dp"
-            android:textSize="10dp"
-            android:layout_toRightOf="@id/zero2"
-            android:onClick="one2TestingBtnClick"/>
-        <Button
-            android:id="@+id/two2"
-            android:layout_toRightOf="@id/one2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="2"
-            android:textSize="10dp"
-            android:paddingTop="10dp"
-            android:onClick="two2TestingBtnClick"/>
 
-        <Button
-            android:id="@+id/three2"
-            android:layout_toRightOf="@id/two2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3"
-            android:textSize="10dp"
-            android:paddingTop="10dp"
-            android:onClick="three2TestingBtnClick"/>
-        <Button
-            android:id="@+id/four2"
-            android:layout_toRightOf="@id/three2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4"
-            android:textSize="10dp"
-            android:paddingTop="10dp"
-            android:onClick="four2TestingBtnClick"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/two"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="check Status"-->
+<!--            android:textSize="10dp"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:onClick="twoBtnClick"/>-->
+
+
     </RelativeLayout>
+
+
 
 </RelativeLayout>

@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".farmer.FarmerDashboardFragment"
-    android:layout_margin="20dp">
+    android:background="#F6F3F6"
+    android:paddingStart="30dp"
+    android:paddingEnd="30dp">
 
 
     <TextView
@@ -13,19 +15,41 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_size_fisheries_xxl"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="20dp"
         android:paddingBottom="50dp"
-        android:text="text_example"/>
+        android:textStyle="bold"
+        android:textColor="@color/ic_fish_logo_ic_background"
+        android:text="See how other"/>
 
-    <Button
-        android:id="@+id/farmer_dashboard_button"
+    <RelativeLayout
+        android:layout_below="@id/farmer_dashboard_textview"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/button_height_fisheries_xxxl"
-        android:background="@color/ic_fish_logo_ic_background"
-        android:text="example"
-        android:textSize="@dimen/text_size_fisheries_xl"
-        android:textColor="#E8E8E8"
-        android:textAllCaps="false"
-        android:layout_below="@+id/farmer_dashboard_textview"/>
+        android:layout_height="match_parent"
+        android:padding="15dp"
+        android:background="@drawable/farmer_dashboard_background">
+        <Button
+            android:id="@+id/farmer_dashboard_button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_fisheries_xxxl"
+            android:background="@drawable/button_farmer_dashboard"
+            android:text="example"
+            android:textSize="@dimen/text_size_fisheries_xl"
+            android:textColor="#E8E8E8"
+            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
+            android:onClick="dashboardButtonClick"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/farmer_dashboard_button"
+            android:text="Nangma chanchin tlangpui hriat kan la duh a, a dik thei ang ber in i nih na i chhu lut dawn nia"
+            android:textAlignment="center"
+            android:padding="10dp"
+            android:layout_marginTop="30dp"
+            />
+
+    </RelativeLayout>
 
 </RelativeLayout>

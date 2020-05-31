@@ -88,12 +88,13 @@ public class MainActivity extends AppCompatActivity {
                 case "FARMER":
                     Log.d(TAG,"Role: Farmer");
                     startActivity(new Intent(this, FarmerCenterActivity.class));
+                    finish();
                     break;
 
                 case "ADMIN":
                     Log.d(TAG,"Role: Admin")  ;
                     startActivity(new Intent(this, AdminCenterActivity.class));
-
+                    finish();
                     break;
 
                 case "SUPER_ADMIN":

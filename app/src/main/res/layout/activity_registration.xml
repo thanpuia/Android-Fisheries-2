@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="15dp"
-            android:text="Already register. Login?"
+            android:text="Already register. Click here to Login?"
             android:onClick="loginInTextClick"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
