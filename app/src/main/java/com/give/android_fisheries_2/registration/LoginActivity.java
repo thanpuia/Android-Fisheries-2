@@ -33,9 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout loginLinearLayout;
     LinearLayout simpleProgressBarLinearLayout;
     Button loginButton;
-    //ProgressBar loginProgressBar;
 
-   private String URLs=String.valueOf(R.string.IP_ADDRESS);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +42,11 @@ public class LoginActivity extends AppCompatActivity {
         loginContact = findViewById(R.id.loginContact);
         loginPassword = findViewById(R.id.loginPassword);
         loginLinearLayout = findViewById(R.id.loginFormLinearLayout);
-        //loginProgressBar = findViewById(R.id.simpleProgressBarLogin);
         simpleProgressBarLinearLayout = findViewById(R.id.simpleProgressBarLinearLayout);
         loginButton = findViewById(R.id.loginInButton);
-
-
     }
 
     public void mLoginButtonClick(View view) {
-
         String mLoginContact ;
         String mLoginPassword ;
 
@@ -84,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                 simpleProgressBarLinearLayout.setVisibility(View.INVISIBLE);
                                 loginButton.setEnabled(true);
                                 if(result==null){
-                                    Toasty.error(getApplicationContext(),"Incorrect Input",Toasty.LENGTH_SHORT).show();
+                                    Toasty.error(getApplicationContext(),"server  problem!",Toasty.LENGTH_SHORT).show();
                                 }else{
                                     Log.e("TAG","TESTING: "+result.get("success").getAsBoolean());
                                     Log.e("TAG","result: "+result);

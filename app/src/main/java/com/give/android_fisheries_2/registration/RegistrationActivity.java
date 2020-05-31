@@ -99,7 +99,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                                         startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
                                     }else Toasty.error(getApplicationContext(),"Phone number already taken or password should be more than 8 char",Toasty.LENGTH_SHORT).show();
-                                }else Toasty.error(getApplicationContext(),"Phone number already taken or password should be more than 8 char",Toasty.LENGTH_SHORT).show();
+                                }else Toasty.error(getApplicationContext(),"Server Error!",Toasty.LENGTH_SHORT).show();
                             }
                         });
             }catch (Exception e){}

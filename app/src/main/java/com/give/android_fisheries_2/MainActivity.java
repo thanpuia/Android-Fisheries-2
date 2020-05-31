@@ -27,14 +27,12 @@ public class MainActivity extends AppCompatActivity {
     String TAG = "tag";
     Menu menu;
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         this.menu = menu;
 
         MenuInflater menuInflater=getMenuInflater();
         menuInflater.inflate(R.menu.header_menu,menu);
-
         menu.getItem(0).setIcon(ContextCompat.getDrawable(this,R.drawable.ic_dehaze_black_24dp));
 
         return super.onCreateOptionsMenu(menu);
@@ -45,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         if(item.getItemId() == R.id.english){
           //  new Logout(getApplicationContext());
-
         }
         else if (item.getItemId() == R.id.logout){
             new Logout(getApplicationContext());
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginStatus = sharedPreferences.getBoolean("mLoginStatus",false);
 
         //TODO :: START :: THIS IS FOR TESTING PURPOSE
-      //  mLoginStatus = true;
+       mLoginStatus = true;
         //END
 
         //IF mLoginStatus IS FALSE GO TO LOGIN PAGE
@@ -75,13 +72,13 @@ public class MainActivity extends AppCompatActivity {
             //TODO ::::TESTING , SINCE THERE IS NO ROLE IN THE DATABASE. THE ROLE IS CREATED FOR USER FOR TESTING PURPOSE
 
             //TODO :://ROLE IS ASSAIGN FOR TESTING PURPOSE ONLY. START. THIS IS FOR TESTING PURPOSE ONLY
-            String testContact = sharedPreferences.getString("mContact","000");
+         /*   String testContact = sharedPreferences.getString("mContact","000");
             if (testContact.equals("7810911046"))
                 mRole = "ADMIN";
             else
-                mRole = "FARMER";
+                mRole = "FARMER";*/
 
-           // mRole = "FARMER";
+            mRole = "FARMER";
            // mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";
             //END

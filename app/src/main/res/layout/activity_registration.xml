@@ -11,15 +11,6 @@
         android:layout_height="match_parent"
         android:layout_margin="20dp">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/header_logo"-->
-<!--            android:layout_width="140dp"-->
-<!--            android:layout_height="140dp"-->
-<!--            android:layout_marginTop="5dp"-->
-<!--            android:src="@drawable/fish_logo"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:contentDescription="TODO"-->
-<!--            android:layout_centerHorizontal="true" />-->
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
@@ -33,10 +24,8 @@
             android:maxLines="1"
             android:inputType="text"
             android:layout_marginTop="20dp"
+
             android:textSize="@dimen/text_size_fisheries"/>
-
-<!--            android:layout_below="@id/header_logo"-->
-
 
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"

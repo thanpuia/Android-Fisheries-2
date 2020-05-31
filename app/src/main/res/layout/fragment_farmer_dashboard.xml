@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".farmer.FarmerDashboardFragment"
+    android:layout_margin="20dp">
+
+
+    <TextView
+        android:id="@+id/farmer_dashboard_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_size_fisheries_xxl"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:paddingBottom="50dp"
+        android:text="text_example"/>
+
+    <Button
+        android:id="@+id/farmer_dashboard_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_fisheries_xxxl"
+        android:background="@color/ic_fish_logo_ic_background"
+        android:text="example"
+        android:textSize="@dimen/text_size_fisheries_xl"
+        android:textColor="#E8E8E8"
+        android:textAllCaps="false"
+        android:layout_below="@+id/farmer_dashboard_textview"/>
+
+</RelativeLayout>

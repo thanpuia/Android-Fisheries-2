@@ -17,12 +17,14 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
     String mLat,mLng;
     String from;
+    int status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_center);
 
+        mFragment = null;
         try{
             Bundle extras = getIntent().getExtras();
             if(extras!=null){
@@ -40,12 +42,16 @@ public class FarmerCenterActivity extends AppCompatActivity {
                     mFragment.setArguments(bundle);
                     commitFragment();
 
+            }else {
+                mFragment = new FarmerDashboardFragment();
+                commitFragment();
             }
 
 
         }catch (Exception e){}
 
-        mFragment = null;
+        //TESTING
+        changeStatus(0);
 
     }
 
@@ -72,5 +78,35 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
     //FARMERS DATA UPLOAD XML ATANG
     public void selectPhoto(View view) {
+    }
+
+    public void zero2TestingBtnClick(View view) {
+        status = 0;
+        changeStatus(status);
+    }
+    public void one2TestingBtnClick(View view) {
+        status = 1;
+        changeStatus(status);
+    }
+
+    public void two2TestingBtnClick(View view) {
+        status = 2;
+        changeStatus(status);
+    }
+
+    public void three2TestingBtnClick(View view) {
+        status = 3;
+        changeStatus(status);
+    }
+
+    public void four2TestingBtnClick(View view) {
+        status = 4;
+        changeStatus(status);
+    }
+
+    public void changeStatus(int mStatus){
+        this.status = mStatus;
+        mFragment = new FarmerDashboardFragment(status);
+        commitFragment();
     }
 }

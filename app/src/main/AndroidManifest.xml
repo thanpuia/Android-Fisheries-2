@@ -21,7 +21,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".farmer.GetLocationInMapActivity"></activity>
         <activity android:name=".farmer.FarmerCenterActivity"
-            android:theme="@style/AppThemeFarmer" />/>
+            android:theme="@style/AppThemeFarmer" />
         <activity android:name=".admin.AdminCenterActivity" />
 
         <activity
