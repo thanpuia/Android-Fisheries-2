@@ -35,6 +35,9 @@
                 android:textAllCaps="false"
                 android:layout_marginTop="20dp"
                 android:onClick="dashboardButtonClick"
+                android:textAlignment="center"
+                android:paddingRight="20dp"
+                android:drawableRight="@drawable/ic_arrow_forward_black_24dp"
                 />
 
             <ImageView

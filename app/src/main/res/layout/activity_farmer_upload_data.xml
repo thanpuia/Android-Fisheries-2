@@ -53,9 +53,10 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:orientation="horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="183dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
                         <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
                         <!--                        android:layout_width="200dp"-->
@@ -72,21 +73,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
-                            <ImageView
-                                android:id="@+id/imageViewDateProfilePicture"
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_marginLeft="10dp"
-                                android:background="@drawable/imageview_border"
-                                android:onClick="profilePictureButtonClick"
-                                android:src="@drawable/ic_user_icon"/>
 
-                            <TextView
+                            <com.theartofdev.edmodo.cropper.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
+                                android:id="@+id/imageViewDateProfilePicture"
+                                android:layout_width="140dp"
+                                android:layout_height="140dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/ic_person_black_24dp" />
+
+
+                            <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="10dp"
-
-                                android:text="Click to select profile picture"/>
+                                android:onClick="profilePictureSelectClick"
+                                android:text="Select profile picture" />
 
                         </LinearLayout>
 
@@ -101,6 +102,7 @@
                         android:textSize="@dimen/text_size_fisheries"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -112,12 +114,14 @@
                         android:textSize="@dimen/text_size_fisheries"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
+
                         android:orientation="horizontal">
                         <TextView
                             android:layout_width="wrap_content"
@@ -140,6 +144,7 @@
                         android:textSize="@dimen/text_size_fisheries"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
 
                     <com.rengwuxian.materialedittext.MaterialEditText
@@ -151,18 +156,8 @@
                         android:textSize="@dimen/text_size_fisheries"
                         android:inputType="text"
                         android:maxLines="1"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
-
-
-                    <!--                <com.rengwuxian.materialedittext.MaterialEditText-->
-                    <!--                    android:layout_width="match_parent"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:id="@+id/editTextDataContact"-->
-                    <!--                    app:met_floatingLabelText="Contact"-->
-                    <!--                    app:met_floatingLabel="highlight"-->
-                    <!--                    android:textSize="@dimen/text_size_fisheries"-->
-                    <!--                    app:met_floatingLabelAlwaysShown="true"/>-->
-
 
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:layout_width="match_parent"
@@ -173,6 +168,7 @@
                         android:inputType="number"
                         android:textSize="@dimen/text_size_fisheries"
                         app:met_floatingLabelAlwaysShown="true"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         android:maxLines="1"/>
 
                     <TextView
@@ -186,26 +182,50 @@
                         android:id="@+id/list_of_scheme"
                         android:layout_width="wrap_content"
                         android:textSize="@dimen/text_size_fisheries"
-                        android:layout_height="300dp"/>
-                    <LinearLayout
-                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAllCaps="false"
-                            android:text="Select your lake picture"/>
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"/>
+
                         <Button
                             android:id="@+id/selectPhotoButton"
-                            android:layout_width="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_height="@dimen/button_height_fisheries"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/button_height_fisheries_small"
                             android:textAllCaps="false"
-                            android:text="Browse"
-                            android:textSize="@dimen/text_size_fisheries"
-                            android:onClick="selectPhoto"/>
-                    </LinearLayout>
+                            android:text="Select ponds picture"
+
+                            android:layout_gravity="end" />
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
+                        android:scrollbars="horizontal"
+                        android:scrollbarStyle="insideOverlay"
+                        android:id="@+id/ponds_image_view_recycler_view"
+                        android:orientation="horizontal"/>
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height_fisheries_small"
+                        android:text="Get ponds location"
+                        android:textAllCaps="false"
+                        android:onClick="getLocationClick"/>
+
+                    <TextView
+                        android:id="@+id/pondsLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location: "
+                        android:textSize="20dp" />
+                    <ProgressBar
+                        android:id="@+id/simpleProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_centerHorizontal="true"/>
+
+
+
 
 
                     <Button
@@ -216,41 +236,9 @@
                         android:text="Submit"
                         android:background="@color/colorPrimary"
                         android:textColor="#fff"
+                        android:layout_marginBottom="40dp"
                         android:textSize="@dimen/text_size_fisheries"
                         android:onClick="submitClick"/>
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="get location"
-                        android:onClick="getLocationClick"/>
-
-                    <TextView
-                        android:id="@+id/pondsLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="41dp"
-                        android:text="Location: "
-                        android:textSize="@dimen/text_size_fisheries" />
-                    <ProgressBar
-                        android:id="@+id/simpleProgressBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_centerHorizontal="true"/>
-
-                    <Button
-                        android:id="@+id/takePhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="takePhotoClick"
-                        android:text="take pic"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/ponds_image_view_recycler_view"
-                        android:orientation="horizontal"/>
-
                 </LinearLayout>
 
             </ScrollView>

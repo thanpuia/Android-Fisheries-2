@@ -41,6 +41,8 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.rengwuxian.materialedittext.MaterialEditText;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,7 +76,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     private MaterialEditText tehsilEditText;
     private Spinner districtSpinner;
     private CheckBox checkBox;
-    private ImageView profileImageViewButton;
+    private CropImageView profileImageViewButton;
+    //private ImageView profileImageViewButton;
     private RecyclerView listOfSchemeRV;
     SchemeListAdapter schemeListAdapter;
     HorizontalImageViewAdapter horizontalImageViewAdapter;
@@ -117,7 +120,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         selectPhotoButton = findViewById(R.id.selectPhotoButton);
         submitButton =findViewById(R.id.submitButton);
         locationConfirmButton = findViewById(R.id.locationConfirm);
-        takePhotoButton = findViewById(R.id.takePhoto);
         linearLayoutConfirmLocation = findViewById(R.id.linearLayoutConfirmLocation);
         linearLayoutMainForm = findViewById(R.id.linearLayoutMainForm);
         fathersNameEditText = findViewById(R.id.editTextDataFathersName);
@@ -151,13 +153,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         listOfSchemeRV.setAdapter(schemeListAdapter);
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
+
         profileImageViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+            /*
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
+            */
+
             }
         });
         selectPhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -198,15 +204,70 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         }));
     }
 
+    //TODO::::ONACTIVITY RESULT THAR  BECAUSE CROP IMAGE HIAN  HEMI FUNCTION HI A CHHOM
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                //cropImageView.getCroppedImageAsync();
+                profileImageViewButton.setImageUriAsync(resultUri);
+
+//                real_path_profileImage = getRealPathFromURI(this,resultUri);
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = result.getError();
+            }
+        }
+
+        if(requestCode==2){
+            ClipData clipData = data.getClipData();
+            if(clipData!=null){
+                int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                Uri imageUri;
+                for(int i = 0; i < count; i++){
+                    ClipData.Item item = clipData.getItemAt(i);
+                    imageUri = item.getUri();
+                    real_path_lake = getRealPathFromURI(this, imageUri);
+                    pondLists.add(real_path_lake);
+                    Log.d("TAG","image: "+real_path_lake);
+                }
+            }else{
+                Uri uri = data.getData();
+                String mRealPathLake = getRealPathFromURI(this,uri);
+                pondLists.add(mRealPathLake);
+            }
+            horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
+            pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
+            pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
+        }
+       
+    }
+/*
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             switch (requestCode) {
                 case 1://PROFILE PICTURE SELECT
-                    Uri fileUri = data.getData();
+                */
+/*    Uri fileUri = data.getData();
                     real_path_profileImage = getRealPathFromURI(this,fileUri);
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
+                *//*
+
+                    if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                        CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                        if (resultCode == RESULT_OK) {
+                            Uri resultUri = result.getUri();
+                            //cropImageView.getCroppedImageAsync();
+                            profileImageViewButton.setImageUriAsync(resultUri);
+                        } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                            Exception error = result.getError();
+                        }
+                    }
+
                     break;
 
                 case 2://LAKE PICTURE SELECT
@@ -230,6 +291,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
                         pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
                         pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
+*/
 /*
                         //do something with the image (save it to some directory or whatever you need to do with it here)
                         //data gives you the image uri. Try to convert that to bitmap
@@ -255,7 +317,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
                         //Display the photo start
                         Bitmap bitmap = BitmapFactory.decodeFile(real_path_lake);
-                        selectPhoto.setImageBitmap(bitmap);*/
+                        selectPhoto.setImageBitmap(bitmap);*//*
+
                         break;
                     } else if (resultCode == Activity.RESULT_CANCELED) {
                         Log.e(TAG, "Selecting picture cancelled");
@@ -266,6 +329,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             Log.e(TAG, "Exception in onActivityResult : " + e.getMessage());
         }
     }
+*/
 
     public void submitClick(View view) {
         submitButton.setVisibility(GONE);
@@ -457,4 +521,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         startActivity(new Intent(this,GetLocationInMapActivity.class));
 
     }
+
+    public void profilePictureSelectClick(View view) {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(this);
+    }
+
 }

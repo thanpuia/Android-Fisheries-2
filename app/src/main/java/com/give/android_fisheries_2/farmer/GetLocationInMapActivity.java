@@ -108,20 +108,23 @@ public class GetLocationInMapActivity extends FragmentActivity implements Google
     }
 
     public void imageLockClick(View view) {
-        if(userLocationSet.latitude==0.0f) Toast.makeText(getApplicationContext(),"Please move the map!",Toast.LENGTH_SHORT).show();
-        else {
-            Toast.makeText(getApplicationContext(), "Location:" + userLocationSet, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, FarmerUploadDataActivity.class);
-            String lat = String.valueOf(userLocationSet.latitude);
-            String lng = String.valueOf(userLocationSet.longitude);
-            intent.putExtra("lat", lat);
-            intent.putExtra("lng", lng);
-            intent.putExtra("from", "getLocation");
-            startActivity(intent);
-            finish();
-         //   sharedPreferences.edit().putString("mContact",mContact).apply();
+        try{
+            if(userLocationSet.latitude==0.0f) Toast.makeText(getApplicationContext(),"Please move the map!",Toast.LENGTH_SHORT).show();
+            else {
+                Toast.makeText(getApplicationContext(), "Location:" + userLocationSet, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, FarmerUploadDataActivity.class);
+                String lat = String.valueOf(userLocationSet.latitude);
+                String lng = String.valueOf(userLocationSet.longitude);
+                intent.putExtra("lat", lat);
+                intent.putExtra("lng", lng);
+                intent.putExtra("from", "getLocation");
+                startActivity(intent);
+                finish();
+                //   sharedPreferences.edit().putString("mContact",mContact).apply();
 
-        }
+            }
+        }catch (Exception e){}
+
 
 
 
