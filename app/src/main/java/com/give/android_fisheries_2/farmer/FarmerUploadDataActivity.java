@@ -38,12 +38,15 @@ import com.give.android_fisheries_2.adapter.SchemeListAdapter;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.async.http.body.FilePart;
+import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -154,18 +157,18 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
-        profileImageViewButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            /*
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
-            */
-
-            }
-        });
+//        profileImageViewButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            /*
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_GET_CONTENT);
+//                startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
+//            */
+//
+//            }
+//        });
         selectPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -204,7 +207,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         }));
     }
 
-    //TODO::::ONACTIVITY RESULT THAR  BECAUSE CROP IMAGE HIAN  HEMI FUNCTION HI A CHHOM
+    //TODO::::ONACTIVITY RESULT THAR  , BECAUSE CROP IMAGE HIAN  HEMI FUNCTION HI A CHHOM
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
@@ -214,7 +217,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 //cropImageView.getCroppedImageAsync();
                 profileImageViewButton.setImageUriAsync(resultUri);
 
-//                real_path_profileImage = getRealPathFromURI(this,resultUri);
+
+//               profileImageViewButton.getCroppedImageAsync();
+             //   Bitmap bitmap = profileImageViewButton.getCroppedImage();
+
+            ///   real_path_profileImage = getRealPathFromURIProPic(resultUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
@@ -335,10 +342,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         submitButton.setVisibility(GONE);
         progressBar.setVisibility(View.VISIBLE);
         apiFirst();
-        //     apiSecond();
+      //  apiSecond();
     }
-
     /* Get the real path from the URI */
+    public String getRealPathFromURIProPic(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index
+                = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
         cursor.moveToFirst();
@@ -432,7 +446,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     .setMultipartParameter("name_of_scheme",name_of_scheme)
                     .setMultipartParameter("lat",lat)
                     .setMultipartParameter("lng",lng)
-                    .setMultipartFile("image","multipart/form-data",new File(real_path_profileImage))
+                   // .setMultipartFile("image","multipart/form-data",new File(real_path_profileImage))
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
@@ -442,7 +456,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
                             //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
                             submitButton.setVisibility(View.VISIBLE);
-                            progressBar.setVisibility(GONE);
+                           progressBar.setVisibility(GONE);
                             //::::::    UPTO THIS   ::::::
                         }
                     });
@@ -453,13 +467,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
     public void apiSecond(){
         // if(lat==0.0 ||lng==0.0){
-        if(false){
+     /*   if(false){
             Toast.makeText(this,"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
-        }else{
+        }else{*/
             try{
-                String[] sad ={"sdf","sf"};
+                List<Part> files = new ArrayList<>();
+                for (int i = 0;i<pondLists.size();i++){
+                    Log.d("TAG","Array of files created");
+                    files.add(new FilePart("pondImages["+i+"+",new File(pondLists.get(i))));
+                }
                 Ion.with(this)
-                        .load("PUT","http://test-env.eba-pnm2djie.ap-south-1.elasticbeanstalk.com/api/fishponds/uploadpond/"+mId)
+                        .load("PUT","http://192.168.43.205:8000/api/fishponds/uploadpond/"+mId)
                         .uploadProgressHandler(new ProgressCallback() {
                             @Override
                             public void onProgress(long downloaded, long total) {
@@ -476,10 +494,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         .setHeader("Content-Type","multipart/form-data")
 
                         .setMultipartParameter("_method", "PUT")
-                       .setMultipartFile("pondImages[]","multipart/form-data",new File(real_path_lake))
+                        //.setMultipartFile("pondImages[]","multipart/form-data",new File(real_path_lake))
                         //::::TODO UPLOAD THE PONDS IMAGE HERE
-                       //  .setMultipartFile("pondImages[]","multipart/form-data",fileList)
-
+                         .addMultipartParts(files)
                         //json ang nilo in MULTIPART ANGIN HANDLE MAI RAWH SE SERV
                         // ER AH. A HMA A DIK SA ANG KHAN. JSON BODY LEH MULTIPART A AWM KOP THEI SI LO
 
@@ -487,7 +504,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {           ///sdcard/DCIM/Camera/IMG_20200217_123440.jpg
+
                                 submitButton.setVisibility(View.VISIBLE);
+
                                 progressBar.setVisibility(GONE);
                                 Log.e(TAG,"result: "+result);
 
@@ -499,11 +518,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
 
             }catch (Exception e){
-                Toast.makeText(this,"Some error in data:"+e,Toast.LENGTH_LONG).show ();
+                Toast.makeText(this,"Some error in api second call:"+e,Toast.LENGTH_LONG).show ();
 
             }
-        }
-
     }
 
     @Override

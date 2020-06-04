@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mLoginStatus = sharedPreferences.getBoolean("mLoginStatus",false);
 
         //TODO :: START :: THIS IS FOR TESTING PURPOSE
-       mLoginStatus = true;
+      // mLoginStatus = true;
         //END
 
         //IF mLoginStatus IS FALSE GO TO LOGIN PAGE
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             else
                 mRole = "FARMER";*/
 
-            mRole = "FARMER";
+           // mRole = "FARMER";
            // mRole = "ADMIN";
             //mRole = "SUPER_ADMIN";
             //END

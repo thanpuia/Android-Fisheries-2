@@ -75,7 +75,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Ion.with(getApplicationContext())
                         .load("http://192.168.43.205:8000/api/register")
                         .setMultipartParameter("name",mName)
-                        .setMultipartParameter("contact",mContact)
+                        .setMultipartParameter("email",mContact)
+                        .setMultipartParameter("role","FARMER")
                         .setMultipartParameter("password",mPassword)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {

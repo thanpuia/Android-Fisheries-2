@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.farmer.FarmerCenterActivity;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -68,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginButton.setEnabled(false);
                 Ion.with(getApplicationContext())
                         .load("http://192.168.43.205:8000/api/login")
-                        .setMultipartParameter("contact",mLoginContact)
+                        .setMultipartParameter("email",mLoginContact)
                         .setMultipartParameter("password",mLoginPassword)
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
@@ -84,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.e("TAG","result: "+result);
                                     String mToken = result.get("token").getAsString();
                                     String mName = result.get("name").getAsString();
-                                    String mContact = result.get("contact").getAsString();
+                                    String mContact = result.get("email").getAsString();
                                     String mRole = result.get("role").getAsString();
                                     int mId = result.get("id").getAsInt();
                                     //THIS GET AS BOOLEAN IS VERY IMP
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                                         sharedPreferences.edit().putString("mToken",mToken).apply();
                                         sharedPreferences.edit().putString("mContact",mContact).apply();
                                         sharedPreferences.edit().putString("mRole",mRole).apply();
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, FarmerCenterActivity.class);
                                         intent.putExtra("status","good");
                                         startActivity(intent);
                                         finish();
