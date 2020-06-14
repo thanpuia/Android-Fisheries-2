@@ -142,9 +142,9 @@ public class FarmersFragment extends Fragment {
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
                             for(int i=0;i<jsonArray.length();i++){
                                 JSONObject singleRow =  jsonArray.getJSONObject(i);
+                                String district = singleRow.getString("district");
                                 String fname = singleRow.getString("fname");
                                 String address = singleRow.getString("address");
-                                String district = singleRow.getString("district");
                                 String location_of_pond = singleRow.getString("location_of_pond");
                                 String tehsil = singleRow.getString("tehsil");
                                 String area = singleRow.getString("area");

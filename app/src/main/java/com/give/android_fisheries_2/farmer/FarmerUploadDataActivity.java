@@ -43,8 +43,7 @@ import com.koushikdutta.async.http.body.Part;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 import com.rengwuxian.materialedittext.MaterialEditText;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -61,15 +60,10 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     boolean[] schemesChecked=new boolean[]{false,false,false,false};
     SharedPreferences sharedPreferences;
     private TextView location;
-    private ProgressBar progressBar;
-    private ProgressBar locationConfirmProgressBar;
     private Button selectPhotoButton;
     private Button submitButton;
-    private Button locationConfirmButton;
-    private Button takePhotoButton;
-    private LinearLayout progressBarLayout;
-    private LinearLayout linearLayoutConfirmLocation;
     private LinearLayout linearLayoutMainForm;
+    private LinearLayout uploadProgressBarLayout;
     private MaterialEditText nameEditText;
     private MaterialEditText fathersNameEditText;
     private MaterialEditText addressEditText;
@@ -79,8 +73,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     private MaterialEditText tehsilEditText;
     private Spinner districtSpinner;
     private CheckBox checkBox;
-    private CropImageView profileImageViewButton;
-    //private ImageView profileImageViewButton;
+    //private CropImageView profileImageViewButton;
+    private ImageView profileImageViewButton;
     private RecyclerView listOfSchemeRV;
     SchemeListAdapter schemeListAdapter;
     HorizontalImageViewAdapter horizontalImageViewAdapter;
@@ -98,6 +92,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     String latLng="";
     int position;
     int mId;
+    int mApprove;
+    Uri mamaUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,17 +110,15 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         mToken = sharedPreferences.getString("mToken","");
         mContact = sharedPreferences.getString("mContact","");
         mName = sharedPreferences.getString("mName","");
-        mId = sharedPreferences.getInt("mId",mId);
+        mId = sharedPreferences.getInt("mId",0);
+        mApprove = Integer.parseInt(sharedPreferences.getString("approve","5"));
 
         Log.e("TAG","My Token: "+sharedPreferences.getString("mToken",""));
 
-        progressBar = findViewById(R.id.simpleProgressBar);
-        locationConfirmProgressBar = findViewById(R.id.locationConfirmProgressBar);
         selectPhotoButton = findViewById(R.id.selectPhotoButton);
         submitButton =findViewById(R.id.submitButton);
-        locationConfirmButton = findViewById(R.id.locationConfirm);
-        linearLayoutConfirmLocation = findViewById(R.id.linearLayoutConfirmLocation);
         linearLayoutMainForm = findViewById(R.id.linearLayoutMainForm);
+        uploadProgressBarLayout = findViewById(R.id.uploadProgressBarLayout);
         fathersNameEditText = findViewById(R.id.editTextDataFathersName);
         addressEditText= findViewById(R.id.editTextDataAddress);
         epicOrAadhaarEditText= findViewById(R.id.editTextDataEpicNo);
@@ -137,14 +131,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         pondsImageHorizontalRecyclerView = findViewById(R.id.ponds_image_view_recycler_view);
         location = findViewById(R.id.pondsLocation);
 
+        Bitmap profilePictureBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_person_black_24dp);
+        profileImageViewButton.setImageBitmap(profilePictureBitmap);
         location.setText(lat2+ ", "+lng2);
 
-        //takePhotoButton.setEnabled(false);
-
-        /*mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(getActivity())
-                .addOnConnectionFailedListener(getActivity())
-                .addApi(LocationServices.API).build();*/
+        //TODO :: POPULATE THE FARMER DATA IF ALREADY PRESENT
+        approvalStatus(mApprove);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -156,19 +148,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         listOfSchemeRV.setAdapter(schemeListAdapter);
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-
-//        profileImageViewButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            /*
-//                Intent intent = new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
-//            */
-//
-//            }
-//        });
         selectPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,76 +184,98 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
             }
         }));
+
+
     }
 
     //TODO::::ONACTIVITY RESULT THAR  , BECAUSE CROP IMAGE HIAN  HEMI FUNCTION HI A CHHOM
-    @Override
+  /*   @Override
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                Uri resultUri = result.getUri();
-                //cropImageView.getCroppedImageAsync();
-                profileImageViewButton.setImageUriAsync(resultUri);
+        try{
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    Uri resultUri = result.getUri();
+
+                    profileImageViewButton.setImageUriAsync(resultUri);
+                    profileImageViewButton.setOnSetImageUriCompleteListener(new CropImageView.OnSetImageUriCompleteListener() {
+                        @Override
+                        public void onSetImageUriComplete(CropImageView view, Uri uri, Exception error) {
+                          //  profileImageViewButton.getCroppedImageAsync();
+                            real_path_profileImage = String.valueOf(uri);
+                          //  real_path_profileImage = getRealPathFromURI(view.getContext(),uri);
+                        }
+                    });
+                 //   real_path_profileImage = getRealPathFromURI(this,profileImageViewButton.getImageUri());
 
 
+                     Log.d("TAG","real path image:  "+ real_path_profileImage);
+                    //real_path_profileImage = getRealPathFromURI(this,resultUri);
+
+//                    profileImageViewButton.setOnCropImageCompleteListener(new CropImageView.OnCropImageCompleteListener() {
+//                        @Override
+//                        public void onCropImageComplete(CropImageView mView, CropImageView.CropResult mResult) {
+//                            profileImageViewButton.getCroppedImageAsync();
+//                            real_path_profileImage = getRealPathFromURI(mView.getContext(),mResult.getUri());
+//
+//
+//                            if(real_path_profileImage==null) Toasty.error(getApplicationContext(),"Profile Image null",Toasty.LENGTH_SHORT).show();
+//                            else    Toasty.error(getApplicationContext(),"Profile Image: "+ real_path_profileImage,Toasty.LENGTH_SHORT).show();
+//
+//
+//                        }
+//                    });
 //               profileImageViewButton.getCroppedImageAsync();
-             //   Bitmap bitmap = profileImageViewButton.getCroppedImage();
+                    //   Bitmap bitmap = profileImageViewButton.getCroppedImage();
 
-            ///   real_path_profileImage = getRealPathFromURIProPic(resultUri);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
+                    ///   real_path_profileImage = getRealPathFromURIProPic(resultUri);
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Exception error = result.getError();
+                }
             }
+        }catch (Exception e){
+            Log.e("TAG","Error in select userPhoto: "+e);
         }
 
         if(requestCode==2){
-            ClipData clipData = data.getClipData();
-            if(clipData!=null){
-                int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
-                Uri imageUri;
-                for(int i = 0; i < count; i++){
-                    ClipData.Item item = clipData.getItemAt(i);
-                    imageUri = item.getUri();
-                    real_path_lake = getRealPathFromURI(this, imageUri);
-                    pondLists.add(real_path_lake);
-                    Log.d("TAG","image: "+real_path_lake);
+            try{
+                ClipData clipData = data.getClipData();
+                if(clipData!=null){
+                    int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
+                    Uri imageUri;
+                    for(int i = 0; i < count; i++){
+                        ClipData.Item item = clipData.getItemAt(i);
+                        imageUri = item.getUri();
+                        real_path_lake = getRealPathFromURI(this, imageUri);
+                        pondLists.add(real_path_lake);
+                        Log.d("TAG","image: "+real_path_lake);
+                    }
+                }else{
+                    Uri uri = data.getData();
+                    String mRealPathLake = getRealPathFromURI(this,uri);
+                    pondLists.add(mRealPathLake);
                 }
-            }else{
-                Uri uri = data.getData();
-                String mRealPathLake = getRealPathFromURI(this,uri);
-                pondLists.add(mRealPathLake);
+                horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
+                pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
+                pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
+            }catch (Exception e){
+                Log.d("TAG","Error in Select ponds photo: "+e);
             }
-            horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
-            pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
-            pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
         }
-       
     }
-/*
 
+    */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
             switch (requestCode) {
                 case 1://PROFILE PICTURE SELECT
-                */
-/*    Uri fileUri = data.getData();
-                    real_path_profileImage = getRealPathFromURI(this,fileUri);
+
+                    Uri fileUri = data.getData();
+                    real_path_profileImage = getRealPathFromURI(this, fileUri);
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
-                *//*
-
-                    if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                        CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                        if (resultCode == RESULT_OK) {
-                            Uri resultUri = result.getUri();
-                            //cropImageView.getCroppedImageAsync();
-                            profileImageViewButton.setImageUriAsync(resultUri);
-                        } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                            Exception error = result.getError();
-                        }
-                    }
-
                     break;
 
                 case 2://LAKE PICTURE SELECT
@@ -298,15 +299,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
                         pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
                         pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
-*/
-/*
+
+
+    /*
                         //do something with the image (save it to some directory or whatever you need to do with it here)
                         //data gives you the image uri. Try to convert that to bitmap
                         Uri file_uri = data.getData(); // parse to Uri if your videoURI is string
-                        real_path_lake = getRealPathFromURI(getActivity(), file_uri);                        //Log.e(TAG, "data: ") ;
+                        real_path_lake = getRealPathFromURI(getApplicationContext(), file_uri);                        //Log.e(TAG, "data: ") ;
                         //path = getRealPathFromURI(data.getData());
                         Log.e(TAG, "Path: "+real_path_lake) ;
-                        ExifInterface exif = new ExifInterface(String.valueOf(real_path_lake));
+
+                     *//*   ExifInterface exif = new ExifInterface(String.valueOf(real_path_lake));
                         float[] latLong = new float[2];
                         boolean hasLatLong = exif.getLatLong(latLong);
                         if (hasLatLong) {
@@ -321,11 +324,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                                 Toast.makeText(getActivity(),"PICTURE HAS NO COORDINATES!",Toast.LENGTH_LONG).show ();
                             }
                         }else formPicture = new LatLng(0.0,0.0);
-
+    *//*
                         //Display the photo start
                         Bitmap bitmap = BitmapFactory.decodeFile(real_path_lake);
-                        selectPhoto.setImageBitmap(bitmap);*//*
-
+                        selectPhoto.setImageBitmap(bitmap);
+    */
                         break;
                     } else if (resultCode == Activity.RESULT_CANCELED) {
                         Log.e(TAG, "Selecting picture cancelled");
@@ -336,11 +339,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             Log.e(TAG, "Exception in onActivityResult : " + e.getMessage());
         }
     }
-*/
+
 
     public void submitClick(View view) {
         submitButton.setVisibility(GONE);
-        progressBar.setVisibility(View.VISIBLE);
+        uploadProgressBarLayout.setVisibility(View.VISIBLE);
         apiFirst();
       //  apiSecond();
     }
@@ -416,8 +419,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 //            }
 //        });
 //    }
-    public void takePhotoClick(View view) {
-    }
+
 
     public void apiFirst(){
         String fname = fathersNameEditText.getText().toString();
@@ -436,27 +438,31 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     .load("POST","http://192.168.43.205:8000/api/fishponds/create")
                     .setHeader("Accept","application/json")
                     .setHeader("Authorization","Bearer "+mToken)
+                    .setMultipartParameter("district",district)
+                    .setMultipartParameter("name",mName)
                     .setMultipartParameter("fname",fname)
                     .setMultipartParameter("address",address)
-                    .setMultipartParameter("district",district)
                     .setMultipartParameter("location_of_pond",location_of_pond)
                     .setMultipartParameter("tehsil",tehsil)
                     .setMultipartParameter("area",area)
                     .setMultipartParameter("epic_no",epic_no)
                     .setMultipartParameter("name_of_scheme",name_of_scheme)
+                    .setMultipartFile("image","multipart/form-data",new File(real_path_profileImage))
                     .setMultipartParameter("lat",lat)
                     .setMultipartParameter("lng",lng)
-                   // .setMultipartFile("image","multipart/form-data",new File(real_path_profileImage))
+                    .setMultipartParameter("user_id", String.valueOf(mId))
+
                     .asJsonObject()
                     .setCallback(new FutureCallback<JsonObject>() {
                         @Override
                         public void onCompleted(Exception e, JsonObject result) {
                             Log.d("TAG","FILE "+real_path_profileImage);
                             Log.d("TAG","URL 1: "+result);
-
                             //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
                             submitButton.setVisibility(View.VISIBLE);
-                           progressBar.setVisibility(GONE);
+                            uploadProgressBarLayout.setVisibility(GONE);
+                            if(result!=null) Toasty.success(getApplicationContext(),"Upload Successfully!",Toasty.LENGTH_SHORT).show();
+                            else Toasty.error(getApplicationContext(),"Sorry, server out of reach",Toasty.LENGTH_SHORT).show();
                             //::::::    UPTO THIS   ::::::
                         }
                     });
@@ -477,7 +483,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     files.add(new FilePart("pondImages["+i+"+",new File(pondLists.get(i))));
                 }
                 Ion.with(this)
-                        .load("PUT","http://192.168.43.205:8000/api/fishponds/uploadpond/"+mId)
+                        .load("PUT","http://192.168.225.57:8000/api/fishponds/uploadpond/"+mId)
                         .uploadProgressHandler(new ProgressCallback() {
                             @Override
                             public void onProgress(long downloaded, long total) {
@@ -507,7 +513,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
                                 submitButton.setVisibility(View.VISIBLE);
 
-                                progressBar.setVisibility(GONE);
                                 Log.e(TAG,"result: "+result);
 
                                 Toasty.success(getApplicationContext(),"Upload Success!!",Toasty.LENGTH_SHORT).show();
@@ -536,13 +541,40 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
     public void getLocationClick(View view) {
         startActivity(new Intent(this,GetLocationInMapActivity.class));
-
     }
 
     public void profilePictureSelectClick(View view) {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .start(this);
+        Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
     }
 
+    public void approvalStatus(int approve){
+        switch(approve){
+            case 0:
+            case 3:
+            case 2:
+                fathersNameEditText.setText(sharedPreferences.getString("fname",""));
+                addressEditText.setText(sharedPreferences.getString("address",""));
+                epicOrAadhaarEditText.setText(sharedPreferences.getString("epic_no",""));
+                areaEditText.setText(sharedPreferences.getString("area",""));
+                tehsilEditText.setText(sharedPreferences.getString("tehsil",""));
+                //populate spinner
+                //populate checkbox
+                //populateimage
+                location.setText(sharedPreferences.getString("lat","")+", "+sharedPreferences.getString("lng",""));
+
+                break;
+
+            case 1:
+
+                break;
+            //populate spinner
+                //populate checkbox
+                //populateimage
+
+
+        }
+    }
 }

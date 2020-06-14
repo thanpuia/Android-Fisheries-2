@@ -6,31 +6,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".farmer.FarmerUploadDataActivity">
 
-
-        <LinearLayout
-            android:id="@+id/linearLayoutConfirmLocation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff"
-
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/locationConfirm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="getLastKnowLocation"
-                android:text="Check my Location"/>
-
-            <ProgressBar
-                android:id="@+id/locationConfirmProgressBar"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
-        </LinearLayout>
-
-
         <LinearLayout
             android:id="@+id/linearLayoutMainForm"
             android:layout_width="match_parent"
@@ -58,31 +33,19 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <!--                    <com.rengwuxian.materialedittext.MaterialEditText-->
-                        <!--                        android:layout_width="200dp"-->
-                        <!--                        android:layout_height="wrap_content"-->
-                        <!--                        android:id="@+id/editTextDataName"-->
-                        <!--                        app:met_floatingLabelText="Name"-->
-                        <!--                        app:met_floatingLabel="highlight"-->
-                        <!--                        android:layout_gravity="bottom"-->
-                        <!--                        android:gravity="top"-->
-                        <!--                        android:textSize="@dimen/text_size_fisheries"-->
-                        <!--                        app:met_floatingLabelAlwaysShown="true"/>-->
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <com.theartofdev.edmodo.cropper.CropImageView xmlns:custom="http://schemas.android.com/apk/res-auto"
+                            <ImageView
+                                xmlns:custom="http://schemas.android.com/apk/res-auto"
                                 android:id="@+id/imageViewDateProfilePicture"
                                 android:layout_width="140dp"
                                 android:layout_height="140dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_gravity="center"
-                                android:background="@drawable/ic_person_black_24dp" />
-
-
+                                 />
                             <Button
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -223,11 +186,6 @@
                         android:layout_height="wrap_content"
                         android:visibility="gone"
                         android:layout_centerHorizontal="true"/>
-
-
-
-
-
                     <Button
                         android:layout_marginTop="30dp"
                         android:id="@+id/submitButton"
@@ -240,11 +198,19 @@
                         android:textSize="@dimen/text_size_fisheries"
                         android:onClick="submitClick"/>
                 </LinearLayout>
-
             </ScrollView>
-
-
         </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/uploadProgressBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/loading_fade_70"
+        android:visibility="invisible"
+        android:gravity="center">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
 
     </RelativeLayout>
