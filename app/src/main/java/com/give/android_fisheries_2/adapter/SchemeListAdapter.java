@@ -20,12 +20,17 @@ import java.util.ArrayList;
 public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.ViewHolder> {
     String[] schemeName;
     Context mContext;
+    ArrayList<Integer> checkedItem;
+
     public static ArrayList<String> schemeChecked;
-    public SchemeListAdapter(Context applicationContext, String[] schemes) {
+    public SchemeListAdapter(Context applicationContext, String[] schemes, ArrayList<Integer> mCheck) {
         schemeName  = schemes;
         mContext = applicationContext;
         schemeChecked = new ArrayList<>();
+
+        checkedItem = mCheck;
     }
+
 
     @NonNull
     @Override
@@ -44,21 +49,23 @@ public class SchemeListAdapter extends RecyclerView.Adapter<SchemeListAdapter.Vi
         CheckBox cb = new CheckBox(mContext);
         cb.setText(schemeName[position]);
         //cb.setTextSize(27);
-        // cb.setTextColor(Color.rgb(150, 190, 200));
+        //cb.setTextColor(Color.rgb(150, 190, 200));
         //cb.setTypeface(Typeface.MONOSPACE);
         //cb.setButtonDrawable(R.drawable.checkboxselector);
         holder.checkBox.addView(cb);
-
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Log.d("TAG","CompoundButton-" +compoundButton.getText()+"  "+ b);
-                if(b){
-                    schemeChecked.add(String.valueOf(compoundButton.getText()));
-                }
-
+                if(b) schemeChecked.add(String.valueOf(compoundButton.getText()));
+                else schemeChecked.remove(compoundButton.getText());
             }
         });
+
+        //CHECKED THE CHECK BOX
+        for(int i =0;i<checkedItem.size();i++)
+            if(position==checkedItem.get(i)) cb.setChecked(true);
+
     }
 
     @Override

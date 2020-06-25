@@ -12,4 +12,6 @@
             android:id="@+id/three"/>
         <item android:title="Submited, but no reaction"
             android:id="@+id/four"/>
+        <item android:title="Logout"
+            android:id="@+id/five"/>
 </menu>

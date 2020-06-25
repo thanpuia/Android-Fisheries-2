@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 // ::THIS SHOW THE PROGRESS BAR LAYOUT AND MAKE THE LOGIN BUTTON DISABLE SO THAT USER WILL NOT CONSTANTLY PUSH THE BUTTON ::
                 simpleProgressBarLinearLayout.setVisibility(View.VISIBLE);
                 loginButton.setEnabled(false);
-                Ion.with(getApplicationContext())
+Ion.with(getApplicationContext())
                         .load("http://192.168.43.205:8000/api/login")
                         .setMultipartParameter("email",mLoginContact)
                         .setMultipartParameter("password",mLoginPassword)
@@ -76,6 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onCompleted(Exception e, final JsonObject result) {  /* NOTE: Login Success   result{  "success":"true" }     Login Unsuccess  result{   "success":"false"  }  */
                                 //::::HIDE THE PROGRESS BAR AND MAKE THE BUTTON ENABLE AGAIN
+                                Log.e("TAG","result: "+result);
+
                                 simpleProgressBarLinearLayout.setVisibility(View.INVISIBLE);
                                 loginButton.setEnabled(true);
                                 if(result==null){
@@ -87,7 +89,8 @@ public class LoginActivity extends AppCompatActivity {
                                     String mName = result.get("name").getAsString();
                                     String mContact = result.get("email").getAsString();
                                     String mRole = result.get("role").getAsString();
-                                    int mId = result.get("id").getAsInt();
+                                    String tempId = result.get("id").getAsString();
+                                    int  mId = Integer.parseInt(tempId);
                                     //THIS GET AS BOOLEAN IS VERY IMP
                                     if(result.get("success").getAsBoolean()==true){
                                         sharedPreferences = getApplication().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);

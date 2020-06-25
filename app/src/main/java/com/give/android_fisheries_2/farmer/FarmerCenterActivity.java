@@ -80,6 +80,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
             changeLook(3);
         } else if (item.getItemId() == R.id.four) {
             changeLook(4);
+        }else if (item.getItemId() == R.id.five) {
+            new Logout(getApplicationContext());
+            startActivity(new Intent(this, LoginActivity.class));
         }
         return true;
     }
@@ -105,10 +108,10 @@ public class FarmerCenterActivity extends AppCompatActivity {
         ::::::::*/
         //:::: TODO UNCOMMENT TUR
         // ::::TODO CHECK THE FISHPONDS DATA
-
+        Log.d("TAG","my mID: "+mId);
         String urlTEST = "http://192.168.43.205:8000/api/findPond/"+mId;
         Ion.with(this)
-                .load(urlTEST)
+                .load("POST",urlTEST)
               /*  .setHeader("Accept","application/json")
                 .setHeader("Authorization","Bearer "+mToken)*/
                 .asJsonObject()
@@ -121,8 +124,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
                         //::::TODO THEIR IS SOMETHING IT THE FISHPONDS WITH THE MID SENT TO SERVER
                             //it will return the value of the approved
                             //String mToken = result.get("approved").getAsString();
-                            String message = result.get("message").getAsString();
-                            if(message.equals("found")){
+                            boolean message = result.get("message").getAsBoolean();
+                            if(message){
                                 JsonObject data = result.getAsJsonObject("data");
                                 String mApprove = data.get("approve").getAsString();
 
@@ -133,14 +136,24 @@ public class FarmerCenterActivity extends AppCompatActivity {
                                 sharedPreferences.edit().putString("district",data.get("district").getAsString()).apply();
                                 sharedPreferences.edit().putString("location_of_pond",data.get("location_of_pond").getAsString()).apply();
                                 sharedPreferences.edit().putString("tehsil",data.get("tehsil").getAsString()).apply();
-                               //sharedPreferences.edit().putString("image",data.get("image").getAsString()).apply();
+                                sharedPreferences.edit().putString("image",data.get("image").getAsString()).apply();
                                 sharedPreferences.edit().putString("area",data.get("area").getAsString()).apply();
                                 sharedPreferences.edit().putString("epic_no",data.get("epic_no").getAsString()).apply();
                                 sharedPreferences.edit().putString("name_of_scheme",data.get("name_of_scheme").getAsString()).apply();
-                                //sharedPreferences.edit().putString("pondImages",data.get("pondImages").getAsString()).apply();
+                                //sharedPreferences.edit().putString("pondImages",data.result("pondImages").getAsString()).apply();
                                 sharedPreferences.edit().putString("lat",data.get("lat").getAsString()).apply();
                                 sharedPreferences.edit().putString("lng",data.get("lng").getAsString()).apply();
-                                sharedPreferences.edit().putString("approve",data.get("approve").getAsString()).apply();
+                                sharedPreferences.edit().putString("pondId",data.get("id").getAsString()).apply();
+
+                                String mmA="";
+                                if(mApprove.matches("0"))
+                                    mmA = "4";
+                                else if (mApprove.matches("1"))
+                                    mmA= "1";
+                                else if (mApprove.matches("2"))
+                                    mmA= "2";
+
+                                sharedPreferences.edit().putString("approve",mmA).apply();
 
                                 switch(mApprove){
                                     case "0" :status = 4;break;
@@ -151,10 +164,14 @@ public class FarmerCenterActivity extends AppCompatActivity {
                             }else{
                                 Log.d("TAG","no data");
                                 status = 0;
-                            }
+                                sharedPreferences.edit().putString("approve","0").apply();
+
+                           }
                         }else {
                             Log.d("TAG","Server not reachable");
                             status = 5;
+                            sharedPreferences.edit().putString("approve","5").apply();
+
                         }
                         changeLook(status);
                     }
