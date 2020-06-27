@@ -38,6 +38,7 @@ import com.give.android_fisheries_2.adapter.HorizontalImageViewAdapter;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
 import com.give.android_fisheries_2.adapter.SchemeListAdapter;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.body.FilePart;
@@ -106,6 +107,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     Uri mamaUri;
     File mySamePropic;
     Boolean imageSelect;
+    //List<String> myListOfScheme ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +118,13 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         pondLists = new ArrayList<>();
 
+        //schemes = new ArrayList<>();
+
+        Bundle bundle = getIntent().getExtras();
+        String schemesStr = bundle.getString("schemes");
+
+        schemes = schemesStr.split(",");
+        Log.d("TAG","d2222"+schemes[0]);
         //CHECK THE LAT LNG FROM THE GETLOCATION ACTIVITY
 
         lat2 = getIntent().getStringExtra("lat");
@@ -163,7 +172,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         districtSpinner.setSelection(spinnerPosition);
 
         //:::: TODO THIS SHOULD BE TAKEN FROM THE SERVER BEFORE PRODUCTION
-        schemes = new String[] {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
+        //  schemes = new String[] {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
 
         //POPULATE THE CHECK BOX
         ArrayList<Integer> mCheckedItem = new ArrayList<>();

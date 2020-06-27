@@ -3,9 +3,6 @@ package com.give.android_fisheries_2.farmer;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
@@ -16,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,12 +24,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.give.android_fisheries_2.R;
-import com.give.android_fisheries_2.entity.FarmerEntity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
 
@@ -52,6 +53,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
     String mContact;
     String mName;
     int mId;
+    List<String> schemes;
+    String mySchemeInString;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,6 +94,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_center);
+
+        schemes = new ArrayList<>();
+
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         farmerDashboardTextView = findViewById(R.id.farmer_dashboard_textview);
         farmerDashboardButton = findViewById(R.id.farmer_dashboard_button);
@@ -101,6 +107,37 @@ public class FarmerCenterActivity extends AppCompatActivity {
         mId = sharedPreferences.getInt("mId",0);
         //changeLook(0);farmerDashboardTextView
         farmerDashboardTextView.setText("Checking status...");
+
+
+        //FETCH THE SCHEME LIST
+        String urlTES99T = "http://192.168.43.205:8000/api/myscheme/";
+        Ion.with(this)
+                .load("GET",urlTES99T)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        Log.d("TAG","arrar 0000 "+result);
+                        if(result!=null){
+                            for(int i =0;i<result.size();i++){
+                                JsonObject schemeObj = result.get(i).getAsJsonObject();
+                                String myscheme = schemeObj.get("sname").getAsString();
+                                //myListOfScheme.add(myscheme);
+                                schemes.add(myscheme);
+                            }
+                            Log.d("TAG","scheme 0000 "+schemes.get(0));
+
+                            //mySchemeInString = String.join(",",schemes);
+                            for(int i=0;i<schemes.size();i++)
+                                if(i==0) mySchemeInString = schemes.get(i);
+                                else mySchemeInString = mySchemeInString+","+schemes.get(i);
+
+                            Log.d("TAG","mySchemeInString 0000 "+mySchemeInString);
+                        }
+                    }
+                });
+
+
         /*/::::TODO - STATUS
         check user_id in the fishponds, if not present -> upload your form
         status :-
@@ -109,6 +146,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
         //:::: TODO UNCOMMENT TUR
         // ::::TODO CHECK THE FISHPONDS DATA
         Log.d("TAG","my mID: "+mId);
+
         String urlTEST = "http://192.168.43.205:8000/api/findPond/"+mId;
         Ion.with(this)
                 .load("POST",urlTEST)
@@ -220,7 +258,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
     public void dashboardButtonClick(View view) {
         if (status == 1) Toasty.success(this, "Downloading ID...", Toasty.LENGTH_SHORT).show();
         else {
-            startActivity(new Intent(this, FarmerUploadDataActivity.class));
+            Intent intent = new Intent(this,FarmerUploadDataActivity.class);
+            intent.putExtra("schemes",mySchemeInString);
+            startActivity(intent);
         }
     }
 
