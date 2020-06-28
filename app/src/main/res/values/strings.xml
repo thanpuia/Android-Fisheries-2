@@ -50,4 +50,7 @@
     <string name="blue_revolution">Blue Revolution</string>
     <string name="rkvy">RKVY</string>
     <string name="nlup">NLUP</string>
+
+    <string name="register_here"><u>Not yet register! Click here</u></string>
+    <string name="login_here"><u>Already register. Click here to Login?</u></string>
 </resources>

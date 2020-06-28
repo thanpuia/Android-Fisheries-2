@@ -81,8 +81,11 @@ Ion.with(getApplicationContext())
                                 simpleProgressBarLinearLayout.setVisibility(View.INVISIBLE);
                                 loginButton.setEnabled(true);
                                 if(result==null){
-                                    Toasty.error(getApplicationContext(),"server  problem!",Toasty.LENGTH_SHORT).show();
-                                }else{
+                                    Toasty.error(getApplicationContext(),"Oh no! Internal Server Error",Toasty.LENGTH_LONG).show();
+                                }else if(result.get("success").getAsBoolean()==false){
+                                    Toasty.error(getApplicationContext(),"Invalid username or password",Toasty.LENGTH_LONG).show();
+                                }
+                                else{
                                     Log.e("TAG","TESTING: "+result.get("success").getAsBoolean());
                                     Log.e("TAG","result: "+result);
                                     String mToken = result.get("token").getAsString();

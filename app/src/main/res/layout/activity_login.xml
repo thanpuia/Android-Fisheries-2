@@ -79,7 +79,8 @@
                 android:layout_gravity="center"
                 android:onClick="notYetRegisterClick"
                 android:padding="15dp"
-                android:text="Not yet register! Click here" />
+                android:layout_marginBottom="50dp"
+                android:text="@string/register_here"/>
         </LinearLayout>
 
 

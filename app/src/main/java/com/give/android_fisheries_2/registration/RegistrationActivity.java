@@ -88,7 +88,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 if(result!=null){
                                     JsonElement tokenAsJson = result.get("token");
                                     Log.e("TAG","TOKEN::"+result.get("token"));
-                                    if(tokenAsJson!=null){
+                                    boolean success= result.get("success").getAsBoolean();
+                                    if(success){
                                         Toasty.success(getApplicationContext(),"Register Successfully!",Toasty.LENGTH_SHORT).show();
                                         //STORED IN THE SHARED PREFERENCE FOR LATER REFERENCE
                                         sharedPreferences = getApplication().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
@@ -99,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                         registerNowButton.setVisibility(View.VISIBLE);
 
                                         startActivity(new Intent(RegistrationActivity.this, MainActivity.class));
-                                    }else Toasty.error(getApplicationContext(),"Phone number already taken or password should be more than 8 char",Toasty.LENGTH_SHORT).show();
+                                    }else Toasty.error(getApplicationContext(),"Invalid username or password",Toasty.LENGTH_SHORT).show();
                                 }else Toasty.error(getApplicationContext(),"Server Error!",Toasty.LENGTH_SHORT).show();
                             }
                         });
