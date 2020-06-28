@@ -15,7 +15,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,7 +27,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,24 +35,21 @@ import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.HorizontalImageViewAdapter;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
 import com.give.android_fisheries_2.adapter.SchemeListAdapter;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.async.http.body.FilePart;
 import com.koushikdutta.async.http.body.Part;
+import com.koushikdutta.async.http.body.StringPart;
 import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.ProgressCallback;
+import com.koushikdutta.ion.builder.Builders;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -85,6 +80,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     private CheckBox checkBox;
     //private CropImageView profileImageViewButton;
     private ImageView profileImageViewButton;
+    ImageView pondImageView_1;
+    ImageView pondImageView_2;
+    ImageView pondImageView_3;
+    ImageView pondImageView_4;
+
     private RecyclerView listOfSchemeRV;
     SchemeListAdapter schemeListAdapter;
     HorizontalImageViewAdapter horizontalImageViewAdapter;
@@ -93,6 +93,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     RecyclerView pondsImageHorizontalRecyclerView;
     private String real_path_lake;
     String real_path_profileImage ;
+    String real_path_pond_1 ;
+    String real_path_pond_2 ;
+    String real_path_pond_3 ;
+    String real_path_pond_4 ;
+
     private String TAG = "TAG";
     String mToken;
     String mContact;
@@ -106,13 +111,18 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     String pondId;
     Uri mamaUri;
     File mySamePropic;
+    File pond1;
+    File pond2;
+    File pond3;
+    File pond4;
     Boolean imageSelect;
-    //List<String> myListOfScheme ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_upload_data);
+
+        pond1 = pond2 = pond3 =pond4 = null;
 
         imageSelect=false;
         sharedPreferences = getApplicationContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
@@ -120,17 +130,14 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
         //schemes = new ArrayList<>();
 
-        Bundle bundle = getIntent().getExtras();
-        String schemesStr = bundle.getString("schemes");
 
-        schemes = schemesStr.split(",");
-        Log.d("TAG","d2222"+schemes[0]);
         //CHECK THE LAT LNG FROM THE GETLOCATION ACTIVITY
 
-        lat2 = getIntent().getStringExtra("lat");
-        lng2 = getIntent().getStringExtra("lng");
+//        lat2 = getIntent().getStringExtra("lat");
+//        lng2 = getIntent().getStringExtra("lng");
+        lat2 = sharedPreferences.getString("lat","");
+        lng2= sharedPreferences.getString("lng","");
 
-      //  location.setText(lat2+", "+lng2);
         mToken = sharedPreferences.getString("mToken","");
         mContact = sharedPreferences.getString("mContact","");
         mName = sharedPreferences.getString("mName","");
@@ -156,8 +163,21 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         pondsImageHorizontalRecyclerView = findViewById(R.id.ponds_image_view_recycler_view);
         location = findViewById(R.id.pondsLocation);
 
+        pondImageView_1 = findViewById(R.id.pond_image_1);
+        pondImageView_2 = findViewById(R.id.pond_image_2);
+        pondImageView_3 = findViewById(R.id.pond_image_3);
+        pondImageView_4 = findViewById(R.id.pond_image_4);
+
         Bitmap profilePictureBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_person_black_24dp);
         profileImageViewButton.setImageBitmap(profilePictureBitmap);
+
+
+        String schemesStr = sharedPreferences.getString("schemes","");
+
+        schemes = schemesStr.split(",");
+        Log.d("TAG","d2222"+schemes[0]);
+
+        location.setText(lat2+", "+lng2);
 
         //TODO :: POPULATE THE FARMER DATA IF ALREADY PRESENT
         approvalStatus(mApprove);
@@ -178,13 +198,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         ArrayList<Integer> mCheckedItem = new ArrayList<>();
         String mScheme = sharedPreferences.getString("name_of_scheme","");
         List<String> items = Arrays.asList(mScheme.split("\\s*,\\s*"));
-        Log.d("TAG","list:"+schemes);
         Log.d("TAG","Selectd list:"+ items);
+
         for(int i=0;i< items.size();i++){
             for (int j=0;j<schemes.length;j++){
-                if(schemes[j].matches(items.get(i))){
+                if(schemes[j].matches(items.get(i)))
                     mCheckedItem.add(j);
-                }
             }
         }
 
@@ -239,13 +258,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     Uri fileUri = data.getData();
                     real_path_profileImage = getRealPathFromURI(this, fileUri);
                     imageSelect = true;
-                    //test for file could be final
                     mySamePropic = new File(real_path_profileImage);
 
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
                     break;
-
                 case 2://LAKE PICTURE SELECT
                     if (resultCode == Activity.RESULT_OK) {
                         ClipData clipData = data.getClipData();
@@ -272,6 +289,44 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         Log.e(TAG, "Selecting picture cancelled");
                     }
                     break;
+
+                case 11:
+                    Uri fileUri_11 = data.getData();
+                    real_path_pond_1 = getRealPathFromURI(this, fileUri_11);
+                    pond1 = new File(real_path_pond_1);
+
+                    Bitmap profilePictureBitmap_11 = BitmapFactory.decodeFile(real_path_pond_1);
+                    pondImageView_1.setImageBitmap(profilePictureBitmap_11);
+                    break;
+
+                case 12:
+                    Uri fileUri_12 = data.getData();
+                    real_path_pond_2 = getRealPathFromURI(this, fileUri_12);
+                    pond2 = new File(real_path_pond_2);
+
+                    Bitmap profilePictureBitmap_12 = BitmapFactory.decodeFile(real_path_pond_2);
+                    pondImageView_2.setImageBitmap(profilePictureBitmap_12);
+                    break;
+
+                case 13:
+                    Uri fileUri_13 = data.getData();
+                    real_path_pond_3 = getRealPathFromURI(this, fileUri_13);
+                    pond3 = new File(real_path_pond_3);
+
+                    Bitmap profilePictureBitmap_13 = BitmapFactory.decodeFile(real_path_pond_3);
+                    pondImageView_3.setImageBitmap(profilePictureBitmap_13);
+                    break;
+
+                case 14:
+                    Uri fileUri_14 = data.getData();
+                    real_path_pond_4 = getRealPathFromURI(this, fileUri_14);
+
+                    pond4 = new File(real_path_pond_4);
+
+                    Bitmap profilePictureBitmap_14 = BitmapFactory.decodeFile(real_path_pond_4);
+                    pondImageView_4.setImageBitmap(profilePictureBitmap_14);
+                    break;
+
             }
         } catch (Exception e) {
             Log.e(TAG, "Exception in onActivityResult : " + e.getMessage());
@@ -284,6 +339,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         apiFirst();
       //  apiSecond();
     }
+
     public String getRealPathFromURI(Context context, Uri contentUri) {
         Cursor cursor = context.getContentResolver().query(contentUri, null, null, null, null);
         cursor.moveToFirst();
@@ -327,7 +383,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("lat",lat).apply();
         sharedPreferences.edit().putString("lng",lng).apply();
 
-        Log.d("TAG"," "+mApprove);
+        Log.d("TAG","Approve status "+mApprove);
         if(mApprove==0){
             method = "POST";
             createOrEditUrl =  "http://192.168.43.205:8000/api/fishponds/create";
@@ -339,8 +395,61 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             createOrEditUrl="";
         }
 
+
+        //test
+        Builders.Any.B builder = Ion.with(this).load(method,createOrEditUrl)  .setHeader("Accept","application/json")
+                .setHeader("Authorization","Bearer "+mToken);
+
+        List<Part> parts = new ArrayList<>();
+        //ADD PARTS
+        if(mApprove ==1 ||mApprove ==2 ||mApprove ==3 ||mApprove ==4) parts.add(new StringPart("_method","PUT"));
+
+        parts.add(new StringPart("district",district));
+        parts.add(new StringPart("name",mName));
+        parts.add(new StringPart("fname",fname));
+        parts.add(new StringPart("address",address));
+        parts.add(new StringPart("location_of_pond",location_of_pond));
+        parts.add(new StringPart("tehsil",tehsil));
+        parts.add(new StringPart("area",area));
+        parts.add(new StringPart("epic_no",epic_no));
+        parts.add(new StringPart("name_of_scheme",name_of_scheme));
+        parts.add(new StringPart("lat",lat));
+        parts.add(new StringPart("lng",lng));
+        parts.add(new StringPart("user_id", String.valueOf(mId)));
+
+        if(imageSelect)
+            parts.add(new FilePart("image",new File(real_path_profileImage)));
+        if(pond1!=null)
+            parts.add(new FilePart("pondImage_one",pond1));
+        if(pond2!=null)
+            parts.add(new FilePart("pondImage_two",pond2));
+        if(pond3!=null)
+            parts.add(new FilePart("pondImage_three",pond3));
+        if(pond4!=null)
+            parts.add(new FilePart("pondImage_four",pond4));
+
+        builder.addMultipartParts(parts);
+        builder.asJsonObject().setCallback(new FutureCallback<JsonObject>() {
+            @Override
+            public void onCompleted(Exception e, JsonObject result) {
+                Log.d("TAG","FILE "+pond1);
+                Log.d("TAG","URL 1: "+result);
+                //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
+                submitButton.setVisibility(View.VISIBLE);
+                uploadProgressBarLayout.setVisibility(GONE);
+                if(result!=null) Toasty.success(getApplicationContext(),"Upload Successfully!",Toasty.LENGTH_SHORT).show();
+                else Toasty.error(getApplicationContext(),"Sorry, server out of reach",Toasty.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),FarmerCenterActivity.class));
+                finish();
+                //::::::    UPTO THIS   ::::::
+            }
+        });
+
+        //test end
+
+
         //TODO if image is not selected then, it throws error , thats why i did, two things, if image is select version and image not select version
-        if(imageSelect){
+        /*if(imageSelect){
             try{
                 Ion.with(this)
                         .load(method,createOrEditUrl )
@@ -357,6 +466,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         .setMultipartParameter("epic_no",epic_no)
                         .setMultipartParameter("name_of_scheme",name_of_scheme)
                         .setMultipartFile("image","multipart/form-data",new File(real_path_profileImage))
+
+//                        .setMultipartFile("pondImage_one","multipart/form-data",new File(real_path_pond_1))
+//                        .setMultipartFile("pondImage_two","multipart/form-data",new File(real_path_pond_2))
+//                        .setMultipartFile("pondImage_three","multipart/form-data",new File(real_path_pond_3))
+//                        .setMultipartFile("pondImage_four","multipart/form-data",new File(real_path_pond_4))
+
+                        .setMultipartFile("pondImage_one","multipart/form-data",pond1)
+                        .setMultipartFile("pondImage_two","multipart/form-data",pond2)
+                        .setMultipartFile("pondImage_three","multipart/form-data",pond3)
+                        .setMultipartFile("pondImage_four","multipart/form-data",pond4)
+
                         .setMultipartParameter("lat",lat)
                         .setMultipartParameter("lng",lng)
                         .setMultipartParameter("user_id", String.valueOf(mId))
@@ -364,7 +484,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         .setCallback(new FutureCallback<JsonObject>() {
                             @Override
                             public void onCompleted(Exception e, JsonObject result) {
-                                Log.d("TAG","FILE "+real_path_profileImage);
+                                Log.d("TAG","FILE "+pond1);
                                 Log.d("TAG","URL 1: "+result);
                                 //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
                                 submitButton.setVisibility(View.VISIBLE);
@@ -397,6 +517,18 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         .setMultipartParameter("name_of_scheme",name_of_scheme)
                         //.setMultipartParameter("lat",lat)
                       //  .setMultipartParameter("lng",lng)
+
+//                        .setMultipartFile("pondImage_one","multipart/form-data",new File(real_path_pond_1))
+//                        .setMultipartFile("pondImage_two","multipart/form-data",new File(real_path_pond_2))
+//                        .setMultipartFile("pondImage_three","multipart/form-data",new File(real_path_pond_3))
+//                        .setMultipartFile("pondImage_four","multipart/form-data",new File(real_path_pond_4))
+
+
+                        .setMultipartFile("pondImage_one","multipart/form-data",pond1)
+                        .setMultipartFile("pondImage_two","multipart/form-data",pond2)
+                        .setMultipartFile("pondImage_three","multipart/form-data",pond3)
+                        .setMultipartFile("pondImage_four","multipart/form-data",pond4)
+
                         .setMultipartParameter("user_id", String.valueOf(mId))
                         .asJsonObject()
                         .setCallback(new FutureCallback<JsonObject>() {
@@ -414,11 +546,13 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                                 //::::::    UPTO THIS   ::::::
                             }
                         });
+
+                //TODO::IF POND IMAGE ONE IS NOT NULL SENT ONLY THAT
+                //DO IT FOR ALL THE POND
             }catch (Exception e){
                 Log.e("TAG","ERROR IN URL1:"+e);
             }
-        }
-
+        }*/
     }
     public void apiSecond(){
 
@@ -496,16 +630,42 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 location.setText(sharedPreferences.getString("lat","")+", "+sharedPreferences.getString("lng",""));
 
                 String myImage = sharedPreferences.getString("image","");
+                String pondImage_one = sharedPreferences.getString("pondImage_one","");
+                String pondImage_two = sharedPreferences.getString("pondImage_two","");
+                String pondImage_three = sharedPreferences.getString("pondImage_three","");
+                String pondImage_four = sharedPreferences.getString("pondImage_four","");
+
                 Log.d("TAG","Image location "+myImage);
+                //PROFILE IMAGE
                 if(!myImage.equals("")){
                     Picasso.get().load("http://192.168.43.205:8000/public/image/"+myImage).into(profileImageViewButton);
                     Log.d("TAG","Image location IF TES");
-                    //Picasso.get().load("http://192.168.43.205:8000/public/image/"+myImage).into(getTarget("http://192.168.43.205:8000/public/image/777"));
-
-
                 }else
                     Log.d("TAG","else");
-
+                //POND IMAGE ONE
+                if(!pondImage_one.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image1/"+pondImage_one).into(pondImageView_1);
+                    Log.d("TAG","Image location IF TES");
+                }else
+                    Log.d("TAG","else");
+                //POND IMAGE TWO
+                if(!pondImage_two.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image2/"+pondImage_two).into(pondImageView_2);
+                    Log.d("TAG","Image location IF TES");
+                }else
+                    Log.d("TAG","else");
+                //POND IMAGE THREE
+                if(!pondImage_three.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image3/"+pondImage_three).into(pondImageView_3);
+                    Log.d("TAG","Image location IF TES");
+                }else
+                    Log.d("TAG","else");
+                //POND IMAGE FOUR
+                if(!pondImage_four.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image4/"+pondImage_four).into(pondImageView_4);
+                    Log.d("TAG","Image location IF TES");
+                }else
+                    Log.d("TAG","else");
                 break;
             case 1:
                 break;
@@ -522,13 +682,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     public void run() {
                         mySamePropic = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/sssss");
                         try{
-                       //     mySamePropic.createNewFile();
                             mySamePropic.mkdirs();
                             FileOutputStream outputStream= new FileOutputStream(new File(mySamePropic, new Date().toString()+".jpg"));
                             bitmap.compress(Bitmap.CompressFormat.JPEG,80,outputStream);
                             outputStream.flush();
                             outputStream.close();
-
                         }catch (IOException e){
                             Log.e("TAG",e.getLocalizedMessage());
                         }
@@ -541,5 +699,37 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             public void onPrepareLoad(Drawable placeHolderDrawable) { }
         };
         return target;
+    }
+
+    public void photo1Click(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "pond_1"),11);
+    }
+
+    public void photo2Click(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "pond_2"),12);
+    }
+
+    public void photo3Click(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "pond_3"),13);
+    }
+
+    public void photo4Click(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "pond_4"),14);
+    }
+
+    public void pondImageOneNotNull(){
+
     }
 }

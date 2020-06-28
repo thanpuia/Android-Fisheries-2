@@ -122,18 +122,13 @@ public class FarmerCenterActivity extends AppCompatActivity {
                             for(int i =0;i<result.size();i++){
                                 JsonObject schemeObj = result.get(i).getAsJsonObject();
                                 String myscheme = schemeObj.get("sname").getAsString();
-                                //myListOfScheme.add(myscheme);
                                 schemes.add(myscheme);
                             }
-                            Log.d("TAG","scheme 0000 "+schemes.get(0));
-
-                            //mySchemeInString = String.join(",",schemes);
                             for(int i=0;i<schemes.size();i++)
                                 if(i==0) mySchemeInString = schemes.get(i);
                                 else mySchemeInString = mySchemeInString+","+schemes.get(i);
-
-                            Log.d("TAG","mySchemeInString 0000 "+mySchemeInString);
                         }
+                        sharedPreferences.edit().putString("schemes",mySchemeInString).apply();
                     }
                 });
 
@@ -174,14 +169,41 @@ public class FarmerCenterActivity extends AppCompatActivity {
                                 sharedPreferences.edit().putString("district",data.get("district").getAsString()).apply();
                                 sharedPreferences.edit().putString("location_of_pond",data.get("location_of_pond").getAsString()).apply();
                                 sharedPreferences.edit().putString("tehsil",data.get("tehsil").getAsString()).apply();
-                                sharedPreferences.edit().putString("image",data.get("image").getAsString()).apply();
+
                                 sharedPreferences.edit().putString("area",data.get("area").getAsString()).apply();
                                 sharedPreferences.edit().putString("epic_no",data.get("epic_no").getAsString()).apply();
                                 sharedPreferences.edit().putString("name_of_scheme",data.get("name_of_scheme").getAsString()).apply();
                                 //sharedPreferences.edit().putString("pondImages",data.result("pondImages").getAsString()).apply();
                                 sharedPreferences.edit().putString("lat",data.get("lat").getAsString()).apply();
+
                                 sharedPreferences.edit().putString("lng",data.get("lng").getAsString()).apply();
                                 sharedPreferences.edit().putString("pondId",data.get("id").getAsString()).apply();
+
+                                try{
+                                    if(data.get("image").getAsString()!=null)
+                                        sharedPreferences.edit().putString("image",data.get("image").getAsString()).apply();
+                                }catch (Exception e1){ }
+
+                                try{
+                                    if(data.get("pondImage_one").getAsString()!=null)
+                                        sharedPreferences.edit().putString("pondImage_one",data.get("pondImage_one").getAsString()).apply();
+                                }catch (Exception e1){ }
+
+                                try{
+                                    if(data.get("pondImage_two").getAsString()!=null)
+                                        sharedPreferences.edit().putString("pondImage_two",data.get("pondImage_two").getAsString()).apply();
+                                }catch (Exception e1){ }
+
+                                try{
+                                    if(data.get("pondImage_three").getAsString()!=null)
+                                        sharedPreferences.edit().putString("pondImage_three",data.get("pondImage_three").getAsString()).apply();
+                                }catch (Exception e1){ }
+
+                                try{
+                                    if(data.get("pondImage_four").getAsString()!=null)
+                                        sharedPreferences.edit().putString("pondImage_four",data.get("pondImage_four").getAsString()).apply();
+                                }catch (Exception e1){ }
+
 
                                 String mmA="";
                                 if(mApprove.matches("0"))
@@ -259,7 +281,6 @@ public class FarmerCenterActivity extends AppCompatActivity {
         if (status == 1) Toasty.success(this, "Downloading ID...", Toasty.LENGTH_SHORT).show();
         else {
             Intent intent = new Intent(this,FarmerUploadDataActivity.class);
-            intent.putExtra("schemes",mySchemeInString);
             startActivity(intent);
         }
     }

@@ -36,6 +36,12 @@ public class Logout {
         sharedPreferences.edit().putString("lng"," ").apply();
         //  sharedPreferences.edit().putString("mRole","").apply();
         sharedPreferences.edit().putString("approve","").apply();
+        sharedPreferences.edit().putString("pondImage_one","").apply();
+        sharedPreferences.edit().putString("pondImage_two","").apply();
+        sharedPreferences.edit().putString("pondImage_three","").apply();
+        sharedPreferences.edit().putString("pondImage_four","").apply();
+
+
 
         Toast.makeText(c,"LOGOUT!",Toast.LENGTH_SHORT).show();
 

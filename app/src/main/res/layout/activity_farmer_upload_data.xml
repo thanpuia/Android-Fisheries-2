@@ -74,7 +74,7 @@
                         app:met_floatingLabelText="Father's Name"
                         app:met_floatingLabel="highlight"
                         android:textSize="@dimen/text_size_fisheries"
-                        android:inputType="text"
+                        android:inputType="textCapSentences"
                         android:maxLines="1"
                         android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
@@ -86,7 +86,7 @@
                         app:met_floatingLabelText="Address"
                         app:met_floatingLabel="highlight"
                         android:textSize="@dimen/text_size_fisheries"
-                        android:inputType="text"
+                        android:inputType="textCapSentences"
                         android:maxLines="1"
                         android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
@@ -118,7 +118,7 @@
                         app:met_floatingLabelText="EPIC No/ Aadhaar No"
                         app:met_floatingLabel="highlight"
                         android:textSize="@dimen/text_size_fisheries"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:maxLines="1"
                         android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
@@ -208,8 +208,10 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Photo 1"/>
+                            android:text="Photo 1"
+                            android:onClick="photo1Click"/>
                         <ImageView
+                            android:id="@+id/pond_image_1"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             />
@@ -224,12 +226,45 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Photo 20"/>
+                            android:text="Photo 2"
+                            android:onClick="photo2Click"/>
                         <ImageView
+                            android:id="@+id/pond_image_2"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
                             />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Photo 3"
+                            android:onClick="photo3Click"/>
+                        <ImageView
+                            android:id="@+id/pond_image_3"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Photo 4"
+                            android:onClick="photo4Click"/>
+                        <ImageView
+                            android:id="@+id/pond_image_4"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            />
                     </LinearLayout>
 
                     <Button
