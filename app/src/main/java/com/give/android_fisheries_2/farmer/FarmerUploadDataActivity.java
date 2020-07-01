@@ -65,15 +65,14 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     boolean[] schemesChecked=new boolean[]{false,false,false,false};
     SharedPreferences sharedPreferences;
     private TextView location;
-    private Button selectPhotoButton;
+    //private Button selectPhotoButton;
     private Button submitButton;
     private LinearLayout linearLayoutMainForm;
     private LinearLayout uploadProgressBarLayout;
-    private MaterialEditText nameEditText;
+    private MaterialEditText locationOfPond;
     private MaterialEditText fathersNameEditText;
     private MaterialEditText addressEditText;
     private MaterialEditText epicOrAadhaarEditText;
-    private MaterialEditText contactEditText;
     private MaterialEditText areaEditText;
     private MaterialEditText tehsilEditText;
     private Spinner districtSpinner;
@@ -90,7 +89,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     HorizontalImageViewAdapter horizontalImageViewAdapter;
     ArrayList<String> pondLists;
     List<File> fileList;
-    RecyclerView pondsImageHorizontalRecyclerView;
+    //RecyclerView pondsImageHorizontalRecyclerView;
     private String real_path_lake;
     String real_path_profileImage ;
     String real_path_pond_1 ;
@@ -147,7 +146,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
         Log.e("TAG","My Token: "+sharedPreferences.getString("mToken","")+" approve:"+mApprove);
 
-        selectPhotoButton = findViewById(R.id.selectPhotoButton);
+        //selectPhotoButton = findViewById(R.id.selectPhotoButton);
         submitButton =findViewById(R.id.submitButton);
         linearLayoutMainForm = findViewById(R.id.linearLayoutMainForm);
         uploadProgressBarLayout = findViewById(R.id.uploadProgressBarLayout);
@@ -155,12 +154,13 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         addressEditText= findViewById(R.id.editTextDataAddress);
         epicOrAadhaarEditText= findViewById(R.id.editTextDataEpicNo);
         areaEditText = findViewById(R.id.editTextDataArea);
+        locationOfPond = findViewById(R.id.locationOfPondEditText);
         tehsilEditText = findViewById(R.id.editTextTehsil);
         districtSpinner = findViewById(R.id.spinner_district);
         checkBox = findViewById(R.id.checkbox);
         listOfSchemeRV = findViewById(R.id.list_of_scheme);
         profileImageViewButton = findViewById(R.id.imageViewDateProfilePicture);
-        pondsImageHorizontalRecyclerView = findViewById(R.id.ponds_image_view_recycler_view);
+   //     pondsImageHorizontalRecyclerView = findViewById(R.id.ponds_image_view_recycler_view);
         location = findViewById(R.id.pondsLocation);
 
         pondImageView_1 = findViewById(R.id.pond_image_1);
@@ -207,11 +207,39 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             }
         }
 
+        //POPULATE ALL PICTURE IF PRESENT
+        real_path_profileImage = sharedPreferences.getString("pro_pic","");
+        real_path_pond_1 = sharedPreferences.getString("pond1","");
+        real_path_pond_2 = sharedPreferences.getString("pond2","");
+        real_path_pond_3 = sharedPreferences.getString("pond3","");
+        real_path_pond_4 = sharedPreferences.getString("pond4","");
+
+        if(!real_path_profileImage.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_profileImage);
+            profileImageViewButton.setImageBitmap(profilePictureBitmap2);
+        }
+        if(!real_path_pond_1.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_1);
+            pondImageView_1.setImageBitmap(profilePictureBitmap2);
+        }
+        if(!real_path_pond_2.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_2);
+            pondImageView_2.setImageBitmap(profilePictureBitmap2);
+        }
+        if(!real_path_pond_3.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_3);
+            pondImageView_3.setImageBitmap(profilePictureBitmap2);
+        }
+        if(!real_path_pond_4.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_4);
+            pondImageView_4.setImageBitmap(profilePictureBitmap2);
+        }
+
         schemeListAdapter = new SchemeListAdapter(getApplicationContext(), schemes,mCheckedItem);
         listOfSchemeRV.setAdapter(schemeListAdapter);
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
-        selectPhotoButton.setOnClickListener(new View.OnClickListener() {
+      /*  selectPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
@@ -221,9 +249,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"),2);
             }
         });
-
+*/
         //RecyclerItemClickListener.class IS USER DEFINE CLASS
-        pondsImageHorizontalRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), pondsImageHorizontalRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+        /*pondsImageHorizontalRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), pondsImageHorizontalRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, final int position) {
                 Log.d("TAG","pos "+position);
@@ -246,9 +274,10 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             public void onLongItemClick(View view, int position) {
 
             }
-        }));
+        }));*/
     }
 
+    //RETURN OF EVERY PICTURE SELECT
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try {
@@ -259,11 +288,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     real_path_profileImage = getRealPathFromURI(this, fileUri);
                     imageSelect = true;
                     mySamePropic = new File(real_path_profileImage);
+                    sharedPreferences.edit().putString("pro_pic",real_path_profileImage).apply();
 
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
                     break;
-                case 2://LAKE PICTURE SELECT
+              /*  case 2://LAKE PICTURE SELECT
                     if (resultCode == Activity.RESULT_OK) {
                         ClipData clipData = data.getClipData();
                         if(clipData!=null){
@@ -289,11 +319,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                         Log.e(TAG, "Selecting picture cancelled");
                     }
                     break;
-
+*/
                 case 11:
                     Uri fileUri_11 = data.getData();
                     real_path_pond_1 = getRealPathFromURI(this, fileUri_11);
                     pond1 = new File(real_path_pond_1);
+                    sharedPreferences.edit().putString("pond1",real_path_pond_1).apply();
 
                     Bitmap profilePictureBitmap_11 = BitmapFactory.decodeFile(real_path_pond_1);
                     pondImageView_1.setImageBitmap(profilePictureBitmap_11);
@@ -303,6 +334,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     Uri fileUri_12 = data.getData();
                     real_path_pond_2 = getRealPathFromURI(this, fileUri_12);
                     pond2 = new File(real_path_pond_2);
+                    sharedPreferences.edit().putString("pond2",real_path_pond_2).apply();
 
                     Bitmap profilePictureBitmap_12 = BitmapFactory.decodeFile(real_path_pond_2);
                     pondImageView_2.setImageBitmap(profilePictureBitmap_12);
@@ -312,6 +344,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     Uri fileUri_13 = data.getData();
                     real_path_pond_3 = getRealPathFromURI(this, fileUri_13);
                     pond3 = new File(real_path_pond_3);
+                    sharedPreferences.edit().putString("pond3",real_path_pond_3).apply();
 
                     Bitmap profilePictureBitmap_13 = BitmapFactory.decodeFile(real_path_pond_3);
                     pondImageView_3.setImageBitmap(profilePictureBitmap_13);
@@ -320,8 +353,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 case 14:
                     Uri fileUri_14 = data.getData();
                     real_path_pond_4 = getRealPathFromURI(this, fileUri_14);
-
                     pond4 = new File(real_path_pond_4);
+                    sharedPreferences.edit().putString("pond4",real_path_pond_4).apply();
 
                     Bitmap profilePictureBitmap_14 = BitmapFactory.decodeFile(real_path_pond_4);
                     pondImageView_4.setImageBitmap(profilePictureBitmap_14);
@@ -336,8 +369,15 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     public void submitClick(View view) {
         submitButton.setVisibility(GONE);
         uploadProgressBarLayout.setVisibility(View.VISIBLE);
-        apiFirst();
-      //  apiSecond();
+
+        if( fathersNameEditText.getText().toString().matches("") || addressEditText.getText().toString().matches("") ||
+                tehsilEditText.getText().toString().matches("") ||areaEditText.getText().toString().matches("") ||
+                epicOrAadhaarEditText.getText().toString().matches("")|| locationOfPond.getText().toString().matches("")){
+            Toasty.error(this,"All fields are madatory",Toasty.LENGTH_SHORT).show();
+            startActivity(new Intent(this,FarmerUploadDataActivity.class));
+        }else
+            apiFirst();
+
     }
 
     public String getRealPathFromURI(Context context, Uri contentUri) {
@@ -358,7 +398,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         String fname = fathersNameEditText.getText().toString();
         String address= addressEditText.getText().toString();
         String district= districtSpinner.getSelectedItem().toString();;
-        String location_of_pond= "location of pond";//HEI HI ENG KAN CIAG LO
+        String location_of_pond= locationOfPond.getText().toString();
         String tehsil = tehsilEditText.getText().toString();
         String area= areaEditText.getText().toString();
         String epic_no= epicOrAadhaarEditText.getText().toString();
@@ -375,11 +415,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         sharedPreferences.edit().putString("district",district).apply();
         sharedPreferences.edit().putString("location_of_pond",location_of_pond).apply();
         sharedPreferences.edit().putString("tehsil",tehsil).apply();
-        //sharedPreferences.edit().putString("image",result.get("image").getAsString()).apply();
         sharedPreferences.edit().putString("area",area).apply();
         sharedPreferences.edit().putString("epic_no",epic_no).apply();
         sharedPreferences.edit().putString("name_of_scheme",name_of_scheme).apply();
-        //sharedPreferences.edit().putString("pondImages",data.result("pondImages").getAsString()).apply();
         sharedPreferences.edit().putString("lat",lat).apply();
         sharedPreferences.edit().putString("lng",lng).apply();
 
@@ -395,8 +433,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             createOrEditUrl="";
         }
 
-
-        //test
         Builders.Any.B builder = Ion.with(this).load(method,createOrEditUrl)  .setHeader("Accept","application/json")
                 .setHeader("Authorization","Bearer "+mToken);
 
@@ -444,172 +480,58 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 //::::::    UPTO THIS   ::::::
             }
         });
-
-        //test end
-
-
-        //TODO if image is not selected then, it throws error , thats why i did, two things, if image is select version and image not select version
-        /*if(imageSelect){
-            try{
-                Ion.with(this)
-                        .load(method,createOrEditUrl )
-                        .setHeader("Accept","application/json")
-                        .setHeader("Authorization","Bearer "+mToken)
-                        .setMultipartParameter("_method","PUT")
-                        .setMultipartParameter("district",district)
-                        .setMultipartParameter("name",mName)
-                        .setMultipartParameter("fname",fname)
-                        .setMultipartParameter("address",address)
-                        .setMultipartParameter("location_of_pond",location_of_pond)
-                        .setMultipartParameter("tehsil",tehsil)
-                        .setMultipartParameter("area",area)
-                        .setMultipartParameter("epic_no",epic_no)
-                        .setMultipartParameter("name_of_scheme",name_of_scheme)
-                        .setMultipartFile("image","multipart/form-data",new File(real_path_profileImage))
-
-//                        .setMultipartFile("pondImage_one","multipart/form-data",new File(real_path_pond_1))
-//                        .setMultipartFile("pondImage_two","multipart/form-data",new File(real_path_pond_2))
-//                        .setMultipartFile("pondImage_three","multipart/form-data",new File(real_path_pond_3))
-//                        .setMultipartFile("pondImage_four","multipart/form-data",new File(real_path_pond_4))
-
-                        .setMultipartFile("pondImage_one","multipart/form-data",pond1)
-                        .setMultipartFile("pondImage_two","multipart/form-data",pond2)
-                        .setMultipartFile("pondImage_three","multipart/form-data",pond3)
-                        .setMultipartFile("pondImage_four","multipart/form-data",pond4)
-
-                        .setMultipartParameter("lat",lat)
-                        .setMultipartParameter("lng",lng)
-                        .setMultipartParameter("user_id", String.valueOf(mId))
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                Log.d("TAG","FILE "+pond1);
-                                Log.d("TAG","URL 1: "+result);
-                                //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
-                                submitButton.setVisibility(View.VISIBLE);
-                                uploadProgressBarLayout.setVisibility(GONE);
-                                if(result!=null) Toasty.success(getApplicationContext(),"Upload Successfully!",Toasty.LENGTH_SHORT).show();
-                                else Toasty.error(getApplicationContext(),"Sorry, server out of reach",Toasty.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),FarmerCenterActivity.class));
-                                finish();
-                                //::::::    UPTO THIS   ::::::
-                            }
-                        });
-            }catch (Exception e){
-                Log.e("TAG","ERROR IN URL1:"+e);
-            }
-        }else{
-            try{
-                Ion.with(this)
-                        .load(method,createOrEditUrl )
-                        .setHeader("Accept","application/json")
-                        .setHeader("Authorization","Bearer "+mToken)
-                        .setMultipartParameter("_method","PUT")
-                        .setMultipartParameter("district",district)
-                        .setMultipartParameter("name",mName)
-                        .setMultipartParameter("fname",fname)
-                        .setMultipartParameter("address",address)
-                        .setMultipartParameter("location_of_pond",location_of_pond)
-                        .setMultipartParameter("tehsil",tehsil)
-                        .setMultipartParameter("area",area)
-                        .setMultipartParameter("epic_no",epic_no)
-                        .setMultipartParameter("name_of_scheme",name_of_scheme)
-                        //.setMultipartParameter("lat",lat)
-                      //  .setMultipartParameter("lng",lng)
-
-//                        .setMultipartFile("pondImage_one","multipart/form-data",new File(real_path_pond_1))
-//                        .setMultipartFile("pondImage_two","multipart/form-data",new File(real_path_pond_2))
-//                        .setMultipartFile("pondImage_three","multipart/form-data",new File(real_path_pond_3))
-//                        .setMultipartFile("pondImage_four","multipart/form-data",new File(real_path_pond_4))
-
-
-                        .setMultipartFile("pondImage_one","multipart/form-data",pond1)
-                        .setMultipartFile("pondImage_two","multipart/form-data",pond2)
-                        .setMultipartFile("pondImage_three","multipart/form-data",pond3)
-                        .setMultipartFile("pondImage_four","multipart/form-data",pond4)
-
-                        .setMultipartParameter("user_id", String.valueOf(mId))
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {
-                                Log.d("TAG","FILE "+real_path_profileImage);
-                                Log.d("TAG","URL 1: "+result);
-                                //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
-                                submitButton.setVisibility(View.VISIBLE);
-                                uploadProgressBarLayout.setVisibility(GONE);
-                                if(result!=null) Toasty.success(getApplicationContext(),"Upload Successfully!",Toasty.LENGTH_SHORT).show();
-                                else Toasty.error(getApplicationContext(),"Sorry, server out of reach",Toasty.LENGTH_SHORT).show();
-                                startActivity(new Intent(getApplicationContext(),FarmerCenterActivity.class));
-                                finish();
-                                //::::::    UPTO THIS   ::::::
-                            }
-                        });
-
-                //TODO::IF POND IMAGE ONE IS NOT NULL SENT ONLY THAT
-                //DO IT FOR ALL THE POND
-            }catch (Exception e){
-                Log.e("TAG","ERROR IN URL1:"+e);
-            }
-        }*/
-    }
-    public void apiSecond(){
-
-            try{
-                List<Part> files = new ArrayList<>();
-                for (int i = 0;i<pondLists.size();i++){
-                    Log.d("TAG","Array of files created");
-                    files.add(new FilePart("pondImages["+i+"+",new File(pondLists.get(i))));
-                }
-                Ion.with(this)
-                        .load("PUT","http://192.168.225.57:8000/api/fishponds/uploadpond/"+mId)
-                        .setHeader("Authorization","Bearer "+mToken)
-                        .setHeader("Content-Type","multipart/form-data")
-
-                        .setMultipartParameter("_method", "PUT")
-                        //.setMultipartFile("pondImages[]","multipart/form-data",new File(real_path_lake))
-                        //::::TODO UPLOAD THE PONDS IMAGE HERE
-                         .addMultipartParts(files)
-                        //json ang nilo in MULTIPART ANGIN HANDLE MAI RAWH SE SERV
-                        // ER AH. A HMA A DIK SA ANG KHAN. JSON BODY LEH MULTIPART A AWM KOP THEI SI LO
-
-                        .asJsonObject()
-                        .setCallback(new FutureCallback<JsonObject>() {
-                            @Override
-                            public void onCompleted(Exception e, JsonObject result) {           ///sdcard/DCIM/Camera/IMG_20200217_123440.jpg
-                                submitButton.setVisibility(View.VISIBLE);
-                                Log.e(TAG,"result: "+result);
-                                Toasty.success(getApplicationContext(),"Upload Success!!",Toasty.LENGTH_SHORT).show();
-                                //startActivity(new Intent(getApplicationContext(),MapsActivity.class));
-                                //  finish();
-                            }
-                        });
-            }catch (Exception e){
-                Toast.makeText(this,"Some error in api second call:"+e,Toast.LENGTH_LONG).show ();
-            }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        pondsImageHorizontalRecyclerView.setOnClickListener(new View.OnClickListener() {
+     /*   pondsImageHorizontalRecyclerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("TAG","view "+view);
             }
-        });
+        });*/
     }
 
     public void getLocationClick(View view) {
-        startActivity(new Intent(this,GetLocationInMapActivity.class));
+        try{
+            String fname = fathersNameEditText.getText().toString();
+            String address= addressEditText.getText().toString();
+            String district= districtSpinner.getSelectedItem().toString();;
+            String location_of_pond= locationOfPond.getText().toString();
+            String tehsil = tehsilEditText.getText().toString();
+            String area= areaEditText.getText().toString();
+            String epic_no= epicOrAadhaarEditText.getText().toString();
+
+            String name_of_scheme= TextUtils.join(",", SchemeListAdapter.schemeChecked);
+
+            sharedPreferences.edit().putString("fname",fname).apply();
+            sharedPreferences.edit().putString("address",address).apply();
+            sharedPreferences.edit().putString("district",district).apply();
+            sharedPreferences.edit().putString("location_of_pond",location_of_pond).apply();
+            sharedPreferences.edit().putString("tehsil",tehsil).apply();
+            //sharedPreferences.edit().putString("image",result.get("image").getAsString()).apply();
+            sharedPreferences.edit().putString("area",area).apply();
+            sharedPreferences.edit().putString("epic_no",epic_no).apply();
+            sharedPreferences.edit().putString("name_of_scheme",name_of_scheme).apply();
+
+            startActivity(new Intent(this,GetLocationInMapActivity.class));
+
+        }catch (Exception e){
+            Toasty.error(this,"Location Permission is not given",Toasty.LENGTH_SHORT).show();
+        }
     }
 
     public void profilePictureSelectClick(View view) {
-        Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
+        try{
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"),1);
+        }catch (Exception e){
+            Toasty.error(this,"Storage Permission is not given",Toasty.LENGTH_SHORT).show();
+        }
+
     }
 
     public void approvalStatus(int approve){
@@ -623,11 +545,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 epicOrAadhaarEditText.setText(sharedPreferences.getString("epic_no",""));
                 areaEditText.setText(sharedPreferences.getString("area",""));
                 tehsilEditText.setText(sharedPreferences.getString("tehsil",""));
+                locationOfPond.setText(sharedPreferences.getString("location_of_pond",""));
                 location.setText(lat2+ ", "+lng2);
                 //populate spinner
                 //populate checkbox
                 //populateimage
-                location.setText(sharedPreferences.getString("lat","")+", "+sharedPreferences.getString("lng",""));
+                location.setText("Lat: "+sharedPreferences.getString("lat","")+", \nLng: "+sharedPreferences.getString("lng",""));
 
                 String myImage = sharedPreferences.getString("image","");
                 String pondImage_one = sharedPreferences.getString("pondImage_one","");
@@ -672,64 +595,52 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         }
     }
 
-    private Target getTarget(final String url){
-        Target target = new Target(){
-
-            @Override
-            public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mySamePropic = new File (Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()+"/sssss");
-                        try{
-                            mySamePropic.mkdirs();
-                            FileOutputStream outputStream= new FileOutputStream(new File(mySamePropic, new Date().toString()+".jpg"));
-                            bitmap.compress(Bitmap.CompressFormat.JPEG,80,outputStream);
-                            outputStream.flush();
-                            outputStream.close();
-                        }catch (IOException e){
-                            Log.e("TAG",e.getLocalizedMessage());
-                        }
-                    }
-                }).start();
-            }
-            @Override
-            public void onBitmapFailed(Exception e, Drawable errorDrawable) { }
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) { }
-        };
-        return target;
-    }
 
     public void photo1Click(View view) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "pond_1"),11);
+        try{
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "pond_1"),11);
+        }catch (Exception e){
+            Toasty.error(this,"Storage Permission is not given",Toasty.LENGTH_SHORT).show();
+        }
+
     }
 
     public void photo2Click(View view) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "pond_2"),12);
+        try{
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "pond_2"),12);
+        }catch (Exception e){
+            Toasty.error(this,"Storage Permission is not given",Toasty.LENGTH_SHORT).show();
+        }
+
     }
 
     public void photo3Click(View view) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "pond_3"),13);
+        try{
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "pond_3"),13);
+        }catch (Exception e){
+            Toasty.error(this,"Storage Permission is not given",Toasty.LENGTH_SHORT).show();
+        }
+
     }
 
     public void photo4Click(View view) {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "pond_4"),14);
+        try{
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(intent, "pond_4"),14);
+        }catch (Exception e){
+            Toasty.error(this,"Storage Permission is not given",Toasty.LENGTH_SHORT).show();
+        }
     }
 
-    public void pondImageOneNotNull(){
-
-    }
 }

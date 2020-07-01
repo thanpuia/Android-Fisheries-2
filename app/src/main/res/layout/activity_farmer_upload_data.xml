@@ -135,6 +135,18 @@
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:id="@+id/locationOfPondEditText"
+                        app:met_floatingLabelText="Location Of Pond"
+                        app:met_floatingLabel="highlight"
+                        android:textSize="@dimen/text_size_fisheries"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
+                        app:met_floatingLabelAlwaysShown="true"/>
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:id="@+id/editTextTehsil"
                         app:met_floatingLabelText="Tehsil"
                         app:met_floatingLabel="highlight"
@@ -170,26 +182,26 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"/>
 
-                        <Button
-                            android:id="@+id/selectPhotoButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/button_height_fisheries_small"
-                            android:textAllCaps="false"
-                            android:text="Select ponds picture"
-                            android:background="@drawable/button_farmer_dashboard_secondary"
-                            android:textColor="#fff"
-                            android:layout_gravity="end" />
+<!--                    <Button-->
+<!--                        android:id="@+id/selectPhotoButton"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="65dp"-->
+<!--                        android:layout_gravity="end"-->
+<!--                        android:background="@drawable/button_farmer_dashboard_secondary"-->
+<!--                        android:text="Select ponds picture"-->
+<!--                        android:textAllCaps="false"-->
+<!--                        android:textColor="#fff" />-->
 
 
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
-                        android:scrollbars="horizontal"
-                        android:scrollbarStyle="insideOverlay"
-                        android:id="@+id/ponds_image_view_recycler_view"
-                        android:orientation="horizontal"/>
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"-->
+<!--                        android:scrollbars="horizontal"-->
+<!--                        android:scrollbarStyle="insideOverlay"-->
+<!--                        android:id="@+id/ponds_image_view_recycler_view"-->
+<!--                        android:orientation="horizontal"/>-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -202,7 +214,7 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal">
 
                         <Button
@@ -220,7 +232,7 @@
 
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal">
 
                         <Button
@@ -236,7 +248,7 @@
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal">
 
                         <Button
@@ -252,7 +264,7 @@
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="60dp"
                         android:orientation="horizontal">
 
                         <Button

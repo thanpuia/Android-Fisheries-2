@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,9 +37,12 @@ import android.widget.Toolbar;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.FarmerListAdapter;
 import com.give.android_fisheries_2.entity.FarmerEntity;
+import com.give.android_fisheries_2.farmer.FarmerCenterActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
 import com.google.gson.JsonObject;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -46,6 +50,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdminCenterActivity extends AppCompatActivity {
 
@@ -73,7 +78,7 @@ public class AdminCenterActivity extends AppCompatActivity {
         this.menu = menu;
 
         MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.header_menu,menu);
+        menuInflater.inflate(R.menu.my_menu,menu);
 
         menu.getItem(0).setIcon(ContextCompat.getDrawable(this,R.drawable.ic_dehaze_black_24dp));
 
@@ -83,9 +88,8 @@ public class AdminCenterActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         super.onOptionsItemSelected(item);
 
-        if(item.getItemId() == R.id.english){
-            new Logout(getApplicationContext());
-
+        if(item.getItemId() == R.id.refresh_page){
+            startActivity(new Intent(this,AdminCenterActivity.class));
         }
         else if (item.getItemId() == R.id.logout){
             new Logout(getApplicationContext());
@@ -98,6 +102,31 @@ public class AdminCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_center);
+
+
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                Toast.makeText(AdminCenterActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(AdminCenterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+
+        };
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.CALL_PHONE).check();
 
         final ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setCustomView(R.layout.m_toolbar);

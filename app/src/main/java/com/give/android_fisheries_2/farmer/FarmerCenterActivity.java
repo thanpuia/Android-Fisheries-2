@@ -13,7 +13,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,6 +27,8 @@ import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
@@ -61,7 +62,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
         this.menu = menu;
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.test_menu, menu);
+        menuInflater.inflate(R.menu.my_menu, menu);
 
         // menu.getItem(0).setIcon(ContextCompat.getDrawable(this,R.drawable.ic_dehaze_black_24dp));
 
@@ -73,17 +74,10 @@ public class FarmerCenterActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
 
         //TODO THIS IS TESTING MENU BEFORE STATUS CAN BE FETCH FROM SERVER
-        if (item.getItemId() == R.id.zero) {
-            changeLook(0);
-        } else if (item.getItemId() == R.id.one) {
-            changeLook(1);
-        } else if (item.getItemId() == R.id.two) {
-            changeLook(2);
-        } else if (item.getItemId() == R.id.three) {
-            changeLook(3);
-        } else if (item.getItemId() == R.id.four) {
-            changeLook(4);
-        }else if (item.getItemId() == R.id.five) {
+
+        if (item.getItemId() == R.id.refresh_page) {
+            startActivity(new Intent(this,FarmerCenterActivity.class));
+        }else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             startActivity(new Intent(this, LoginActivity.class));
         }
@@ -94,6 +88,30 @@ public class FarmerCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_center);
+
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+               // Toast.makeText(FarmerCenterActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(List<String> deniedPermissions) {
+                Toast.makeText(FarmerCenterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+
+        };
+        TedPermission.with(this)
+                .setPermissionListener(permissionlistener)
+                .setDeniedMessage("If you reject permission,you can not use this service\n\nPlease turn on permissions at [Setting] > [Permission]")
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.ACCESS_NETWORK_STATE,
+                        Manifest.permission.CALL_PHONE).check();
 
         schemes = new ArrayList<>();
 
@@ -162,22 +180,26 @@ public class FarmerCenterActivity extends AppCompatActivity {
                                 JsonObject data = result.getAsJsonObject("data");
                                 String mApprove = data.get("approve").getAsString();
 
-                                //::TODO GET THE USER DATA FOR FUTURE USE
-                                sharedPreferences.edit().putString("name",data.get("name").getAsString()).apply();
-                                sharedPreferences.edit().putString("fname",data.get("fname").getAsString()).apply();
-                                sharedPreferences.edit().putString("address",data.get("address").getAsString()).apply();
-                                sharedPreferences.edit().putString("district",data.get("district").getAsString()).apply();
-                                sharedPreferences.edit().putString("location_of_pond",data.get("location_of_pond").getAsString()).apply();
-                                sharedPreferences.edit().putString("tehsil",data.get("tehsil").getAsString()).apply();
+                                try{
+                                    //::TODO GET THE USER DATA FOR FUTURE USE
+                                    sharedPreferences.edit().putString("name",data.get("name").getAsString()).apply();
+                                    sharedPreferences.edit().putString("fname",data.get("fname").getAsString()).apply();
+                                    sharedPreferences.edit().putString("address",data.get("address").getAsString()).apply();
+                                    sharedPreferences.edit().putString("district",data.get("district").getAsString()).apply();
+                                    sharedPreferences.edit().putString("location_of_pond",data.get("location_of_pond").getAsString()).apply();
+                                    sharedPreferences.edit().putString("tehsil",data.get("tehsil").getAsString()).apply();
 
-                                sharedPreferences.edit().putString("area",data.get("area").getAsString()).apply();
-                                sharedPreferences.edit().putString("epic_no",data.get("epic_no").getAsString()).apply();
-                                sharedPreferences.edit().putString("name_of_scheme",data.get("name_of_scheme").getAsString()).apply();
-                                //sharedPreferences.edit().putString("pondImages",data.result("pondImages").getAsString()).apply();
-                                sharedPreferences.edit().putString("lat",data.get("lat").getAsString()).apply();
+                                    sharedPreferences.edit().putString("area",data.get("area").getAsString()).apply();
+                                    sharedPreferences.edit().putString("epic_no",data.get("epic_no").getAsString()).apply();
+                                    sharedPreferences.edit().putString("name_of_scheme",data.get("name_of_scheme").getAsString()).apply();
+                                    //sharedPreferences.edit().putString("pondImages",data.result("pondImages").getAsString()).apply();
+                                    sharedPreferences.edit().putString("lat",data.get("lat").getAsString()).apply();
 
-                                sharedPreferences.edit().putString("lng",data.get("lng").getAsString()).apply();
-                                sharedPreferences.edit().putString("pondId",data.get("id").getAsString()).apply();
+                                    sharedPreferences.edit().putString("lng",data.get("lng").getAsString()).apply();
+                                    sharedPreferences.edit().putString("pondId",data.get("id").getAsString()).apply();
+                                }catch(Exception e2){
+                                    Log.d("TAG","Farmer Ponds data download error: "+e);
+                                }
 
                                 try{
                                     if(data.get("image").getAsString()!=null)
