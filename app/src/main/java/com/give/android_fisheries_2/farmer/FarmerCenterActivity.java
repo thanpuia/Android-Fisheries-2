@@ -57,6 +57,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
     int mId;
     List<String> schemes;
     String mySchemeInString;
+    String helpline_contact;
+    String helpline_name;
 
     List<String> tehsil;
 
@@ -133,6 +135,25 @@ public class FarmerCenterActivity extends AppCompatActivity {
         //changeLook(0);farmerDashboardTextView
         farmerDashboardTextView.setText("Checking status...");
 
+        //DOWNLOAD HELPLINE NUMBER
+        String urlHelpline = "http://192.168.43.205:8000/api/helpline/";
+        Ion.with(this)
+                .load(urlHelpline)
+                .asJsonObject()
+                .setCallback(new FutureCallback<JsonObject>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonObject result) {
+                         if(result!=null){
+                             helpline_contact = result.get("contact").toString();
+                             helpline_name = result.get("name").toString();
+
+                         }else{
+                             helpline_contact = "";
+                             helpline_name = "";
+                         }
+
+                    }
+                });
 
         //FETCH THE SCHEME LIST
         String urlTES99T = "http://192.168.43.205:8000/api/myscheme/";
@@ -362,8 +383,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
     public void departmentLabelClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Contact office");
-        builder.setMessage("Call 77777");
+        builder.setTitle("Contact "+helpline_name);
+        builder.setMessage("Call "+helpline_contact);
         builder.setPositiveButton("Call", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -377,7 +398,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
                     // for ActivityCompat#requestPermissions for more details.
                     return;
                 }
-                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "77777")));
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + helpline_contact)));
             }
         });
         builder.setNegativeButton("Cancel",null);

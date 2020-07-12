@@ -1,32 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:id="@+id/linear_layout_id"
     tools:context=".farmer.FarmerIdActivity"
-    android:background="#fff"
-    android:gravity="center">
+    android:layout_margin="20dp"
+    android:background="#fff">
 
     <ImageView
+        android:id="@+id/logo_head"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/fish_logo"/>
+
+
     <TextView
-        android:id="@+id/name_id"
+        android:id="@+id/name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo_head"
+        android:text="Name: "/>
+    <TextView
+        android:id="@+id/name_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black_80"
+        android:layout_toRightOf="@+id/name_label"
+        android:layout_below="@+id/logo_head"
         android:text="@string/app_name"/>
 
+
     <TextView
-        android:id="@+id/tehsil_id"
+        android:id="@+id/contact_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Contact: "
+        android:layout_below="@id/name_label"/>
+    <TextView
+        android:id="@+id/contact_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black_80"
-        android:text="tehsil"/>
+        android:text="contact"
+        android:layout_below="@id/name_value"
+        android:layout_toRightOf="@id/contact_label"/>
 
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/fathers_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Father's Name: "
+        android:layout_below="@id/contact_label"/>
+    <TextView
+        android:id="@+id/fathers_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text="Fathers"
+        android:layout_below="@id/contact_value"
+        android:layout_toRightOf="@id/fathers_label"/>
+
+
+
+    <TextView
+        android:id="@+id/tehsil_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tehsil: "
+        android:layout_below="@id/fathers_label"/>
+    <TextView
+        android:id="@+id/tehsil_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text="tehsil"
+        android:layout_below="@id/fathers_value"
+        android:layout_toRightOf="@id/tehsil_label"/>
+
+
+    <TextView
+        android:id="@+id/district_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="District: "
+        android:layout_below="@id/tehsil_label"/>
+    <TextView
+        android:id="@+id/district_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text="district"
+        android:layout_below="@id/tehsil_value"
+        android:layout_toRightOf="@id/district_label"/>
+
+
+
+    <TextView
+        android:id="@+id/location_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location of Pond: "
+        android:layout_below="@id/district_label"/>
+    <TextView
+        android:id="@+id/location_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text="location"
+        android:layout_below="@id/district_value"
+        android:layout_toRightOf="@id/location_label"/>
+
+
+
+    <TextView
+        android:id="@+id/area_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Area: "
+        android:layout_below="@id/location_label"/>
+    <TextView
+        android:id="@+id/area_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text="area"
+        android:layout_below="@id/location_value"
+        android:layout_toRightOf="@id/area_label"/>
+
+
+
+    <TextView
+        android:id="@+id/scheme_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scheme: "
+        android:layout_below="@id/area_label"/>
+    <TextView
+        android:id="@+id/scheme_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text="scheme"
+        android:layout_below="@id/area_value"
+        android:layout_toRightOf="@id/scheme_label"/>
+
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=": "
+        android:layout_below="@id/_label"/>
+    <TextView
+        android:id="@+id/_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black_80"
+        android:text=""
+        android:layout_below="@id/_value"
+        android:layout_toRightOf="@id/_label"/>
+
+
+
+</RelativeLayout>

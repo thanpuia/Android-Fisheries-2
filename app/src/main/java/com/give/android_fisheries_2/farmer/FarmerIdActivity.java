@@ -6,7 +6,9 @@ import androidx.core.content.FileProvider;
 
 import android.app.DownloadManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -22,6 +24,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.give.android_fisheries_2.R;
@@ -34,6 +37,7 @@ import com.tapadoo.alerter.OnShowAlertListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,7 +48,7 @@ import es.dmoral.toasty.Toasty;
 public class FarmerIdActivity extends AppCompatActivity {
     TextView idName;
     TextView idTehsil;
-    LinearLayout linearLayout;
+    RelativeLayout relativeLayout;
     SharedPreferences sharedPreferences;
     Menu menu;
     File myPath;
@@ -70,9 +74,9 @@ public class FarmerIdActivity extends AppCompatActivity {
 
         if (item.getItemId() == R.id.download_id) {
             Bitmap bm = null;
-            linearLayout.setDrawingCacheEnabled(true);
-            linearLayout.buildDrawingCache();
-            bm = linearLayout.getDrawingCache();
+            relativeLayout.setDrawingCacheEnabled(true);
+            relativeLayout.buildDrawingCache();
+            bm = relativeLayout.getDrawingCache();
             String sdf=saveToInternalStorage(bm);
             Log.d("TAG","Image: "+sdf);
             Toasty.success(this, "Image Downloaded!", Toasty.LENGTH_SHORT).show();
@@ -92,8 +96,8 @@ public class FarmerIdActivity extends AppCompatActivity {
                                 public void onClick(View v)
                                 {
 
-                                   // startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
-                                   
+                                    startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+
                                 }
                             })
 
@@ -130,9 +134,9 @@ public class FarmerIdActivity extends AppCompatActivity {
         setContentView(R.layout.activity_farmer_id);
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
-        linearLayout = findViewById(R.id.linear_layout_id);
-        idName = findViewById(R.id.name_id);
-        idTehsil = findViewById(R.id.tehsil_id);
+        relativeLayout = findViewById(R.id.linear_layout_id);
+        idName = findViewById(R.id.name_value);
+        idTehsil = findViewById(R.id.tehsil_value);
 
         idName.setText(sharedPreferences.getString("mName",""));
         idTehsil.setText(sharedPreferences.getString("tehsil",""));
@@ -168,4 +172,6 @@ public class FarmerIdActivity extends AppCompatActivity {
         }
         return directory.getAbsolutePath();
     }
+
+
 }
