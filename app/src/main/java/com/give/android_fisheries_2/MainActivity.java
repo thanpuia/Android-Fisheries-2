@@ -15,7 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.give.android_fisheries_2.admin.AdminCenterActivity;
+import com.give.android_fisheries_2.admin.FarmerListActivity;
 import com.give.android_fisheries_2.farmer.FarmerCenterActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
@@ -86,25 +86,6 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.ACCESS_NETWORK_STATE,
                         Manifest.permission.CALL_PHONE).check();
 
-    /*
-        Dexter.withContext(this)
-                .withPermissions(
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.INTERNET,
-                        Manifest.permission.ACCESS_NETWORK_STATE,
-                        Manifest.permission.CALL_PHONE
-                        Manifest.permission.CAMERA,
-                        Manifest.permission.READ_CONTACTS,
-                        Manifest.permission.RECORD_AUDIO
-                ).withListener(new MultiplePermissionsListener() {
-            @Override public void onPermissionsChecked(MultiplePermissionsReport report) {*//* ... *//*}
-            @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {*//* ... *//*}
-        }).check();*/
-
-
         sharedPreferences = this.getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
         mLoginStatus = sharedPreferences.getBoolean("mLoginStatus",false);
@@ -146,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                 case "ADMIN":
                     Log.d(TAG,"Role: Admin")  ;
-                    startActivity(new Intent(this, AdminCenterActivity.class));
+                    startActivity(new Intent(this, FarmerListActivity.class));
                     finish();
                     break;
 

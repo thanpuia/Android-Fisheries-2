@@ -27,19 +27,22 @@ public class Logout {
         sharedPreferences.edit().putString("district","").apply();
         sharedPreferences.edit().putString("location_of_pond","").apply();
         sharedPreferences.edit().putString("tehsil","").apply();
+        sharedPreferences.edit().putString("all_tehsil","").apply();
+
         //sharedPreferences.edit().putString("image","").apply();
         sharedPreferences.edit().putString("area","").apply();
         sharedPreferences.edit().putString("epic_no","").apply();
         sharedPreferences.edit().putString("name_of_scheme","").apply();
         //sharedPreferences.edit().putString("pondImages","").apply();
-        sharedPreferences.edit().putString("lat"," ").apply();
-        sharedPreferences.edit().putString("lng"," ").apply();
+        sharedPreferences.edit().putString("lat","").apply();
+        sharedPreferences.edit().putString("lng","").apply();
         //  sharedPreferences.edit().putString("mRole","").apply();
         sharedPreferences.edit().putString("approve","").apply();
-        sharedPreferences.edit().putString("pondImage_one","").apply();
-        sharedPreferences.edit().putString("pondImage_two","").apply();
-        sharedPreferences.edit().putString("pondImage_three","").apply();
-        sharedPreferences.edit().putString("pondImage_four","").apply();
+        sharedPreferences.edit().putString("image","").apply();
+        sharedPreferences.edit().putString("pond1","").apply();
+        sharedPreferences.edit().putString("pond2","").apply();
+        sharedPreferences.edit().putString("pond3","").apply();
+        sharedPreferences.edit().putString("pond4","").apply();
 
 
 

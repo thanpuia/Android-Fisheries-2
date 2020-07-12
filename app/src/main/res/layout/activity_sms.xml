@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.SmsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEFEF"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="10dp"
+            android:text="Select tehsil"
+            />
+        <Spinner
+            android:id="@+id/tehsil_spinner"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:padding="5dp"
+            android:layout_margin="10dp"
+            android:background="#fff"
+            android:layout_gravity="center"
+            android:layout_height="50dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Message"
+            android:layout_marginLeft="3dp"
+            android:textSize="15dp"/>
+        <EditText
+            android:id="@+id/sms_et_message"
+            android:layout_width="match_parent"
+            android:hint="Enter SMS"
+            android:gravity="top"
+            android:background="#fff"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
+            />
+        <TextView
+            android:id="@+id/sms_from_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:layout_marginLeft="3dp"
+            android:text="From"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="send"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_farmer_dashboard"
+            android:onClick="smsSendClick"
+            android:textColor="#fff"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DFDFDF">
+
+
+        <Button
+            android:id="@+id/farmersBtnSMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FARMERS"
+            android:drawableTop="@drawable/btn_farmer"
+            android:textSize="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_transparent_shadow"
+            android:onClick="farmersBtnClickSMS"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/smsBtnSMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SMS"
+            android:drawableTop="@drawable/btn_sms"
+            android:textSize="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_transparent_shadow"
+            android:onClick="smsBtnClickSMS"
+            android:layout_weight="1"
+
+            />
+    </LinearLayout>
+</RelativeLayout>

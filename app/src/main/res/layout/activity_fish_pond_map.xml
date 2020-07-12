@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.FishPondMapActivity">
+
+    <fragment
+        android:id="@+id/fish_map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".map_marker_drag.MapsActivity" />
+
+    <ImageView
+        android:id="@+id/pond_full_image_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ponds_image_view_rv"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#80B1B1B1"
+        android:paddingBottom="10dp"
+        android:layout_above="@+id/bottom"/>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DFDFDF">
+
+<!--        <Button-->
+<!--            android:id="@+id/pondsBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="PONDS map"-->
+<!--            android:drawableTop="@drawable/btn_ponds"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:textSize="10dp"-->
+<!--            android:background="@drawable/button_transparent_shadow"-->
+<!--            android:onClick="pondBtnClick2"-->
+<!--            />-->
+        <Button
+            android:id="@+id/farmersBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FARMERS"
+            android:drawableTop="@drawable/btn_farmer"
+            android:textSize="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_transparent_shadow"
+            android:onClick="farmersBtnClick2"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/smsBtn"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SMS"
+            android:drawableTop="@drawable/btn_sms"
+            android:textSize="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_transparent_shadow"
+            android:onClick="smsBtnClick2"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,25 +1,32 @@
 package com.give.android_fisheries_2.adapter;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.give.android_fisheries_2.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class HorizontalImageViewAdapter extends RecyclerView.Adapter<HorizontalImageViewAdapter.ViewHolder>{
     ArrayList<String> realPathLakes;
+    Context c;
 
-    public HorizontalImageViewAdapter(ArrayList<String> realPathLake) {
+    public HorizontalImageViewAdapter(ArrayList<String> realPathLake, Context mC) {
         this.realPathLakes = realPathLake;
+        this.c = mC;
     }
 
     @NonNull
@@ -32,9 +39,15 @@ public class HorizontalImageViewAdapter extends RecyclerView.Adapter<HorizontalI
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Bitmap bitmap = BitmapFactory.decodeFile(realPathLakes.get(position));
-        holder.pondsImageView.setImageBitmap(bitmap);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+        int realPosition = position+1;
+
+        Picasso.get().load("http://192.168.43.205:8000/public/image"+realPosition +"/"+realPathLakes.get(position)).into(holder.pondsImageView);
+
+
+       /* Bitmap bitmap = BitmapFactory.decodeFile(realPathLakes.get(position));
+        holder.pondsImageView.setImageBitmap(bitmap);*/
 
     }
 

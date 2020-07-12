@@ -1,5 +1,6 @@
 package com.give.android_fisheries_2.farmer;
 
+//DELETE THEIH IN KA HRIA KA HMG TOH LO
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -57,12 +58,17 @@ public class FarmerCenterActivity extends AppCompatActivity {
     List<String> schemes;
     String mySchemeInString;
 
+    List<String> tehsil;
+
+
+    String[] tehsilStrArr;
+    String tehsilInString;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
 
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.my_menu, menu);
+        menuInflater.inflate(R.menu.my_menu_farmer, menu);
 
         // menu.getItem(0).setIcon(ContextCompat.getDrawable(this,R.drawable.ic_dehaze_black_24dp));
 
@@ -80,6 +86,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
         return true;
     }
@@ -88,11 +95,11 @@ public class FarmerCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_center);
-
+        tehsil = new ArrayList<>();
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
             public void onPermissionGranted() {
-               // Toast.makeText(FarmerCenterActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+               //v Toast.makeText(FarmerCenterActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -149,7 +156,29 @@ public class FarmerCenterActivity extends AppCompatActivity {
                         sharedPreferences.edit().putString("schemes",mySchemeInString).apply();
                     }
                 });
+        String myTehsilURL = "http://192.168.43.205:8000/api/mytehsil";
 
+        //DOWNLOAD TEHSIL
+        Ion.with(this)
+                .load("GET",myTehsilURL)
+                .asJsonArray()
+                .setCallback(new FutureCallback<JsonArray>() {
+                    @Override
+                    public void onCompleted(Exception e, JsonArray result) {
+                        Log.d("TAG","tehsil "+result);
+                        if(result!=null){
+                            for(int i =0;i<result.size();i++){
+                                JsonObject schemeObj = result.get(i).getAsJsonObject();
+                                String myTehsil = schemeObj.get("tname").getAsString();
+                                tehsil.add(myTehsil);
+                            }
+                            for(int i=0;i<tehsil.size();i++)
+                                if(i==0) tehsilInString = tehsil.get(i);
+                                else tehsilInString = tehsilInString+","+tehsil.get(i);
+                        }
+                        sharedPreferences.edit().putString("all_tehsil",tehsilInString).apply();
+                    }
+                });
 
         /*/::::TODO - STATUS
         check user_id in the fishponds, if not present -> upload your form
@@ -208,22 +237,22 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
                                 try{
                                     if(data.get("pondImage_one").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pondImage_one",data.get("pondImage_one").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond1",data.get("pondImage_one").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_two").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pondImage_two",data.get("pondImage_two").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond2",data.get("pondImage_two").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_three").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pondImage_three",data.get("pondImage_three").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond3",data.get("pondImage_three").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_four").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pondImage_four",data.get("pondImage_four").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond4",data.get("pondImage_four").getAsString()).apply();
                                 }catch (Exception e1){ }
 
 
@@ -300,7 +329,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
     }
 
     public void dashboardButtonClick(View view) {
-        if (status == 1) Toasty.success(this, "Downloading ID...", Toasty.LENGTH_SHORT).show();
+        if (status == 1){
+            startActivity(new Intent(this,FarmerIdActivity.class));
+        }
         else {
             Intent intent = new Intent(this,FarmerUploadDataActivity.class);
             startActivity(intent);

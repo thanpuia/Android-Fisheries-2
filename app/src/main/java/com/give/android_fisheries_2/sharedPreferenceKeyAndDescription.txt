@@ -3,3 +3,21 @@
 3. mContact     = (String) contact number of the user
 4. mLoginStatus = (Boolean) true- user is login; false- user is logout
 5. mRole        = (String) FARMER/ADMIN/SUPER_ADMIN
+6. schemes      = List of all scheme in string
+7. all_tehsil   = list of all tehsil
+8. address - user address
+9. district - user district
+10. location_of_pond - user location of pond
+11. tehsil - user tehsil
+12 area - user ponds area
+13. epic_no - user epic no or aadhaar
+14. name_of_scheme - user scheme select
+15. lat - ponds lat
+16. lng - ponds lng
+17. pondId - user ponds id in the fishponds table
+18. image - user profile image
+19. pond1 -pond image 1
+20. pond2 -pond image 2
+21. pond3 -pond image 3
+22. pond4 -pond image 4
+23. approve  - approve status of the fishponds data

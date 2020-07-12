@@ -111,11 +111,14 @@ public class GetLocationInMapActivity extends FragmentActivity implements Google
         try{
             if(userLocationSet.latitude==0.0f) Toast.makeText(getApplicationContext(),"Please move the map!",Toast.LENGTH_SHORT).show();
             else {
+                FarmerUploadDataActivity.locationCheck = true;
                 Toast.makeText(getApplicationContext(), "Location:" + userLocationSet, Toast.LENGTH_SHORT).show();
                 String lat = String.valueOf(userLocationSet.latitude);
                 String lng = String.valueOf(userLocationSet.longitude);
                 sharedPreferences.edit().putString("lat",lat).apply();
                 sharedPreferences.edit().putString("lng",lng).apply();
+                sharedPreferences.edit().putBoolean("location_click",true).apply();
+
                 startActivity(new Intent(this,FarmerUploadDataActivity.class));
                 finish();
                 //   sharedPreferences.edit().putString("mContact",mContact).apply();

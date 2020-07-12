@@ -30,7 +30,7 @@
             android:paddingTop="10dp"
             android:textSize="10dp"
             android:background="@drawable/button_transparent_shadow"
-            android:onClick="pondsBtnClick"/>
+            />
         <Button
             android:id="@+id/farmersBtn"
             android:layout_centerHorizontal="true"
@@ -40,8 +40,7 @@
             android:drawableTop="@drawable/btn_farmer"
             android:textSize="10dp"
             android:paddingTop="10dp"
-            android:background="@drawable/button_transparent_shadow"
-            android:onClick="farmersBtnClick"/>
+            android:background="@drawable/button_transparent_shadow"/>
 
         <Button
             android:id="@+id/smsBtn"
@@ -52,7 +51,6 @@
             android:drawableTop="@drawable/btn_sms"
             android:textSize="10dp"
             android:paddingTop="10dp"
-            android:background="@drawable/button_transparent_shadow"
-            android:onClick="smsBtnClick"/>
+            android:background="@drawable/button_transparent_shadow"/>
     </RelativeLayout>
 </RelativeLayout>

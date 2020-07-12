@@ -144,17 +144,21 @@
                         android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
                         app:met_floatingLabelAlwaysShown="true"/>
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/editTextTehsil"
-                        app:met_floatingLabelText="Tehsil"
-                        app:met_floatingLabel="highlight"
-                        android:textSize="@dimen/text_size_fisheries"
-                        android:inputType="text"
-                        android:maxLines="1"
                         android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"
-                        app:met_floatingLabelAlwaysShown="true"/>
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tehsil"/>
+                        <Spinner
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scrollbarSize="@dimen/text_size_fisheries"
+                            android:id="@+id/spinner_tehsil_farmer_upload"/>
+                    </LinearLayout>
 
                     <com.rengwuxian.materialedittext.MaterialEditText
                         android:layout_width="match_parent"

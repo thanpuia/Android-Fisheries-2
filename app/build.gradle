@@ -46,6 +46,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'gun0912.ted:tedpermission:2.2.3'
+    //POP UP IMAGE
+
+    implementation 'com.tapadoo.android:alerter:2.0.4'
     //   api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 }

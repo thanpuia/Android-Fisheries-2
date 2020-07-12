@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.admin.FarmerListActivity;
 import com.give.android_fisheries_2.farmer.FarmerCenterActivity;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -67,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                 // ::THIS SHOW THE PROGRESS BAR LAYOUT AND MAKE THE LOGIN BUTTON DISABLE SO THAT USER WILL NOT CONSTANTLY PUSH THE BUTTON ::
                 simpleProgressBarLinearLayout.setVisibility(View.VISIBLE);
                 loginButton.setEnabled(false);
-Ion.with(getApplicationContext())
+                Ion.with(getApplicationContext())
                         .load("http://192.168.43.205:8000/api/login")
                         .setMultipartParameter("email",mLoginContact)
                         .setMultipartParameter("password",mLoginPassword)
@@ -80,35 +81,48 @@ Ion.with(getApplicationContext())
 
                                 simpleProgressBarLinearLayout.setVisibility(View.INVISIBLE);
                                 loginButton.setEnabled(true);
-                                if(result==null){
-                                    Toasty.error(getApplicationContext(),"Oh no! Internal Server Error",Toasty.LENGTH_LONG).show();
-                                }else if(result.get("success").getAsBoolean()==false){
-                                    Toasty.error(getApplicationContext(),"Invalid username or password",Toasty.LENGTH_LONG).show();
+                                try{
+                                    if(result==null){
+                                        Toasty.error(getApplicationContext(),"Oh no! Internal Server Error",Toasty.LENGTH_LONG).show();
+                                    }else if(result.get("success").getAsBoolean()==false){
+                                        Toasty.error(getApplicationContext(),"Invalid username or password",Toasty.LENGTH_LONG).show();
+                                    }
+                                    else{
+                                        Log.e("TAG","TESTING: "+result.get("success").getAsBoolean());
+                                        Log.e("TAG","result: "+result);
+                                        String mToken = result.get("token").getAsString();
+                                        String mName = result.get("name").getAsString();
+                                        String mContact = result.get("email").getAsString();
+                                        String mRole = result.get("role").getAsString();
+                                        String tempId = result.get("id").getAsString();
+                                        int  mId = Integer.parseInt(tempId);
+                                        //THIS GET AS BOOLEAN IS VERY IMP
+                                        if(result.get("success").getAsBoolean()==true){
+                                            sharedPreferences = getApplication().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
+                                            sharedPreferences.edit().putBoolean("mLoginStatus",true).apply();
+                                            sharedPreferences.edit().putInt("mId",mId).apply();
+                                            sharedPreferences.edit().putString("mName",mName).apply();
+                                            sharedPreferences.edit().putString("mToken",mToken).apply();
+                                            sharedPreferences.edit().putString("mContact",mContact).apply();
+                                            sharedPreferences.edit().putString("mRole",mRole).apply();
+                                            if(mRole.equals("FARMER")){
+                                                Intent intent = new Intent(LoginActivity.this, FarmerCenterActivity.class);
+                                                intent.putExtra("status","good");
+                                                startActivity(intent);
+                                                finish();
+                                            }else if(mRole.equals("ADMIN")){
+                                                Intent intent = new Intent(LoginActivity.this, FarmerListActivity.class);
+                                                intent.putExtra("status","good");
+                                                startActivity(intent);
+                                                finish();
+                                            }
+
+                                        }else Toasty.error(getApplicationContext(),"Incorrect Input",Toasty.LENGTH_SHORT).show();
+                                    }
+                                }catch (Exception e2){
+                                    Log.e("TAG","ERROR IN LOGIN: "+e2 );
                                 }
-                                else{
-                                    Log.e("TAG","TESTING: "+result.get("success").getAsBoolean());
-                                    Log.e("TAG","result: "+result);
-                                    String mToken = result.get("token").getAsString();
-                                    String mName = result.get("name").getAsString();
-                                    String mContact = result.get("email").getAsString();
-                                    String mRole = result.get("role").getAsString();
-                                    String tempId = result.get("id").getAsString();
-                                    int  mId = Integer.parseInt(tempId);
-                                    //THIS GET AS BOOLEAN IS VERY IMP
-                                    if(result.get("success").getAsBoolean()==true){
-                                        sharedPreferences = getApplication().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
-                                        sharedPreferences.edit().putBoolean("mLoginStatus",true).apply();
-                                        sharedPreferences.edit().putInt("mId",mId).apply();
-                                        sharedPreferences.edit().putString("mName",mName).apply();
-                                        sharedPreferences.edit().putString("mToken",mToken).apply();
-                                        sharedPreferences.edit().putString("mContact",mContact).apply();
-                                        sharedPreferences.edit().putString("mRole",mRole).apply();
-                                        Intent intent = new Intent(LoginActivity.this, FarmerCenterActivity.class);
-                                        intent.putExtra("status","good");
-                                        startActivity(intent);
-                                        finish();
-                                    }else Toasty.error(getApplicationContext(),"Incorrect Input",Toasty.LENGTH_SHORT).show();
-                                }
+
                             }
                         });
             }

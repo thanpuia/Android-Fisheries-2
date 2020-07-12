@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.FarmerListActivity">
+
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E0E0EA"
+        android:padding="5dp"
+        android:layout_alignParentTop="true">
+
+<!--        <Button-->
+<!--            android:id="@+id/sortBtn"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:text="Sort"-->
+<!--            android:textSize="11dp"-->
+<!--            android:paddingRight="20dp"-->
+<!--            android:background="@drawable/button_filters"-->
+<!--            android:drawableRight="@drawable/ic_fish_sort"-->
+<!--            />-->
+<!--        <Button-->
+<!--            android:id="@+id/filtersBtn"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:text="Filters"-->
+<!--            android:textSize="11dp"-->
+<!--            android:background="@drawable/button_filters"-->
+<!--            android:drawableRight="@drawable/ic_fish_filter"-->
+<!--            android:paddingRight="20dp"-->
+<!--            android:onClick="filtersBtnClick"/>-->
+
+<!--        <Button-->
+<!--            android:id="@+id/downloadBtn"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_width="110dp"-->
+<!--            android:layout_height="30dp"-->
+<!--            android:text="Download"-->
+<!--            android:textSize="11dp"-->
+<!--            android:background="@drawable/button_filters"-->
+<!--            android:paddingRight="15dp"-->
+<!--            android:drawableRight="@drawable/ic_fish_download"-->
+<!--            />-->
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/simpleProgressBarFarmerList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/top"
+        android:id="@+id/farmerRecyclerList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#DFDFDF">
+
+<!--        <Button-->
+<!--            android:id="@+id/pondsBtn"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="PONDS map"-->
+<!--            android:drawableTop="@drawable/btn_ponds"-->
+<!--            android:paddingTop="10dp"-->
+<!--            android:textSize="10dp"-->
+<!--            android:background="@drawable/button_transparent_shadow"-->
+<!--            android:onClick="pondBtnClick1"-->
+<!--            />-->
+        <Button
+            android:id="@+id/farmersBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FARMERS"
+            android:drawableTop="@drawable/btn_farmer"
+            android:textSize="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_transparent_shadow"
+            android:onClick="farmersBtnClick1"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:id="@+id/smsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SMS"
+            android:drawableTop="@drawable/btn_sms"
+            android:textSize="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/button_transparent_shadow"
+            android:onClick="smsBtnClick1"
+            android:layout_weight="1"
+
+            />
+    </LinearLayout>
+</RelativeLayout>
