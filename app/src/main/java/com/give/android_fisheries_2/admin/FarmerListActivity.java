@@ -97,13 +97,15 @@ public class FarmerListActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
 
         if (item.getItemId() == R.id.refresh_page) {
-            startActivity(new Intent(this, FarmerListActivity.class));
+            finish();
+            startActivity(getIntent());
         } else if (item.getItemId() == R.id.filter_list) {
             filtersBtnClick();
         } else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
-            startActivity(new Intent(this, LoginActivity.class));
             finish();
+            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+
         }
         return true;
     }

@@ -1,6 +1,5 @@
 package com.give.android_fisheries_2.farmer;
 
-//DELETE THEIH IN KA HRIA KA HMG TOH LO
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -44,6 +43,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
     String from;
 
     TextView farmerDashboardTextView;
+    TextView officeAddress;
     Button farmerDashboardButton;
 
     String farmerDashboardTextviewString;
@@ -84,11 +84,12 @@ public class FarmerCenterActivity extends AppCompatActivity {
         //TODO THIS IS TESTING MENU BEFORE STATUS CAN BE FETCH FROM SERVER
 
         if (item.getItemId() == R.id.refresh_page) {
-            startActivity(new Intent(this,FarmerCenterActivity.class));
+                finish();
+                startActivity(getIntent());
         }else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
-            startActivity(new Intent(this, LoginActivity.class));
             finish();
+            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
         return true;
     }
@@ -103,13 +104,10 @@ public class FarmerCenterActivity extends AppCompatActivity {
             public void onPermissionGranted() {
                //v Toast.makeText(FarmerCenterActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onPermissionDenied(List<String> deniedPermissions) {
-                Toast.makeText(FarmerCenterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(FarmerCenterActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
             }
-
-
         };
         TedPermission.with(this)
                 .setPermissionListener(permissionlistener)
@@ -127,7 +125,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         farmerDashboardTextView = findViewById(R.id.farmer_dashboard_textview);
         farmerDashboardButton = findViewById(R.id.farmer_dashboard_button);
+        officeAddress = findViewById(R.id.farmer_dashboard_address);
 
+        officeAddress.setText("Department of Fisheries \n New Capital Complex, Khatla, Aizawl, Mizoram");
         mToken = sharedPreferences.getString("mToken","");
         mContact = sharedPreferences.getString("mContact","");
         mName = sharedPreferences.getString("mName","");
@@ -146,12 +146,11 @@ public class FarmerCenterActivity extends AppCompatActivity {
                          if(result!=null){
                              helpline_contact = result.get("contact").toString();
                              helpline_name = result.get("name").toString();
-
+                             officeAddress.setText("Department of Fisheries \n New Capital Complex, Khatla, Aizawl, Mizoram\nPh: "+ helpline_contact);
                          }else{
                              helpline_contact = "";
                              helpline_name = "";
                          }
-
                     }
                 });
 
@@ -210,6 +209,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
         // ::::TODO CHECK THE FISHPONDS DATA
         Log.d("TAG","my mID: "+mId);
 
+        //DOWNLOAD USER POND
         String urlTEST = "http://192.168.43.205:8000/api/findPond/"+mId;
         Ion.with(this)
                 .load("POST",urlTEST)
@@ -229,7 +229,6 @@ public class FarmerCenterActivity extends AppCompatActivity {
                             if(message){
                                 JsonObject data = result.getAsJsonObject("data");
                                 String mApprove = data.get("approve").getAsString();
-
                                 try{
                                     //::TODO GET THE USER DATA FOR FUTURE USE
                                     sharedPreferences.edit().putString("name",data.get("name").getAsString()).apply();
@@ -242,7 +241,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
                                     sharedPreferences.edit().putString("area",data.get("area").getAsString()).apply();
                                     sharedPreferences.edit().putString("epic_no",data.get("epic_no").getAsString()).apply();
                                     sharedPreferences.edit().putString("name_of_scheme",data.get("name_of_scheme").getAsString()).apply();
-                                    //sharedPreferences.edit().putString("pondImages",data.result("pondImages").getAsString()).apply();
+                                    //sharedPreferences.edit().putString("image",data.get("image").getAsString()).apply();
                                     sharedPreferences.edit().putString("lat",data.get("lat").getAsString()).apply();
 
                                     sharedPreferences.edit().putString("lng",data.get("lng").getAsString()).apply();
@@ -253,27 +252,27 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
                                 try{
                                     if(data.get("image").getAsString()!=null)
-                                        sharedPreferences.edit().putString("image",data.get("image").getAsString()).apply();
+                                        sharedPreferences.edit().putString("image_web",data.get("image").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_one").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pond1",data.get("pondImage_one").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond1_web",data.get("pondImage_one").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_two").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pond2",data.get("pondImage_two").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond2_web",data.get("pondImage_two").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_three").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pond3",data.get("pondImage_three").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond3_web",data.get("pondImage_three").getAsString()).apply();
                                 }catch (Exception e1){ }
 
                                 try{
                                     if(data.get("pondImage_four").getAsString()!=null)
-                                        sharedPreferences.edit().putString("pond4",data.get("pondImage_four").getAsString()).apply();
+                                        sharedPreferences.edit().putString("pond4_web",data.get("pondImage_four").getAsString()).apply();
                                 }catch (Exception e1){ }
 
 
@@ -310,8 +309,6 @@ public class FarmerCenterActivity extends AppCompatActivity {
                 });
 
         //::::TODO CHANGE THE STATUS DEPENDING ON THE STATUS OF THE APPROVED COLUMN
-
-
     }
 
     public void changeLook(int mStatus) {
@@ -355,6 +352,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
         }
         else {
             Intent intent = new Intent(this,FarmerUploadDataActivity.class);
+            //finish();
             startActivity(intent);
         }
     }

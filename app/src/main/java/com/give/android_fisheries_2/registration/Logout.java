@@ -38,12 +38,16 @@ public class Logout {
         sharedPreferences.edit().putString("lng","").apply();
         //  sharedPreferences.edit().putString("mRole","").apply();
         sharedPreferences.edit().putString("approve","").apply();
-        sharedPreferences.edit().putString("image","").apply();
-        sharedPreferences.edit().putString("pond1","").apply();
-        sharedPreferences.edit().putString("pond2","").apply();
-        sharedPreferences.edit().putString("pond3","").apply();
-        sharedPreferences.edit().putString("pond4","").apply();
-
+        sharedPreferences.edit().putString("image_local","").apply();
+        sharedPreferences.edit().putString("pond1_local","").apply();
+        sharedPreferences.edit().putString("pond2_local","").apply();
+        sharedPreferences.edit().putString("pond3_local","").apply();
+        sharedPreferences.edit().putString("pond4_local","").apply();
+        sharedPreferences.edit().putString("image_web","").apply();
+        sharedPreferences.edit().putString("pond1_web","").apply();
+        sharedPreferences.edit().putString("pond2_web","").apply();
+        sharedPreferences.edit().putString("pond3_web","").apply();
+        sharedPreferences.edit().putString("pond4_web","").apply();
 
 
         Toast.makeText(c,"LOGOUT!",Toast.LENGTH_SHORT).show();

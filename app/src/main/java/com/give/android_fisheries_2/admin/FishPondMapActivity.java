@@ -83,7 +83,7 @@ public class FishPondMapActivity extends AppCompatActivity implements OnMapReady
         }
         else if (item.getItemId() == R.id.logout){
             new Logout(getApplicationContext());
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             finish();
         }
         return true;

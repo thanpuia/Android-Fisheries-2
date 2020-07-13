@@ -12,24 +12,56 @@
     <ImageView
         android:id="@+id/logo_head"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/fish_logo"/>
 
-
     <TextView
-        android:id="@+id/name_label"
+        android:id="@+id/department_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/logo_head"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Department of Fisheries"/>
+    <TextView
+        android:id="@+id/GOM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/logo_head"
+        android:layout_below="@id/department_name"
+        android:text="Government of Mizoram"/>
+
+    <LinearLayout
+        android:id="@+id/head_divider"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
         android:layout_below="@id/logo_head"
-        android:text="Name: "/>
+        android:background="@color/colorPrimaryDark"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/ic_person_black_24dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/head_divider"/>
+
     <TextView
         android:id="@+id/name_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:layout_toRightOf="@+id/name_label"
-        android:layout_below="@+id/logo_head"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18dp"
+        android:textAllCaps="true"
+        android:layout_toRightOf="@+id/profile_image"
+        android:layout_below="@+id/head_divider"
         android:text="@string/app_name"/>
 
 
@@ -38,7 +70,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contact: "
-        android:layout_below="@id/name_label"/>
+        android:layout_below="@id/name_value"
+        android:layout_toRightOf="@+id/profile_image"
+        />
     <TextView
         android:id="@+id/contact_value"
         android:layout_width="wrap_content"
@@ -46,7 +80,8 @@
         android:textColor="@color/black_80"
         android:text="contact"
         android:layout_below="@id/name_value"
-        android:layout_toRightOf="@id/contact_label"/>
+        android:layout_toRightOf="@id/contact_label"
+        />
 
 
 
@@ -55,7 +90,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Father's Name: "
-        android:layout_below="@id/contact_label"/>
+        android:layout_below="@id/contact_label"
+        android:layout_toRightOf="@+id/profile_image"
+        />
     <TextView
         android:id="@+id/fathers_value"
         android:layout_width="wrap_content"
@@ -72,7 +109,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tehsil: "
-        android:layout_below="@id/fathers_label"/>
+        android:layout_below="@id/fathers_label"
+        android:layout_toRightOf="@+id/profile_image"
+        />
     <TextView
         android:id="@+id/tehsil_value"
         android:layout_width="wrap_content"
@@ -88,7 +127,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="District: "
-        android:layout_below="@id/tehsil_label"/>
+        android:layout_below="@id/tehsil_label"
+        android:layout_toRightOf="@+id/profile_image"
+        />
     <TextView
         android:id="@+id/district_value"
         android:layout_width="wrap_content"
@@ -100,20 +141,22 @@
 
 
 
-    <TextView
-        android:id="@+id/location_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location of Pond: "
-        android:layout_below="@id/district_label"/>
-    <TextView
-        android:id="@+id/location_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="location"
-        android:layout_below="@id/district_value"
-        android:layout_toRightOf="@id/location_label"/>
+<!--    <TextView-->
+<!--        android:id="@+id/location_label"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Location of Pond: "-->
+<!--        android:layout_below="@id/district_label"-->
+<!--        android:layout_toRightOf="@+id/profile_image"-->
+<!--        />-->
+<!--    <TextView-->
+<!--        android:id="@+id/location_value"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textColor="@color/black_80"-->
+<!--        android:text="location"-->
+<!--        android:layout_below="@id/district_value"-->
+<!--        android:layout_toRightOf="@id/location_label"/>-->
 
 
 
@@ -122,14 +165,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Area: "
-        android:layout_below="@id/location_label"/>
+        android:layout_below="@id/district_label"
+        android:layout_toRightOf="@+id/profile_image"
+        />
     <TextView
         android:id="@+id/area_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black_80"
         android:text="area"
-        android:layout_below="@id/location_value"
+        android:layout_below="@id/district_value"
         android:layout_toRightOf="@id/area_label"/>
 
 
@@ -139,7 +184,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scheme: "
-        android:layout_below="@id/area_label"/>
+        android:layout_below="@id/area_label"
+        android:layout_toRightOf="@+id/profile_image"
+        />
     <TextView
         android:id="@+id/scheme_value"
         android:layout_width="wrap_content"
@@ -155,20 +202,6 @@
 
 
 
-    <TextView
-        android:id="@+id/_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=": "
-        android:layout_below="@id/_label"/>
-    <TextView
-        android:id="@+id/_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text=""
-        android:layout_below="@id/_value"
-        android:layout_toRightOf="@id/_label"/>
 
 
 

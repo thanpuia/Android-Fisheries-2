@@ -94,11 +94,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     List<File> fileList;
     //RecyclerView pondsImageHorizontalRecyclerView;
     private String real_path_lake;
-    String real_path_profileImage ;
-    String real_path_pond_1 ;
-    String real_path_pond_2 ;
-    String real_path_pond_3 ;
-    String real_path_pond_4 ;
+    String web_path_str_image ;
+    String web_path_str_pond1 ;
+    String web_path_str_pond2 ;
+    String web_path_str_pond3 ;
+    String web_path_str_pond4 ;
+
+    String local_path_str_image;
+    String local_path_str_pond1;
+    String local_path_str_pond2;
+    String local_path_str_pond3;
+    String local_path_str_pond4;
 
     private String TAG = "TAG";
     String mToken;
@@ -127,7 +133,9 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         setContentView(R.layout.activity_farmer_upload_data);
         sharedPreferences = getApplicationContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
-     /*   pond1 = pond2 = pond3 =pond4 = image =null; */
+        local_path_str_image = local_path_str_pond1 = local_path_str_pond2 = local_path_str_pond3 = local_path_str_pond4
+                = web_path_str_image = web_path_str_pond1 = web_path_str_pond2 = web_path_str_pond3 = web_path_str_pond4 = "";
+
         imageSelect=false;
         pondLists = new ArrayList<>();
         tehsilArrList = new ArrayList<>();
@@ -138,7 +146,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         mId = sharedPreferences.getInt("mId",0);
         mApprove = Integer.parseInt(sharedPreferences.getString("approve",""));
         pondId = sharedPreferences.getString("pondId","");
-        //schemes = new ArrayList<>();
+        //schemes = new ArrayLreal_path_pond_1ist<>();
 
 
         //CHECK THE LAT LNG FROM THE GETLOCATION ACTIVITY
@@ -196,9 +204,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         //TODO :: POPULATE THE FARMER DATA IF ALREADY PRESENT
         approvalStatus(mApprove);
 
-
-
-
         //SET DISTRIC SPINNER
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getApplicationContext(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -228,7 +233,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 /*
         //  schemes = new String[] {"NFDB", "RKVY", "NLUP", "Blue Revolution"};
 */
-
         //POPULATE THE CHECK BOX
         ArrayList<Integer> mCheckedItem = new ArrayList<>();
         String mScheme = sharedPreferences.getString("name_of_scheme","");
@@ -242,31 +246,31 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             }
         }
 
-        //POPULATE ALL PICTURE IF PRESENT
-        real_path_profileImage = sharedPreferences.getString("image","");
-        real_path_pond_1 = sharedPreferences.getString("pond1","");
-        real_path_pond_2 = sharedPreferences.getString("pond2","");
-        real_path_pond_3 = sharedPreferences.getString("pond3","");
-        real_path_pond_4 = sharedPreferences.getString("pond4","");
+       //POPULATE ALL PICTURE IF PRESENT LOCALLY
+        local_path_str_image = sharedPreferences.getString("image_local","");
+        local_path_str_pond1 = sharedPreferences.getString("pond1_local","");
+        local_path_str_pond2 = sharedPreferences.getString("pond2_local","");
+        local_path_str_pond3 = sharedPreferences.getString("pond3_local","");
+        local_path_str_pond4 = sharedPreferences.getString("pond4_local","");
 
-        if(!real_path_profileImage.equals("")){
-            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_profileImage);
+        if(!local_path_str_image.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_image);
             profileImageViewButton.setImageBitmap(profilePictureBitmap2);
         }
-        if(!real_path_pond_1.equals("")){
-            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_1);
+        if(!local_path_str_pond1.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond1);
             pondImageView_1.setImageBitmap(profilePictureBitmap2);
         }
-        if(!real_path_pond_2.equals("")){
-            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_2);
+        if(!local_path_str_pond2.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond2);
             pondImageView_2.setImageBitmap(profilePictureBitmap2);
         }
-        if(!real_path_pond_3.equals("")){
-            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_3);
+        if(!local_path_str_pond3.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond3);
             pondImageView_3.setImageBitmap(profilePictureBitmap2);
         }
-        if(!real_path_pond_4.equals("")){
-            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(real_path_pond_4);
+        if(!local_path_str_pond4.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond4);
             pondImageView_4.setImageBitmap(profilePictureBitmap2);
         }
 
@@ -320,12 +324,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 case 1://PROFILE PICTURE SELECT
 
                     Uri fileUri = data.getData();
-                    real_path_profileImage = getRealPathFromURI(this, fileUri);
+                    local_path_str_image = getRealPathFromURI(this, fileUri);
                     imageSelect = true;
-                    image = new File(real_path_profileImage);
-                    sharedPreferences.edit().putString("image",real_path_profileImage).apply();
+                    image = new File(local_path_str_image);
+                    sharedPreferences.edit().putString("image_local",local_path_str_image).apply();
 
-                    Bitmap profilePictureBitmap = BitmapFactory.decodeFile(real_path_profileImage);
+                    Bitmap profilePictureBitmap = BitmapFactory.decodeFile(local_path_str_image);
                     profileImageViewButton.setImageBitmap(profilePictureBitmap);
                     break;
               /*  case 2://LAKE PICTURE SELECT
@@ -357,41 +361,41 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 */
                 case 11:
                     Uri fileUri_11 = data.getData();
-                    real_path_pond_1 = getRealPathFromURI(this, fileUri_11);
-                    pond1 = new File(real_path_pond_1);
-                    sharedPreferences.edit().putString("pond1",real_path_pond_1).apply();
+                    local_path_str_pond1 = getRealPathFromURI(this, fileUri_11);
+                    pond1 = new File(local_path_str_pond1);
+                    sharedPreferences.edit().putString("pond1_local",local_path_str_pond1).apply();
 
-                    Bitmap profilePictureBitmap_11 = BitmapFactory.decodeFile(real_path_pond_1);
+                    Bitmap profilePictureBitmap_11 = BitmapFactory.decodeFile(local_path_str_pond1);
                     pondImageView_1.setImageBitmap(profilePictureBitmap_11);
                     break;
 
                 case 12:
                     Uri fileUri_12 = data.getData();
-                    real_path_pond_2 = getRealPathFromURI(this, fileUri_12);
-                    pond2 = new File(real_path_pond_2);
-                    sharedPreferences.edit().putString("pond2",real_path_pond_2).apply();
+                    local_path_str_pond2 = getRealPathFromURI(this, fileUri_12);
+                    pond2 = new File(local_path_str_pond2);
+                    sharedPreferences.edit().putString("pond2_local",local_path_str_pond2).apply();
 
-                    Bitmap profilePictureBitmap_12 = BitmapFactory.decodeFile(real_path_pond_2);
+                    Bitmap profilePictureBitmap_12 = BitmapFactory.decodeFile(local_path_str_pond2);
                     pondImageView_2.setImageBitmap(profilePictureBitmap_12);
                     break;
 
                 case 13:
                     Uri fileUri_13 = data.getData();
-                    real_path_pond_3 = getRealPathFromURI(this, fileUri_13);
-                    pond3 = new File(real_path_pond_3);
-                    sharedPreferences.edit().putString("pond3",real_path_pond_3).apply();
+                    local_path_str_pond3 = getRealPathFromURI(this, fileUri_13);
+                    pond3 = new File(local_path_str_pond3);
+                    sharedPreferences.edit().putString("pond3_local",local_path_str_pond3).apply();
 
-                    Bitmap profilePictureBitmap_13 = BitmapFactory.decodeFile(real_path_pond_3);
+                    Bitmap profilePictureBitmap_13 = BitmapFactory.decodeFile(local_path_str_pond3);
                     pondImageView_3.setImageBitmap(profilePictureBitmap_13);
                     break;
 
                 case 14:
                     Uri fileUri_14 = data.getData();
-                    real_path_pond_4 = getRealPathFromURI(this, fileUri_14);
-                    pond4 = new File(real_path_pond_4);
-                    sharedPreferences.edit().putString("pond4",real_path_pond_4).apply();
+                    local_path_str_pond4 = getRealPathFromURI(this, fileUri_14);
+                    pond4 = new File(local_path_str_pond4);
+                    sharedPreferences.edit().putString("pond4_local",local_path_str_pond4).apply();
 
-                    Bitmap profilePictureBitmap_14 = BitmapFactory.decodeFile(real_path_pond_4);
+                    Bitmap profilePictureBitmap_14 = BitmapFactory.decodeFile(local_path_str_pond4);
                     pondImageView_4.setImageBitmap(profilePictureBitmap_14);
                     break;
 
@@ -404,13 +408,14 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     public void submitClick(View view) {
         submitButton.setVisibility(GONE);
         uploadProgressBarLayout.setVisibility(View.VISIBLE);
+        String lat = sharedPreferences.getString("lat","");
 
         if( fathersNameEditText.getText().toString().matches("") || addressEditText.getText().toString().matches("") ||
                areaEditText.getText().toString().matches("") ||
                 epicOrAadhaarEditText.getText().toString().matches("")|| locationOfPond.getText().toString().matches("")){
             Toasty.error(this,"All fields are madatory",Toasty.LENGTH_SHORT).show();
             startActivity(new Intent(this,FarmerUploadDataActivity.class));
-        }else if (!locationCheck){
+        }else if (lat.matches("")){
             Toasty.error(this,"Get Location",Toasty.LENGTH_SHORT).show();
             submitButton.setVisibility(View.VISIBLE);
             uploadProgressBarLayout.setVisibility(GONE);
@@ -494,19 +499,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         parts.add(new StringPart("lng",lng));
         parts.add(new StringPart("user_id", String.valueOf(mId)));
 
-        if(!real_path_profileImage.matches("")) {
-            parts.add(new FilePart("image", new File(real_path_profileImage)));
-            Log.d("TAG", "ProPic ifile: " + image);
-
+        if(!local_path_str_image.matches("")) {
+            parts.add(new FilePart("image", new File(local_path_str_image)));
         }
-        if(!real_path_pond_1.matches(""))
-            parts.add(new FilePart("pondImage_one",new File(real_path_pond_1)));
-        if(!real_path_pond_2.matches(""))
-            parts.add(new FilePart("pondImage_two",new File(real_path_pond_2)));
-        if(!real_path_pond_3.matches(""))
-            parts.add(new FilePart("pondImage_three",new File(real_path_pond_3)));
-        if(!real_path_pond_4.matches(""))
-            parts.add(new FilePart("pondImage_four",new File(real_path_pond_4)));
+        if(!local_path_str_pond1.matches(""))
+            parts.add(new FilePart("pondImage_one",new File(local_path_str_pond1)));
+        if(!local_path_str_pond2.matches(""))
+            parts.add(new FilePart("pondImage_two",new File(local_path_str_pond2)));
+        if(!local_path_str_pond3.matches(""))
+            parts.add(new FilePart("pondImage_three",new File(local_path_str_pond3)));
+        if(!local_path_str_pond4.matches(""))
+            parts.add(new FilePart("pondImage_four",new File(local_path_str_pond4)));
 
         builder.addMultipartParts(parts);
         builder.asJsonObject().setCallback(new FutureCallback<JsonObject>() {
@@ -519,8 +522,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 uploadProgressBarLayout.setVisibility(GONE);
                 if(result!=null) Toasty.success(getApplicationContext(),"Upload Successfully!",Toasty.LENGTH_SHORT).show();
                 else Toasty.error(getApplicationContext(),"Sorry, server out of reach",Toasty.LENGTH_SHORT).show();
+               finish();
                 startActivity(new Intent(getApplicationContext(),FarmerCenterActivity.class));
-                finish();
                 //::::::    UPTO THIS   ::::::
             }
         });
@@ -596,13 +599,11 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                 //populateimage
                 location.setText("Lat: "+sharedPreferences.getString("lat","")+", \nLng: "+sharedPreferences.getString("lng",""));
 
-                String myImage = sharedPreferences.getString("image","");
-                String pondImage_one = sharedPreferences.getString("pond1","");
-                String pondImage_two = sharedPreferences.getString("pond2","");
-                String pondImage_three = sharedPreferences.getString("pond3","");
-                String pondImage_four = sharedPreferences.getString("pond4","");
-
-                Log.d("TAG","Image location "+myImage);
+                web_path_str_image = sharedPreferences.getString("image_web","");
+                web_path_str_pond1 = sharedPreferences.getString("pond1_web","");
+                web_path_str_pond2 = sharedPreferences.getString("pond2_web","");
+                web_path_str_pond3 = sharedPreferences.getString("pond3_web","");
+                web_path_str_pond4 = sharedPreferences.getString("pond4_web","");
 
               //  if(!myImage.matches(""))
                //     imageSelect = true; //IMAGE IS ALREADY SELECTED
@@ -614,32 +615,32 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 //                pond4 = new File(pondImage_four);
 
                 //PROFILE IMAGE
-                if(!myImage.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image/"+myImage).into(profileImageViewButton);
+                if(!web_path_str_image.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image/"+web_path_str_image).into(profileImageViewButton);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE ONE
-                if(!pondImage_one.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image1/"+pondImage_one).into(pondImageView_1);
+                if(!web_path_str_pond1.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image1/"+web_path_str_pond1).into(pondImageView_1);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE TWO
-                if(!pondImage_two.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image2/"+pondImage_two).into(pondImageView_2);
+                if(!web_path_str_pond2.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image2/"+web_path_str_pond2).into(pondImageView_2);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE THREE
-                if(!pondImage_three.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image3/"+pondImage_three).into(pondImageView_3);
+                if(!web_path_str_pond3.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image3/"+web_path_str_pond3).into(pondImageView_3);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE FOUR
-                if(!pondImage_four.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image4/"+pondImage_four).into(pondImageView_4);
+                if(!web_path_str_pond4.equals("")){
+                    Picasso.get().load("http://192.168.43.205:8000/public/image4/"+web_path_str_pond4).into(pondImageView_4);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
@@ -704,8 +705,8 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     }
 //    @Override
 //    public void onBackPressed() {
-//        startActivity(new Intent(this,FarmerCenterActivity.class));
 //        finish();
+//        startActivity(new Intent(this,FarmerCenterActivity.class));
 //    }
 }
 

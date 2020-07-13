@@ -5,19 +5,25 @@
 5. mRole        = (String) FARMER/ADMIN/SUPER_ADMIN
 6. schemes      = List of all scheme in string
 7. all_tehsil   = list of all tehsil
-8. address - user address
-9. district - user district
+8. address      - user address
+9. district      - user district
 10. location_of_pond - user location of pond
-11. tehsil - user tehsil
-12 area - user ponds area
-13. epic_no - user epic no or aadhaar
+11. tehsil      - user tehsil
+12 area         - user ponds area
+13. epic_no     - user epic no or aadhaar
 14. name_of_scheme - user scheme select
-15. lat - ponds lat
-16. lng - ponds lng
-17. pondId - user ponds id in the fishponds table
-18. image - user profile image
-19. pond1 -pond image 1
-20. pond2 -pond image 2
-21. pond3 -pond image 3
-22. pond4 -pond image 4
-23. approve  - approve status of the fishponds data
+15. lat         - ponds lat
+16. lng         - ponds lng
+17. fname       - fathers name
+17. pondId      - user ponds id in the fishponds table
+18. image_local - user profile image _local
+19. pond1_local -pond image 1 _local
+20. pond2_local -pond image 2 _local
+21. pond3_local -pond image 3 _local
+22. pond4_local -pond image 4 _local
+18. image_web   - user profile image _web
+19. pond1_web   -pond image 1 _web
+20. pond2_web   -pond image 2 _web
+21. pond3_web   -pond image 3 _web
+22. pond4_web    -pond image 4 _web
+23. approve     - approve status of the fishponds data

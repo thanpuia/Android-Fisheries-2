@@ -2,10 +2,12 @@ package com.give.android_fisheries_2.farmer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.FileProvider;
 
 import android.app.DownloadManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -16,6 +18,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -23,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +34,7 @@ import android.widget.TextView;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
+import com.squareup.picasso.Picasso;
 import com.tapadoo.alerter.Alerter;
 import com.tapadoo.alerter.OnHideAlertListener;
 import com.tapadoo.alerter.OnShowAlertListener;
@@ -45,15 +50,25 @@ import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
 
+import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+
 public class FarmerIdActivity extends AppCompatActivity {
     TextView idName;
     TextView idTehsil;
+    TextView idDistrict;
+    TextView idContact;
+    TextView idFathersName;
+    TextView idArea;
+    TextView idScheme;
+
     RelativeLayout relativeLayout;
     SharedPreferences sharedPreferences;
     Menu menu;
     File myPath;
     String fileName;
-
+    ImageView ImageViewProfilePicture;
+    NotificationManagerCompat notificationManagerCompat;
+    NotificationCompat.Builder builder;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
@@ -77,55 +92,63 @@ public class FarmerIdActivity extends AppCompatActivity {
             relativeLayout.setDrawingCacheEnabled(true);
             relativeLayout.buildDrawingCache();
             bm = relativeLayout.getDrawingCache();
-            String sdf=saveToInternalStorage(bm);
-            Log.d("TAG","Image: "+sdf);
+            String idPath=saveToInternalStorage(bm);
+            Log.d("TAG","Image: "+idPath);
             Toasty.success(this, "Image Downloaded!", Toasty.LENGTH_SHORT).show();
-
-            Alerter.create(this)
-                    .setTitle("Download ID")
-                    .setText("ID file in Download Folder")
-                    .setIcon(
-                            R.mipmap.ic_launcher)
-                    .setBackgroundColorRes(
-                            R.color.colorPrimaryDark)
-                    .setDuration(3000)
-                    .setOnClickListener(
-                            new View.OnClickListener() {
-
-                                @Override
-                                public void onClick(View v)
-                                {
-
-                                    startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
-
-                                }
-                            })
-
-                    .setOnShowListener(
-                            new OnShowAlertListener() {
-
-                                @Override
-                                public void onShow()
-                                {
-                                    // do something when
-                                    // Alerter message shows
-                                }
-                            })
-
-                    .setOnHideListener(
-                            new OnHideAlertListener() {
-
-                                @Override
-                                public void onHide()
-                                {
-                                    // do something when
-                                    // Alerter message hides
-                                }
-                            })
-                    .show();
+            //startActivity(new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS));
+            gotoNotification(idPath);
 
         }
         return true;
+    }
+
+    private void gotoNotification(String idPath) {
+
+        //CREATE ON CLICK ACTION
+       Intent intent = new Intent(DownloadManager.ACTION_VIEW_DOWNLOADS);
+    //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        //File file = new File(pathFile);
+
+       
+        //startActivity(intent);
+       //
+        //
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+
+        /*  Intent intent = new Intent();
+        intent.setAction(android.content.Intent.ACTION_VIEW);
+        intent.addFlags(FLAG_GRANT_READ_URI_PERMISSION);
+        //Uri uri = Uri.parse("content://" + file.getAbsolutePath());
+        grantUriPermission("com.saffru.colombo.cartellaclinica" +
+                ".fileprovider", contentUri,
+                FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setDataAndType(contentUri,"image/*");
+        intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);*/
+        builder = new NotificationCompat.Builder(this,"fishChannel")
+                .setSmallIcon(R.drawable.ic_fish_good)
+                .setContentTitle("Download Success")
+                .setContentText("ID is locate in Download Folder")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true);
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        notificationManagerCompat.notify(100,builder.build());
+     }
+
+    private void createNotificationChannel(){
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            CharSequence name = "fishChannel";
+            String description = "Chanel for fish ID";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("fishChannel",name,importance );
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
     }
 
     @Override
@@ -133,14 +156,36 @@ public class FarmerIdActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_id);
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
+        createNotificationChannel();
+
+
 
         relativeLayout = findViewById(R.id.linear_layout_id);
+        ImageViewProfilePicture = findViewById(R.id.profile_image);
+
         idName = findViewById(R.id.name_value);
         idTehsil = findViewById(R.id.tehsil_value);
+        idArea = findViewById(R.id.area_value);
+        idScheme = findViewById(R.id.scheme_value);
+        idFathersName = findViewById(R.id.fathers_value);
+        idContact = findViewById(R.id.contact_value);
+        idDistrict = findViewById(R.id.district_value);
 
         idName.setText(sharedPreferences.getString("mName",""));
         idTehsil.setText(sharedPreferences.getString("tehsil",""));
+        idArea.setText(sharedPreferences.getString("area",""));
+        idScheme.setText(sharedPreferences.getString("name_of_scheme",""));
+        idFathersName.setText(sharedPreferences.getString("fname",""));
+        idContact.setText(sharedPreferences.getString("mContact",""));
+        idDistrict.setText(sharedPreferences.getString("district",""));
 
+        String image_web = sharedPreferences.getString("image_web","");
+        if(image_web.matches("")){
+            //NOTHING IN IMAGE
+        }else{
+             Picasso.get().load("http://192.168.43.205:8000/public/image/"+image_web).into(ImageViewProfilePicture);
+
+        }
     }
 
     private String saveToInternalStorage(Bitmap bitmapImage){
@@ -170,8 +215,8 @@ public class FarmerIdActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        return directory.getAbsolutePath();
-    }
+        return directory.getAbsolutePath()+"/"+fileName;
+    }// /storage/emulated/0/Download
 
 
 }
