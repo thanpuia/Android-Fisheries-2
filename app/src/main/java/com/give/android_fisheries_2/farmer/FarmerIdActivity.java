@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
@@ -183,7 +184,7 @@ public class FarmerIdActivity extends AppCompatActivity {
         if(image_web.matches("")){
             //NOTHING IN IMAGE
         }else{
-             Picasso.get().load("http://192.168.43.205:8000/public/image/"+image_web).into(ImageViewProfilePicture);
+             Picasso.get().load(MainActivity.MAIN_URL+"public/image/"+image_web).into(ImageViewProfilePicture);
 
         }
     }

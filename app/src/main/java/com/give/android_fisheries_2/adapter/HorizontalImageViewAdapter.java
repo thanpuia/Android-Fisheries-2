@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.squareup.picasso.Picasso;
 
@@ -43,7 +44,7 @@ public class HorizontalImageViewAdapter extends RecyclerView.Adapter<HorizontalI
 
         int realPosition = position+1;
 
-        Picasso.get().load("http://192.168.43.205:8000/public/image"+realPosition +"/"+realPathLakes.get(position)).into(holder.pondsImageView);
+        Picasso.get().load(MainActivity.MAIN_URL+"public/image"+realPosition +"/"+realPathLakes.get(position)).into(holder.pondsImageView);
 
 
        /* Bitmap bitmap = BitmapFactory.decodeFile(realPathLakes.get(position));

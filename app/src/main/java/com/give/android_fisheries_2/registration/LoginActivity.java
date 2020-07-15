@@ -35,11 +35,15 @@ public class LoginActivity extends AppCompatActivity {
     LinearLayout loginLinearLayout;
     LinearLayout simpleProgressBarLinearLayout;
     Button loginButton;
+    String LOGIN_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //"http://192.168.43.205:8000/api/login"
+        LOGIN_URL = MainActivity.MAIN_URL +"api/login";
 
         loginContact = findViewById(R.id.loginContact);
         loginPassword = findViewById(R.id.loginPassword);
@@ -69,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                 simpleProgressBarLinearLayout.setVisibility(View.VISIBLE);
                 loginButton.setEnabled(false);
                 Ion.with(getApplicationContext())
-                        .load("http://192.168.43.205:8000/api/login")
+                        .load(LOGIN_URL)
                         .setMultipartParameter("email",mLoginContact)
                         .setMultipartParameter("password",mLoginPassword)
                         .asJsonObject()

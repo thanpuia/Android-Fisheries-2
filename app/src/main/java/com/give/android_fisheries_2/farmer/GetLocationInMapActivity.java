@@ -126,9 +126,6 @@ public class GetLocationInMapActivity extends FragmentActivity implements Google
             }
         }catch (Exception e){}
 
-
-
-
     }
 
     @Override

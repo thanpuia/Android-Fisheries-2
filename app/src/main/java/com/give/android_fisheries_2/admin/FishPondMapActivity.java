@@ -27,6 +27,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.github.chrisbanes.photoview.PhotoView;
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
 import com.give.android_fisheries_2.registration.LoginActivity;
@@ -165,7 +166,7 @@ public class FishPondMapActivity extends AppCompatActivity implements OnMapReady
         final View customLayout = getLayoutInflater().inflate(R.layout.custom_alert_dialog_fishpond_map,null);
         final PhotoView photoViewPondMapImage = customLayout.findViewById(R.id.map_pond_image);
 
-        Picasso.get().load("http://192.168.43.205:8000/public/image"+realPosition +"/"+pondLists.get(pos)).into(new Target() {
+        Picasso.get().load(MainActivity.MAIN_URL+"public/image"+realPosition +"/"+pondLists.get(pos)).into(new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                 photoViewPondMapImage.setImageBitmap(bitmap);

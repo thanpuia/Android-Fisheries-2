@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -40,6 +41,7 @@ public class SmsActivity extends AppCompatActivity {
     String tempMessage;
     String tempSpinner;
     String tempUserName;
+    String SMS_API_URL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,9 @@ public class SmsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sms);
         final ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setCustomView(R.layout.m_toolbar_sms);
-       actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );
 
+        SMS_API_URL = MainActivity.MAIN_URL+"api/smsapi";
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         tehsilSpinner = findViewById(R.id.tehsil_spinner);
         messageET = findViewById(R.id.sms_et_message);
@@ -78,9 +81,9 @@ public class SmsActivity extends AppCompatActivity {
     }
 
     public void smsSendClick(View view) {
-        String smsUrl= "http://192.168.43.205:8000/api/smsapi";
+
         Ion.with(this)
-                .load("POST", smsUrl )
+                .load("POST", SMS_API_URL )
               //  .setHeader("Accept","application/json")
              //   .setHeader("Authorization","Bearer "+mToken)
                 .setMultipartParameter("tehsil",tehsilSpinner.getSelectedItem().toString())

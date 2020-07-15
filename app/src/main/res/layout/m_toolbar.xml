@@ -55,7 +55,7 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:hint="Search for fish ponds"
+        android:hint="Search by farmer name"
         android:inputType="text"
         android:lines="1"
         android:textColorHint="#777272"

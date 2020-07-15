@@ -34,6 +34,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.FarmerListAdapter;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
@@ -79,6 +80,11 @@ public class FarmerListActivity extends AppCompatActivity {
     String districtStr;
 
     ArrayList<String> checkScheme;
+    String MY_SCHEME_URL ;
+    String MY_TEHSIL_URL ;
+    String MY_SEARCH_BY_NAME_URL;
+    String MY_POND_LIST_URL;
+    String MY_POND_SEARCH;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,7 +93,7 @@ public class FarmerListActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.my_menu, menu);
 
-        menu.getItem(0).setIcon(ContextCompat.getDrawable(this, R.drawable.ic_dehaze_black_24dp));
+        // menu.getItem(0).setIcon(ContextCompat.getDrawable(this,R.drawable.ic_dehaze_black_24dp));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -104,7 +110,9 @@ public class FarmerListActivity extends AppCompatActivity {
         } else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             finish();
-            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                    Intent.FLAG_ACTIVITY_NEW_TASK));
 
         }
         return true;
@@ -137,9 +145,15 @@ public class FarmerListActivity extends AppCompatActivity {
         progressBarFarmerList.setVisibility(View.VISIBLE);
         farmerRecyclerView.setVisibility(View.INVISIBLE);
         checkScheme = new ArrayList<>();
-        String myschemeURL = "http://192.168.43.205:8000/api/myscheme";
+       /* String myschemeURL = "http://192.168.43.205:8000/api/myscheme";
         String myTehsilURL = "http://192.168.43.205:8000/api/mytehsil";
-        final String mySearchByName = "http://192.168.43.205:8000/api/fishpond/searchbyname/";
+        final String mySearchByName = "http://192.168.43.205:8000/api/fishpond/searchbyname/";*/
+       //SINGLE URL
+         MY_SCHEME_URL = MainActivity.MAIN_URL +"api/myscheme";
+         MY_TEHSIL_URL = MainActivity.MAIN_URL +"api/mytehsil";
+         MY_SEARCH_BY_NAME_URL = MainActivity.MAIN_URL +"api/fishpond/searchbyname/";
+         MY_POND_LIST_URL = MainActivity.MAIN_URL +"api/fishponds/pondlist";
+         MY_POND_SEARCH = MainActivity.MAIN_URL +"api/fishponds/search";
 
         //HANDLE THE SEARCH BAR
         toolbarEdittext.setOnEditorActionListener(new EditText.OnEditorActionListener() {
@@ -147,7 +161,7 @@ public class FarmerListActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     Ion.with(getApplicationContext())
-                            .load(mySearchByName+toolbarEdittext.getText().toString())
+                            .load(MY_SEARCH_BY_NAME_URL+toolbarEdittext.getText().toString())
                             .asJsonObject()
                             .setCallback(new FutureCallback<JsonObject>() {
                                 @Override
@@ -207,7 +221,7 @@ public class FarmerListActivity extends AppCompatActivity {
         });
 
         Ion.with(this)
-                .load("GET", myschemeURL)
+                .load("GET", MY_SCHEME_URL)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -228,7 +242,7 @@ public class FarmerListActivity extends AppCompatActivity {
                 });
         //DOWNLOAD TEHSIL
         Ion.with(this)
-                .load("GET", myTehsilURL)
+                .load("GET", MY_TEHSIL_URL)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -248,7 +262,7 @@ public class FarmerListActivity extends AppCompatActivity {
                     }
                 });
         Ion.with(this)
-                .load("http://192.168.43.205:8000/api/fishponds/pondlist")
+                .load(MY_POND_LIST_URL)
                 .setHeader("Accept", "application/json")
                 //  .setHeader("Content-Type","application/x-www-form-urlencoded")
                 .setHeader("Authorization", "Bearer " + mToken)
@@ -500,7 +514,7 @@ public class FarmerListActivity extends AppCompatActivity {
     public void search(final Context c, String mToken,String district,String scheme){
         farmerEntities.clear();
         Ion.with(c)
-                .load("http://192.168.43.205:8000/api/fishponds/search")
+                .load(MY_POND_SEARCH)
                 .setHeader("Accept","application/json")
                 //  .setHeader("Content-Type","application/x-www-form-urlencoded")
                 .setHeader("Authorization","Bearer "+mToken)

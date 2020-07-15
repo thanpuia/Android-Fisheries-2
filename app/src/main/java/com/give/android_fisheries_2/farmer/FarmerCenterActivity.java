@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
@@ -31,6 +32,7 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.builder.Builders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +67,11 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
     String[] tehsilStrArr;
     String tehsilInString;
+    String MY_HELPLINE_URL;
+    String MY_TEHSIL_URL;
+    String MY_SCHEME_URL;
+    String MY_USER_POND_URL;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
@@ -89,7 +96,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
         }else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             finish();
-            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                    Intent.FLAG_ACTIVITY_NEW_TASK));
         }
         return true;
     }
@@ -122,6 +131,11 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
         schemes = new ArrayList<>();
 
+        MY_HELPLINE_URL = MainActivity.MAIN_URL + "api/helpline/";
+        MY_TEHSIL_URL = MainActivity.MAIN_URL + "api/mytehsil";
+        MY_SCHEME_URL = MainActivity.MAIN_URL +"api/myscheme/";
+        MY_USER_POND_URL = MainActivity.MAIN_URL + "api/findPond/";
+
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         farmerDashboardTextView = findViewById(R.id.farmer_dashboard_textview);
         farmerDashboardButton = findViewById(R.id.farmer_dashboard_button);
@@ -136,9 +150,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
         farmerDashboardTextView.setText("Checking status...");
 
         //DOWNLOAD HELPLINE NUMBER
-        String urlHelpline = "http://192.168.43.205:8000/api/helpline/";
+        //String urlHelpline = "http://192.168.43.205:8000/api/helpline/";
         Ion.with(this)
-                .load(urlHelpline)
+                .load(MY_HELPLINE_URL)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
@@ -155,9 +169,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
                 });
 
         //FETCH THE SCHEME LIST
-        String urlTES99T = "http://192.168.43.205:8000/api/myscheme/";
+       // String urlTES99T = "http://192.168.43.205:8000/api/myscheme/";
         Ion.with(this)
-                .load("GET",urlTES99T)
+                .load("GET",MY_SCHEME_URL)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -176,11 +190,11 @@ public class FarmerCenterActivity extends AppCompatActivity {
                         sharedPreferences.edit().putString("schemes",mySchemeInString).apply();
                     }
                 });
-        String myTehsilURL = "http://192.168.43.205:8000/api/mytehsil";
+       // String myTehsilURL = "http://192.168.43.205:8000/api/mytehsil";
 
         //DOWNLOAD TEHSIL
         Ion.with(this)
-                .load("GET",myTehsilURL)
+                .load("GET",MY_TEHSIL_URL)
                 .asJsonArray()
                 .setCallback(new FutureCallback<JsonArray>() {
                     @Override
@@ -210,9 +224,10 @@ public class FarmerCenterActivity extends AppCompatActivity {
         Log.d("TAG","my mID: "+mId);
 
         //DOWNLOAD USER POND
-        String urlTEST = "http://192.168.43.205:8000/api/findPond/"+mId;
+        //String urlTEST = "http://192.168.43.205:8000/api/findPond/"+mId;
+        String URL_SINGLE_POND = MY_USER_POND_URL +mId;
         Ion.with(this)
-                .load("POST",urlTEST)
+                .load("POST",URL_SINGLE_POND)
               /*  .setHeader("Accept","application/json")
                 .setHeader("Authorization","Bearer "+mToken)*/
                 .asJsonObject()
@@ -332,7 +347,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
                 break;
             case 4:
                 farmerDashboardButtonString = "Edit";
-                farmerDashboardTextviewString = "Form submitted";
+                farmerDashboardTextviewString = "Form submitted\nPending Approval";
                 break;
             case 5:
                 farmerDashboardButtonString = "Server error";

@@ -32,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.HorizontalImageViewAdapter;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
@@ -126,12 +127,17 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
     Boolean imageSelect;
     public static Boolean locationCheck;
 
-    String tehsilPreference;
+    String DATA_UPLOAD_URL_CREATE;
+    String DATA_UPLOAD_URL_EDIT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_upload_data);
         sharedPreferences = getApplicationContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
+
+        DATA_UPLOAD_URL_CREATE = MainActivity.MAIN_URL+"api/fishponds/create";
+        DATA_UPLOAD_URL_EDIT = MainActivity.MAIN_URL+"api/fishponds/edit";
 
         local_path_str_image = local_path_str_pond1 = local_path_str_pond2 = local_path_str_pond3 = local_path_str_pond4
                 = web_path_str_image = web_path_str_pond1 = web_path_str_pond2 = web_path_str_pond3 = web_path_str_pond4 = "";
@@ -419,7 +425,13 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             Toasty.error(this,"Get Location",Toasty.LENGTH_SHORT).show();
             submitButton.setVisibility(View.VISIBLE);
             uploadProgressBarLayout.setVisibility(GONE);
-        }else
+        }//THIS IS NEW VALIDATION FOR HANDLING PROPIC
+        else if(local_path_str_image.matches("") && web_path_str_image.matches("")){
+            Toasty.error(this,"Select you image",Toasty.LENGTH_SHORT).show();
+            submitButton.setVisibility(View.VISIBLE);
+            uploadProgressBarLayout.setVisibility(GONE);
+        }
+        else
             apiFirst();
 
     }
@@ -468,10 +480,12 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         Log.d("TAG","Approve status: "+mApprove);
         if(mApprove==0){
             method = "POST";
-            createOrEditUrl =  "http://192.168.43.205:8000/api/fishponds/create";
+           // createOrEditUrl =  "http://192.168.43.205:8000/api/fishponds/create";
+            createOrEditUrl = DATA_UPLOAD_URL_CREATE;
         }else if(mApprove ==1 ||mApprove ==2 ||mApprove ==3 ||mApprove ==4 ){
             method="POST";
-            createOrEditUrl = "http://192.168.43.205:8000/api/fishponds/edit/"+pondId;
+           // createOrEditUrl = "http://192.168.43.205:8000/api/fishponds/edit/"+pondId;
+            createOrEditUrl = DATA_UPLOAD_URL_EDIT + pondId;
         }else{
             method="";
             createOrEditUrl="";
@@ -616,31 +630,31 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
 
                 //PROFILE IMAGE
                 if(!web_path_str_image.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image/"+web_path_str_image).into(profileImageViewButton);
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image/"+web_path_str_image).into(profileImageViewButton);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE ONE
                 if(!web_path_str_pond1.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image1/"+web_path_str_pond1).into(pondImageView_1);
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image1/"+web_path_str_pond1).into(pondImageView_1);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE TWO
                 if(!web_path_str_pond2.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image2/"+web_path_str_pond2).into(pondImageView_2);
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image2/"+web_path_str_pond2).into(pondImageView_2);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE THREE
                 if(!web_path_str_pond3.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image3/"+web_path_str_pond3).into(pondImageView_3);
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image3/"+web_path_str_pond3).into(pondImageView_3);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");
                 //POND IMAGE FOUR
                 if(!web_path_str_pond4.equals("")){
-                    Picasso.get().load("http://192.168.43.205:8000/public/image4/"+web_path_str_pond4).into(pondImageView_4);
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image4/"+web_path_str_pond4).into(pondImageView_4);
                     Log.d("TAG","Image location IF TES");
                 }else
                     Log.d("TAG","else");

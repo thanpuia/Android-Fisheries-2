@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 
 import com.give.android_fisheries_2.entity.FarmerEntity;
@@ -58,7 +59,7 @@ public class FarmerListAdapter extends RecyclerView.Adapter<FarmerListAdapter.Vi
         holder.tehsilTv.setText(mFarmerEntities.get(position).getTehsil());
         holder.areaTv.setText(mFarmerEntities.get(position).getArea()+ " m2");
         Picasso.get()
-                .load("http://192.168.43.205:8000/public/image/"+mFarmerEntities.get(position).getImage())
+                .load(MainActivity.MAIN_URL+"public/image/"+mFarmerEntities.get(position).getImage())
                 .placeholder(R.drawable.ic_fish_good)
                 .error(R.mipmap.ic_fish_logo_ic)
                 .into(holder.profileImagecircleImageView);
