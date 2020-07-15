@@ -42,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         //"http://192.168.43.205:8000/api/register"
         REGISTER_URL = MainActivity.MAIN_URL + "api/register";
-        
+
         name = findViewById(R.id.userName);
         password = findViewById(R.id.userPassword);
         passwordConfirm = findViewById(R.id.userPasswordConfirm);
