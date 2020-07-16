@@ -158,6 +158,20 @@
             android:text="scheme_value"
             android:layout_below="@id/epic_value"
             android:layout_toRightOf="@+id/scheme"/>
+
+        <Button
+            android:layout_marginTop="15dp"
+            android:id="@+id/message_farmer_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scheme_value"
+            android:layout_alignParentRight="true"
+            android:background="@color/colorPrimary"
+            android:text="Send SMS"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+           />
+
     </RelativeLayout>
 
 </ScrollView>

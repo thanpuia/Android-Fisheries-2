@@ -34,6 +34,7 @@ public class SmsActivity extends AppCompatActivity {
     Spinner tehsilSpinner;
     EditText messageET;
     TextView userNameTv;
+    TextView recipientNameTv;
     ArrayList<String> tehsilList;
     Button farmerBtn, smsBtn;
 
@@ -42,6 +43,10 @@ public class SmsActivity extends AppCompatActivity {
     String tempSpinner;
     String tempUserName;
     String SMS_API_URL;
+    String SINGLE_SMS_API_URL;
+    String farmerContact;
+    String farmerName;
+    Boolean smsStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +56,22 @@ public class SmsActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.m_toolbar_sms);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );
 
+        //THIS IS COMING FROM THE FARMERLIST ACTIVITY DIALOG BUILDER
+        Intent intent = getIntent();
+        farmerContact = intent.getStringExtra("contact");
+        farmerName = intent.getStringExtra("name");
+        smsStatus = intent.getBooleanExtra("sms",false);
+
+
         SMS_API_URL = MainActivity.MAIN_URL+"api/smsapi";
+        SINGLE_SMS_API_URL = MainActivity.MAIN_URL+"api/singlesmsapi";
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         tehsilSpinner = findViewById(R.id.tehsil_spinner);
         messageET = findViewById(R.id.sms_et_message);
         userNameTv = findViewById(R.id.sms_from_tv);
         farmerBtn = findViewById(R.id.farmersBtnSMS);
         smsBtn = findViewById(R.id.smsBtnSMS);
+        recipientNameTv = findViewById(R.id.recipient_label);
 
         mToken = sharedPreferences.getString("mToken","");
         tehsilList = new ArrayList<>();
@@ -68,6 +82,11 @@ public class SmsActivity extends AppCompatActivity {
                 (this, android.R.layout.simple_spinner_item, tehsilList);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tehsilSpinner.setAdapter(spinnerArrayAdapter);
+
+        //FOR SINGLE SMS
+        if(smsStatus){
+            sendSingleSms(farmerName,farmerContact);
+        }
 
         //POPULATE IF ALREADY
         tempMessage = sharedPreferences.getString("sms_message","");
@@ -80,30 +99,59 @@ public class SmsActivity extends AppCompatActivity {
 
     }
 
+    private void sendSingleSms(String farmerName, String farmerContact) {
+        recipientNameTv.setText("To: "+farmerName+"("+farmerContact+")");
+        tehsilSpinner.setVisibility(View.INVISIBLE);
+    }
+
     public void smsSendClick(View view) {
+        //IF SENDING TO SINGLE FARMER
+        if(smsStatus){
+            Ion.with(this)
+                    .load("POST", SINGLE_SMS_API_URL )
+                    .setMultipartParameter("contact",farmerContact)
+                    .setMultipartParameter("message",messageET.getText().toString() + "\n  : "+tempUserName)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            String message ="";
+                            try{
+                                message = result.get("status").getAsString();
+                            }catch (Exception e1){}
+                            try{
+                                message = result.get("Code: 401").getAsString();
+                            }catch (Exception e2){}
+                            Log.d("TAG",""+message);
 
-        Ion.with(this)
-                .load("POST", SMS_API_URL )
-              //  .setHeader("Accept","application/json")
-             //   .setHeader("Authorization","Bearer "+mToken)
-                .setMultipartParameter("tehsil",tehsilSpinner.getSelectedItem().toString())
-                .setMultipartParameter("message",messageET.getText().toString() + "\n  : "+tempUserName)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        String message ="";
-                        try{
-                            message = result.get("status").getAsString();
-                        }catch (Exception e1){}
-                        try{
-                            message = result.get("Code: 401").getAsString();
-                        }catch (Exception e2){}
-                        Log.d("TAG",""+message);
+                            Toasty.info(getApplicationContext(),""+message,Toasty.LENGTH_SHORT).show();
+                        }
+                    });
+        }else{
+            Ion.with(this)
+                    .load("POST", SMS_API_URL )
+                    //  .setHeader("Accept","application/json")
+                    //   .setHeader("Authorization","Bearer "+mToken)
+                    .setMultipartParameter("tehsil",tehsilSpinner.getSelectedItem().toString())
+                    .setMultipartParameter("message",messageET.getText().toString() + "\n  : "+tempUserName)
+                    .asJsonObject()
+                    .setCallback(new FutureCallback<JsonObject>() {
+                        @Override
+                        public void onCompleted(Exception e, JsonObject result) {
+                            String message ="";
+                            try{
+                                message = result.get("status").getAsString();
+                            }catch (Exception e1){}
+                            try{
+                                message = result.get("Code: 401").getAsString();
+                            }catch (Exception e2){}
+                            Log.d("TAG",""+message);
 
-                        Toasty.info(getApplicationContext(),""+message,Toasty.LENGTH_SHORT).show();
-                    }
-                });
+                            Toasty.info(getApplicationContext(),""+message,Toasty.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+
     }
     public void farmersBtnClickSMS(View view) {
         sharedPreferences.edit().putString("sms_message",messageET.getText().toString()).apply();

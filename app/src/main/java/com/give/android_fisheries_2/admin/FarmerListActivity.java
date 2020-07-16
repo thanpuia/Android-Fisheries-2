@@ -314,7 +314,9 @@ public class FarmerListActivity extends AppCompatActivity {
                                     builder.setView(customLayout);
 
                                     //DECLARATION AND INITIALIZATION
-                                    TextView name, contact, fname, address, district, tehsil, area, epic, scheme;
+                                    final TextView name, contact, fname, address, district, tehsil, area, epic, scheme;
+                                    Button messageFarmerButton;
+                                    messageFarmerButton = customLayout.findViewById(R.id.message_farmer_button);
                                     name = customLayout.findViewById(R.id.name_value);
                                     contact = customLayout.findViewById(R.id.contact_value);
                                     fname = customLayout.findViewById(R.id.fname_value);
@@ -324,6 +326,18 @@ public class FarmerListActivity extends AppCompatActivity {
                                     area = customLayout.findViewById(R.id.area_value);
                                     epic = customLayout.findViewById(R.id.epic_value);
                                     scheme = customLayout.findViewById(R.id.scheme_value);
+
+                                    messageFarmerButton.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent (getApplicationContext(),SmsActivity.class);
+                                            intent.putExtra("sms",true);
+                                            intent.putExtra("name",farmerEntities.get(position).getName());
+                                            intent.putExtra("contact",farmerEntities.get(position).getContact());
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
 
                                     //DEFINITION
                                     name.setText(farmerEntities.get(position).getName());
@@ -335,6 +349,7 @@ public class FarmerListActivity extends AppCompatActivity {
                                     area.setText(farmerEntities.get(position).getArea());
                                     epic.setText(farmerEntities.get(position).getEpicOrAadhaar());
                                     scheme.setText(farmerEntities.get(position).getNameOfScheme());
+
 
                                     builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         @Override
