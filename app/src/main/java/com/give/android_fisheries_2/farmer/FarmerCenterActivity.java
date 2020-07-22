@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
+import com.give.android_fisheries_2.farmer.form.FormMainActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
 import com.google.gson.JsonArray;
@@ -45,8 +46,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
     String from;
 
     TextView farmerDashboardTextView;
-    TextView officeAddress;
-    Button farmerDashboardButton;
+    //TextView officeAddress;
+   // Button farmerDashboardButton;
 
     String farmerDashboardTextviewString;
     String farmerDashboardButtonString;
@@ -99,6 +100,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
                     Intent.FLAG_ACTIVITY_CLEAR_TASK |
                     Intent.FLAG_ACTIVITY_NEW_TASK));
+        }else if (item.getItemId() == R.id.contact_us){
+            Toasty.info(this,"Contact us and some other page will be shown",Toasty.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -138,10 +141,10 @@ public class FarmerCenterActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
         farmerDashboardTextView = findViewById(R.id.farmer_dashboard_textview);
-        farmerDashboardButton = findViewById(R.id.farmer_dashboard_button);
-        officeAddress = findViewById(R.id.farmer_dashboard_address);
+        //farmerDashboardButton = findViewById(R.id.farmer_dashboard_button);
+        //officeAddress = findViewById(R.id.farmer_dashboard_address);
 
-        officeAddress.setText("Department of Fisheries \n New Capital Complex, Khatla, Aizawl, Mizoram");
+        //officeAddress.setText("Department of Fisheries \n New Capital Complex, Khatla, Aizawl, Mizoram");
         mToken = sharedPreferences.getString("mToken","");
         mContact = sharedPreferences.getString("mContact","");
         mName = sharedPreferences.getString("mName","");
@@ -160,7 +163,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
                          if(result!=null){
                              helpline_contact = result.get("contact").toString();
                              helpline_name = result.get("name").toString();
-                             officeAddress.setText("Department of Fisheries \n New Capital Complex, Khatla, Aizawl, Mizoram\nPh: "+ helpline_contact);
+                             //officeAddress.setText("Department of Fisheries \n New Capital Complex, Khatla, Aizawl, Mizoram\nPh: "+ helpline_contact);
                          }else{
                              helpline_contact = "";
                              helpline_name = "";
@@ -352,13 +355,13 @@ public class FarmerCenterActivity extends AppCompatActivity {
             case 5:
                 farmerDashboardButtonString = "Server error";
                 farmerDashboardTextviewString = "Server not reachable :(";
-                farmerDashboardButton.setEnabled(false);
+                //farmerDashboardButton.setEnabled(false);
                 break;
             default:
                 break;
         }
         farmerDashboardTextView.setText(farmerDashboardTextviewString);
-        farmerDashboardButton.setText(farmerDashboardButtonString);
+        //farmerDashboardButton.setText(farmerDashboardButtonString);
     }
 
     public void dashboardButtonClick(View view) {
@@ -366,7 +369,8 @@ public class FarmerCenterActivity extends AppCompatActivity {
             startActivity(new Intent(this,FarmerIdActivity.class));
         }
         else {
-            Intent intent = new Intent(this,FarmerUploadDataActivity.class);
+            //Intent intent = new Intent(this,FarmerUploadDataActivity.class);
+            Intent intent = new Intent(this, FormMainActivity.class);
             //finish();
             startActivity(intent);
         }

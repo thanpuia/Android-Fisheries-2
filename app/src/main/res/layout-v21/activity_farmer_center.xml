@@ -8,7 +8,9 @@
         android:paddingStart="30dp"
         android:paddingEnd="30dp">
 
+
     <ImageView
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:id="@+id/button_image_view_farmer"
         android:layout_width="@dimen/button_height_fisheries_xxl"
         android:layout_height="@dimen/button_height_fisheries_xxl"
@@ -16,38 +18,22 @@
         android:src="@drawable/ic_cloud_upload_white_24dp"
         android:padding="15dp"
         android:onClick="dashboardButtonClick"
-        android:textAlignment="center"
+         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:foregroundGravity="center"
         />
-    <TextView
-        android:id="@+id/farmer_dashboard_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_fisheries_xl"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:paddingBottom="50dp"
-        android:textStyle="normal"
-        android:text="Upload your Fata"
-        android:layout_below="@id/button_image_view_farmer"/>
-<!--        <TextView-->
-<!--            android:id="@+id/farmer_dashboard_textview"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textSize="@dimen/text_size_fisheries_xxl"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:paddingBottom="50dp"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textColor="@color/ic_fish_logo_ic_background" />-->
-<!--        <RelativeLayout-->
-<!--            android:layout_below="@id/farmer_dashboard_textview"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:padding="15dp"-->
-<!--            android:background="@drawable/farmer_dashboard_background">-->
+            <TextView
+                android:id="@+id/farmer_dashboard_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_fisheries_xl"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="50dp"
+                android:textStyle="normal"
+                android:text="Upload your Fata"
+                 android:layout_below="@id/button_image_view_farmer"/>
 <!--            <Button-->
 <!--                android:id="@+id/farmer_dashboard_button"-->
 <!--                android:layout_width="@dimen/button_height_fisheries_xxl"-->
@@ -62,13 +48,7 @@
 <!--                android:paddingRight="20dp"-->
 <!--                />-->
 
-<!--            <ImageView-->
-<!--                android:id="@+id/button_image_view_farmer"-->
-<!--                android:layout_width="@dimen/button_height_fisheries_xxl"-->
-<!--                android:layout_height="@dimen/button_height_fisheries_xxl"-->
-<!--                android:background="@drawable/button_circle"-->
-<!--                android:src="@drawable/ic_cloud_upload_white_24dp"-->
-<!--                android:layout_below="@id/farmer_dashboard_button"/>-->
+
 
 <!--            <ImageView-->
 <!--                android:layout_width="50dp"-->
@@ -93,6 +73,5 @@
 <!--                android:onClick="departmentLabelClick"-->
 <!--                />-->
 
-<!--        </RelativeLayout>-->
 
     </RelativeLayout>

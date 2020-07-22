@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".farmer.form.FormStep3Fragment">
+
+    <TextView
+        android:id="@+id/step_count_form_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Step 3"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorPrimary"
+        android:textSize="40dp"
+        android:layout_marginTop="10dp"/>
+    <TextView
+        android:id="@+id/pi_header_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload Ponds Picture"
+        android:layout_below="@id/step_count_form_tv"
+        android:layout_centerHorizontal="true"
+        android:textSize="25dp"/>
+
+  
+
+
+</RelativeLayout>

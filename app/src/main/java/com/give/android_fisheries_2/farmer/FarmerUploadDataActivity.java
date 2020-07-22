@@ -220,7 +220,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         int spinnerPosition = adapter.getPosition(mDistrict);
         districtSpinner.setSelection(spinnerPosition);
 
-
         //SET TEHSIL SPINNER
         tehsilArrList= stringToArrayList(sharedPreferences.getString("all_tehsil","")) ;
 
@@ -233,7 +232,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
         String mTehsil = sharedPreferences.getString("tehsil","");
         int spinnerPositionTehsil = spinnerArrayAdapter.getPosition(mTehsil);
         tehsilSpinner.setSelection(spinnerPositionTehsil);
-
 
         //:::: TODO THIS SHOULD BE TAKEN FROM THE SERVER BEFORE PRODUCTION
 /*
@@ -280,7 +278,7 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
             pondImageView_4.setImageBitmap(profilePictureBitmap2);
         }
 
-        schemeListAdapter = new SchemeListAdapter(getApplicationContext(), schemes,mCheckedItem);
+        schemeListAdapter = new SchemeListAdapter(getApplicationContext(), schemes, mCheckedItem);
         listOfSchemeRV.setAdapter(schemeListAdapter);
         listOfSchemeRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

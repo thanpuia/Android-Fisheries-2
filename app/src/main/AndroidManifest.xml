@@ -15,8 +15,6 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_fish_logo_ic"
@@ -24,8 +22,11 @@
         android:roundIcon="@mipmap/ic_fish_logo_ic_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".farmer.FarmerIdActivity"
-            android:theme="@style/AppThemeFarmer"></activity>
+        <activity android:name=".farmer.form.FormMainActivity"
+            android:theme="@style/AppThemeFarmer" ></activity>
+        <activity
+            android:name=".farmer.FarmerIdActivity"
+            android:theme="@style/AppThemeFarmer" />
         <activity
             android:name=".admin.SmsActivity"
             android:theme="@style/AppThemeFarmer" />

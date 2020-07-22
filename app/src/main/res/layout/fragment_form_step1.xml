@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".farmer.form.FormStep1Fragment"
+    android:id="@+id/body_relative_layout">
+
+    <RelativeLayout
+        android:id="@+id/header_relative_layout_form"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="5dp"
+        android:background="#118DED">
+
+        <FrameLayout
+            android:id="@+id/profile_image_frame_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/button_circle_color"
+                android:padding="12dp"
+                android:src="@drawable/ic_person_grey_24dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera_alt_white_24dp"
+                android:layout_gravity="bottom|right"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/welcome_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/profile_image_frame_layout"/>
+        <TextView
+            android:id="@+id/farmers_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Farmer's Name"
+            android:textColor="#fff"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/profile_image_frame_layout"
+            android:layout_below="@id/welcome_header"/>
+        <TextView
+            android:id="@+id/farmers_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Farmer's Phone"
+            android:textColor="#fff"
+            android:layout_toRightOf="@id/profile_image_frame_layout"
+            android:layout_below="@id/farmers_name"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_below="@id/header_relative_layout_form">
+        <TextView
+            android:id="@+id/step_count_form_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Step 1"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="40dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/pi_header_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal Information"
+            android:layout_below="@id/step_count_form_tv"
+            android:layout_centerHorizontal="true"
+            android:textSize="25dp"/>
+
+        <EditText
+            android:id="@+id/fathers_name_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pi_header_tv"
+            android:hint="Father's Name"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"/>
+
+        <EditText
+            android:id="@+id/address_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fathers_name_form"
+            android:hint="Address"
+            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
+            />
+        <Spinner
+            android:id="@+id/district_spinner_form"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/address_form"/>
+        <EditText
+            android:id="@+id/epic_aadhaar_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/district_spinner_form"
+            android:hint="EPIC No/Aadhaar No"
+            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
+            />
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

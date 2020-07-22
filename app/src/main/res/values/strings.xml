@@ -21,7 +21,7 @@
 
 
     <string-array name="districts">
-
+        <item>Select District...</item>
         <item>Aizawl</item>
         <item>Kolasib</item>
         <item>Lawngtlai</item>
