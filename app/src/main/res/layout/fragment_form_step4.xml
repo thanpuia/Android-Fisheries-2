@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".farmer.form.FormStep4Fragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapViewNew"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_my_location"
+            android:layout_centerInParent="true"/>
+        <Button
+            android:id="@+id/locationsavedClick"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:onClick="submitEverythingFormStep4"
+            android:text="Location save"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#B2F6F4F4"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/step_count_form_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Step 4"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerHorizontal="true"
+                android:textSize="40dp"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/pi_header_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save Location"
+                android:layout_below="@id/step_count_form_tv"
+                android:layout_centerHorizontal="true"
+                android:textSize="25dp"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

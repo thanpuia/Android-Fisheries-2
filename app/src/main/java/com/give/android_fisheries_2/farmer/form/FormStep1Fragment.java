@@ -1,5 +1,7 @@
 package com.give.android_fisheries_2.farmer.form;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +20,7 @@ import com.give.android_fisheries_2.R;
  * A simple {@link Fragment} subclass.
  */
 public class FormStep1Fragment extends Fragment {
+    SharedPreferences sharedPreferences;
 
     static EditText fathersName;
     static EditText address;
@@ -35,10 +38,14 @@ public class FormStep1Fragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_form_step1, container, false);
 
+        sharedPreferences = getActivity().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
+
         fathersName = v.findViewById(R.id.fathers_name_form);
         address = v.findViewById(R.id.address_form);
         district = v.findViewById(R.id.district_spinner_form);
         epicAadhaar = v.findViewById(R.id.epic_aadhaar_form);
+
+
 
         //SET DISTRIC SPINNER
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);

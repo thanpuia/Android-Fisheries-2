@@ -3,17 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".farmer.form.FormStep3Fragment">
+    tools:context=".farmer.form.FormStep3Fragment"
+    android:background="#fff">
 
     <TextView
         android:id="@+id/step_count_form_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Step 3"
-        android:layout_centerHorizontal="true"
         android:textColor="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
         android:textSize="40dp"
         android:layout_marginTop="10dp"/>
+
     <TextView
         android:id="@+id/pi_header_tv"
         android:layout_width="wrap_content"
@@ -23,7 +25,120 @@
         android:layout_centerHorizontal="true"
         android:textSize="25dp"/>
 
-  
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/pi_header_tv">
+
+        <FrameLayout
+            android:id="@+id/pond1_framelayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp">
+
+            <ImageView
+                android:id="@+id/pond1_iv"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@drawable/rounded_button"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop" />
+            <TextView
+                android:id="@+id/pond1_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+\nAdd Picture"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/pond2_framelayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/pond1_framelayout"
+            android:layout_marginLeft="20dp">
+
+            <ImageView
+                android:id="@+id/pond2_iv"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@drawable/rounded_button"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/pond2_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+\nAdd Picture"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+
+
+        <FrameLayout
+            android:id="@+id/pond3_framelayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pond1_framelayout"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
+
+            <ImageView
+                android:id="@+id/pond3_iv"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@drawable/rounded_button"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/pond3_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+\nAdd Picture"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/pond4_framelayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pond1_framelayout"
+            android:layout_toRightOf="@id/pond3_framelayout"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp">
+
+            <ImageView
+                android:id="@+id/pond4_iv"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@drawable/rounded_button"
+                android:adjustViewBounds="true"
+                android:padding="0dp"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/pond4_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+\nAdd Picture"
+                android:textSize="15dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </RelativeLayout>
 
 
 </RelativeLayout>

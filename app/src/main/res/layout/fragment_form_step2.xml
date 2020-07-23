@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tehsil_spinner_form"
-        android:hint="EPIC No/Aadhaar No"
+        android:hint="Area"
         android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
         />
 

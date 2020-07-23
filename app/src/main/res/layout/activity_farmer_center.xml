@@ -6,6 +6,7 @@
         tools:context=".farmer.FarmerCenterActivity"
         android:background="#F6F3F6"
         android:paddingStart="30dp"
+        android:gravity="center"
         android:paddingEnd="30dp">
 
     <ImageView
@@ -17,8 +18,7 @@
         android:padding="15dp"
         android:onClick="dashboardButtonClick"
         android:textAlignment="center"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+   android:layout_centerHorizontal="true"
         android:foregroundGravity="center"
         />
     <TextView

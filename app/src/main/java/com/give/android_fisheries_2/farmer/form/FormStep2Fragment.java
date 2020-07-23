@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,7 +79,7 @@ public class FormStep2Fragment extends Fragment {
         }
         schemeListAdapter = new SchemeListAdapter(getContext(), schemes, mCheckedItem);
         listOfSchemeRVPond.setAdapter(schemeListAdapter);
-        listOfSchemeRVPond.setLayoutManager(new LinearLayoutManager(getContext()));
+        listOfSchemeRVPond.setLayoutManager(new GridLayoutManager(getActivity(),2));
         return v;
     }
 

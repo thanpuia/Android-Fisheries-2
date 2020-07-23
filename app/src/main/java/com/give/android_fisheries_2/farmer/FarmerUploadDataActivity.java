@@ -402,7 +402,6 @@ public class FarmerUploadDataActivity extends AppCompatActivity {
                     Bitmap profilePictureBitmap_14 = BitmapFactory.decodeFile(local_path_str_pond4);
                     pondImageView_4.setImageBitmap(profilePictureBitmap_14);
                     break;
-
             }
         } catch (Exception e) {
             Log.e(TAG, "Exception in onActivityResult : " + e.getMessage());
