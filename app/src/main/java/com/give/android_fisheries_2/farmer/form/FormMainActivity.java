@@ -147,7 +147,7 @@ public class FormMainActivity extends AppCompatActivity {
         local_path_str_image = sharedPreferences.getString("image_local","");
 
         DATA_UPLOAD_URL_CREATE = MainActivity.MAIN_URL+"api/fishponds/create";
-        DATA_UPLOAD_URL_EDIT = MainActivity.MAIN_URL+"api/fishponds/edit";
+        DATA_UPLOAD_URL_EDIT = MainActivity.MAIN_URL+"api/fishponds/edit/";
 
         fragment1 = new FormStep1Fragment();
         fragment2 = new FormStep2Fragment();
