@@ -17,7 +17,7 @@
         android:textSize="40dp"
         android:layout_marginTop="10dp"/>
     <TextView
-        android:id="@+id/pi_header_tv"
+        android:id="@+id/li_header_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lake Information"
@@ -29,9 +29,11 @@
         android:id="@+id/location_of_pond_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/pi_header_tv"
+        android:layout_below="@id/li_header_tv"
         android:layout_marginTop="20dp"
         android:hint="Location of Pond"
+        android:maxLines="1"
+        android:inputType="textCapSentences"
         android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
         />
     <Spinner
@@ -44,7 +46,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tehsil_spinner_form"
-        android:hint="Area"
+        android:hint="Area (in hectares)"
+        android:maxLines="1"
+        android:inputType="textCapSentences"
         android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
         />
 

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.give.android_fisheries_2.R;
@@ -37,6 +38,8 @@ public class FormStep4Fragment extends Fragment {
     boolean mapMove = false;
     Button savedLocationButton;
 
+    TextView saveLocation;
+
 
     public FormStep4Fragment() {
         // Required empty public constructor
@@ -50,7 +53,11 @@ public class FormStep4Fragment extends Fragment {
         sharedPreferences = v.getContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
         mMapView = v.findViewById(R.id.mapViewNew);
-        savedLocationButton = v.findViewById(R.id.locationsavedClick);
+        saveLocation = v.findViewById(R.id.save_location_header_tv);
+
+        saveLocation.setText(FormMainActivity.labelSaveLocation);
+
+        //savedLocationButton = v.findViewById(R.id.locationsavedClick);
 
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
@@ -95,33 +102,45 @@ public class FormStep4Fragment extends Fragment {
                         //Toast.makeText(getApplicationContext(),"Location:"+midLatLng,Toast.LENGTH_SHORT).show();
                         userLocationSet = new LatLng(midLatLng.latitude,midLatLng.longitude);
                         mapMove = true;
+
+                        //SET LOCATION EVERY MOVE
+                        if(userLocationSet.latitude==0.0f){
+                            sharedPreferences.edit().putString("lat","0").apply();
+                            sharedPreferences.edit().putString("lng","0").apply();
+                        }else{
+                            String lat = String.valueOf(userLocationSet.latitude);
+                            String lng = String.valueOf(userLocationSet.longitude);
+                            sharedPreferences.edit().putString("lat",lat).apply();
+                            sharedPreferences.edit().putString("lng",lng).apply();
+                        }
                     }
                 });
             }
         });
 
-        savedLocationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try{
-                    if(userLocationSet.latitude==0.0f) Toast.makeText(getActivity(),"Please move the map!",Toast.LENGTH_SHORT).show();
-                    else {
-                        FarmerUploadDataActivity.locationCheck = true;
-                        Toast.makeText(getActivity(), "Location:" + userLocationSet, Toast.LENGTH_SHORT).show();
-                        String lat = String.valueOf(userLocationSet.latitude);
-                        String lng = String.valueOf(userLocationSet.longitude);
-                        sharedPreferences.edit().putString("lat",lat).apply();
-                        sharedPreferences.edit().putString("lng",lng).apply();
-                        sharedPreferences.edit().putBoolean("location_click",true).apply();
-
-                       // startActivity(new Intent(this,FarmerUploadDataActivity.class));
-                      //  finish();
-                        //   sharedPreferences.edit().putString("mContact",mContact).apply();
-
-                    }
-                }catch (Exception e){}
-            }
-        });
+//        savedLocationButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try{
+//                    if(userLocationSet.latitude==0.0f) Toast.makeText(getActivity(),"Please move the map!",Toast.LENGTH_SHORT).show();
+//                    else {
+//                        FarmerUploadDataActivity.locationCheck = true;
+//                        Toast.makeText(getActivity(), "Location:" + userLocationSet, Toast.LENGTH_SHORT).show();
+//                        String lat = String.valueOf(userLocationSet.latitude);
+//                        String lng = String.valueOf(userLocationSet.longitude);
+//                        sharedPreferences.edit().putString("lat",lat).apply();
+//                        sharedPreferences.edit().putString("lng",lng).apply();
+//                        sharedPreferences.edit().putBoolean("location_click",true).apply();
+//
+//                       // startActivity(new Intent(this,FarmerUploadDataActivity.class));
+//                      //  finish();
+//                        //   sharedPreferences.edit().putString("mContact",mContact).apply();
+//
+//
+//                    }
+//                }catch (Exception e){}
+//            }
+//        });
 
         return v;
     }

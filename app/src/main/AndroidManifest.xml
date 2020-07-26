@@ -23,7 +23,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".farmer.form.FormMainActivity"
-            android:theme="@style/AppThemeFarmer" ></activity>
+            android:theme="@style/AppTheme.NoActionBar" ></activity>
         <activity
             android:name=".farmer.FarmerIdActivity"
             android:theme="@style/AppThemeFarmer" />

@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,15 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
 import es.dmoral.toasty.Toasty;
+
+import static com.give.android_fisheries_2.farmer.form.FormMainActivity.mApprove;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,6 +73,8 @@ public class FormStep3Fragment extends Fragment {
     TextView pond3_tv;
     TextView pond4_tv;
 
+    TextView labelUploadPondsPicture;
+
     public FormStep3Fragment() {
         // Required empty public constructor
     }
@@ -98,6 +105,10 @@ public class FormStep3Fragment extends Fragment {
         pond2_tv = v.findViewById(R.id.pond2_tv);
         pond3_tv = v.findViewById(R.id.pond3_tv);
         pond4_tv = v.findViewById(R.id.pond4_tv);
+
+        labelUploadPondsPicture = v. findViewById(R.id.upp_header_tv);
+
+        labelUploadPondsPicture.setText(FormMainActivity.labelUploadPondsPicture);
 
         //POPULATE ALL PICTURE IF PRESENT LOCALLY
         local_path_str_image = sharedPreferences.getString("image_local","");
@@ -192,9 +203,10 @@ public class FormStep3Fragment extends Fragment {
                 }
             }
         });
+
+        approvalStatus(mApprove);
+
         return v;
-
-
     }
     //RETURN OF EVERY PICTURE SELECT
 
@@ -212,33 +224,6 @@ public class FormStep3Fragment extends Fragment {
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(local_path_str_image);
                     //pond1_iv.setImageBitmap(profilePictureBitmap);
                     break;
-              /*  case 2://LAKE PICTURE SELECT
-                    if (resultCode == Activity.RESULT_OK) {
-                        ClipData clipData = data.getClipData();
-                        if(clipData!=null){
-                            int count = data.getClipData().getItemCount(); //evaluate the count before the for loop --- otherwise, the count is evaluated every loop.
-                            Uri imageUri;
-                            for(int i = 0; i < count; i++){
-                                ClipData.Item item = clipData.getItemAt(i);
-                                imageUri = item.getUri();
-                                real_path_lake = getRealPathFromURI(this, imageUri);
-                                pondLists.add(real_path_lake);
-                                Log.d("TAG","image: "+real_path_lake);
-                            }
-                        }else{
-                            Uri uri = data.getData();
-                            String mRealPathLake = getRealPathFromURI(this,uri);
-                            pondLists.add(mRealPathLake);
-                        }
-                        horizontalImageViewAdapter = new HorizontalImageViewAdapter(pondLists);
-                        pondsImageHorizontalRecyclerView.setAdapter(horizontalImageViewAdapter);
-                        pondsImageHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,true));
-                        break;
-                    } else if (resultCode == Activity.RESULT_CANCELED) {
-                        Log.e(TAG, "Selecting picture cancelled");
-                    }
-                    break;
-*/
                 case 11:
                     pond1_tv.setText("Edit");
                     pond1_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
@@ -306,6 +291,60 @@ public class FormStep3Fragment extends Fragment {
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
         cursor.close();
         return path;
+    }
+
+    public void approvalStatus(int approve){
+        switch(approve){
+            case 0:
+            case 3:
+            case 4:
+            case 2:
+
+                web_path_str_pond1 = sharedPreferences.getString("pond1_web","");
+                web_path_str_pond2 = sharedPreferences.getString("pond2_web","");
+                web_path_str_pond3 = sharedPreferences.getString("pond3_web","");
+                web_path_str_pond4 = sharedPreferences.getString("pond4_web","");
+
+                //POND IMAGE ONE
+                if(!web_path_str_pond1.equals("")){
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image1/"+web_path_str_pond1).into(pond1_iv);
+                    Log.d("TAG","Image location IF TES");
+                    pond1_tv.setText("Edit");
+                    pond1_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+
+                }else
+                    Log.d("TAG","else");
+                //POND IMAGE TWO
+                if(!web_path_str_pond2.equals("")){
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image2/"+web_path_str_pond2).into(pond2_iv);
+                    Log.d("TAG","Image location IF TES");
+                    pond2_tv.setText("Edit");
+                    pond2_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+
+                }else
+                    Log.d("TAG","else");
+                //POND IMAGE THREE
+                if(!web_path_str_pond3.equals("")){
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image3/"+web_path_str_pond3).into(pond3_iv);
+                    Log.d("TAG","Image location IF TES");
+                    pond3_tv.setText("Edit");
+                    pond3_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+
+                }else
+                    Log.d("TAG","else");
+                //POND IMAGE FOUR
+                if(!web_path_str_pond4.equals("")){
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image4/"+web_path_str_pond4).into(pond4_iv);
+                    Log.d("TAG","Image location IF TES");
+                    pond4_tv.setText("Edit");
+                    pond4_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+
+                }else
+                    Log.d("TAG","else");
+                break;
+            case 1:
+                break;
+        }
     }
 
 }

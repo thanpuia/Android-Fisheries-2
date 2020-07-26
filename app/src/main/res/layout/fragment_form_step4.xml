@@ -19,19 +19,19 @@
             android:layout_height="150dp"
             android:src="@drawable/ic_my_location"
             android:layout_centerInParent="true"/>
-        <Button
-            android:id="@+id/locationsavedClick"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:onClick="submitEverythingFormStep4"
-            android:text="Location save"/>
+<!--        <Button-->
+<!--            android:id="@+id/locationsavedClick"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:onClick="submitEverythingFormStep4"-->
+<!--            android:text="Location save"/>-->
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="#B2F6F4F4"
+            android:background="#EBF6F4F4"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/step_count_form_tv"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/pi_header_tv"
+                android:id="@+id/save_location_header_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Save Location"

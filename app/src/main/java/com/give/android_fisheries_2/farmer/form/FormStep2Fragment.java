@@ -16,13 +16,18 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.SchemeListAdapter;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.give.android_fisheries_2.farmer.form.FormMainActivity.mApprove;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +37,7 @@ public class FormStep2Fragment extends Fragment {
     static EditText locationOfPond;
     static Spinner tehsilofPond;
     static EditText areaOfPond;
+    TextView labelLakeInformation;
     SharedPreferences sharedPreferences;
     String[] schemes;
     SchemeListAdapter schemeListAdapter;
@@ -53,6 +59,13 @@ public class FormStep2Fragment extends Fragment {
         areaOfPond = v.findViewById(R.id.area_form);
         listOfSchemeRVPond = v.findViewById(R.id.list_of_scheme_rv_form);
 
+        labelLakeInformation = v.findViewById(R.id.li_header_tv);
+        labelLakeInformation.setText(FormMainActivity.labelLakeInformation);
+
+        //SET THE HINT
+        locationOfPond.setHint(FormMainActivity.hintLocationOfPond);
+        areaOfPond.setHint(FormMainActivity.hintArea);
+
         //SET TEHSIL SPINNER
         tehsilArrList= stringToArrayList(sharedPreferences.getString("all_tehsil","")) ;
 
@@ -60,9 +73,12 @@ public class FormStep2Fragment extends Fragment {
                 (getContext(), android.R.layout.simple_spinner_item, tehsilArrList);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tehsilofPond.setAdapter(spinnerArrayAdapter);
+        //POPULATE TEHSIL IF ALREADY SELECtED
+        String mTehsil = sharedPreferences.getString("tehsil","");
+        int spinnerPositionTehsil = spinnerArrayAdapter.getPosition(mTehsil);
+        tehsilofPond.setSelection(spinnerPositionTehsil);
 
         //POPULATE THE CHECK BOX
-
         String schemesStr = sharedPreferences.getString("schemes","");
 
         schemes = schemesStr.split(",");
@@ -80,6 +96,8 @@ public class FormStep2Fragment extends Fragment {
         schemeListAdapter = new SchemeListAdapter(getContext(), schemes, mCheckedItem);
         listOfSchemeRVPond.setAdapter(schemeListAdapter);
         listOfSchemeRVPond.setLayoutManager(new GridLayoutManager(getActivity(),2));
+
+        approvalStatus(mApprove);
         return v;
     }
 
@@ -89,5 +107,19 @@ public class FormStep2Fragment extends Fragment {
         ArrayList<String> strArrList = new ArrayList<String>(strList);
 
         return strArrList;
+    }
+
+    public void approvalStatus(int approve){
+        switch(approve){
+            case 0:
+            case 3:
+            case 4:
+            case 2:
+                areaOfPond.setText(sharedPreferences.getString("area",""));
+                locationOfPond.setText(sharedPreferences.getString("location_of_pond",""));
+                break;
+            case 1:
+                break;
+        }
     }
 }

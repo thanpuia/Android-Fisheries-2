@@ -27,3 +27,5 @@
 21. pond3_web   -pond image 3 _web
 22. pond4_web    -pond image 4 _web
 23. approve     - approve status of the fishponds data
+24. language (English/Mizo) -
+25. languageCheckedItem - 0/1 -

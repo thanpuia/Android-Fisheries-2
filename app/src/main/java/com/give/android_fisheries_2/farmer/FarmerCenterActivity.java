@@ -18,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +32,6 @@ import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.builder.Builders;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +92,35 @@ public class FarmerCenterActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.refresh_page) {
                 finish();
                 startActivity(getIntent());
-        }else if (item.getItemId() == R.id.log_out) {
+        }else if (item.getItemId() == R.id.language){
+
+            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+            builder.setTitle("Select Language");
+            String[] language = {"English","Mizo"};
+            int checkedItem = sharedPreferences.getInt("languageCheckedItem",0);
+            builder.setSingleChoiceItems(language, checkedItem, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    switch (i){
+                        case 0: sharedPreferences.edit().putString("language","English").apply();
+                            sharedPreferences.edit().putInt("languageCheckedItem",0).apply();break;
+                        case 1: sharedPreferences.edit().putString("language","Mizo").apply();
+                            sharedPreferences.edit().putInt("languageCheckedItem",1).apply();break;
+
+                    }
+                }
+            });
+            builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+            android.app.AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+        }
+        else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             finish();
             startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
