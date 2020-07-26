@@ -16,7 +16,7 @@
         android:layout_width="@dimen/button_height_fisheries_xxl"
         android:layout_height="@dimen/button_height_fisheries_xxl"
         android:background="@drawable/button_circle"
-        android:src="@drawable/ic_cloud_upload_white_24dp"
+        android:src="@drawable/btn_upload"
         android:padding="15dp"
         android:onClick="dashboardButtonClick"
         android:textAlignment="center"

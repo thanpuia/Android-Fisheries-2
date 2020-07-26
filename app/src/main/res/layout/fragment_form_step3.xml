@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".farmer.form.FormStep3Fragment"
-    android:background="#fff">
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/step_count_form_tv"
@@ -12,29 +12,30 @@
         android:layout_height="wrap_content"
         android:text="Step 3"
         android:textColor="@color/colorPrimary"
-        android:layout_centerHorizontal="true"
         android:textSize="40dp"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"/>
 
     <TextView
         android:id="@+id/upp_header_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Upload Ponds Picture"
         android:layout_below="@id/step_count_form_tv"
-        android:layout_centerHorizontal="true"
-        android:textSize="25dp"/>
+        android:layout_gravity="center"
+        android:text="Upload Ponds Picture"
+        android:textSize="25dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/upp_header_tv">
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp">
 
         <FrameLayout
             android:id="@+id/pond1_framelayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:layout_marginLeft="20dp">
 
             <ImageView
@@ -141,4 +142,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

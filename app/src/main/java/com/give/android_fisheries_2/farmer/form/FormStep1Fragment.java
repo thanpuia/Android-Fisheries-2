@@ -28,9 +28,10 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
 
-import static com.give.android_fisheries_2.farmer.form.FormMainActivity.mApprove;
+import static com.give.android_fisheries_2.farmer.form.FormMainActivity.*;
 
 
 /**
@@ -39,6 +40,10 @@ import static com.give.android_fisheries_2.farmer.form.FormMainActivity.mApprove
 public class FormStep1Fragment extends Fragment {
     SharedPreferences sharedPreferences;
 
+    TextView farmersName;
+    TextView farmersContact;
+    TextView welcomeTv;
+
     static EditText fathersName;
     static EditText address;
     static Spinner district;
@@ -46,9 +51,10 @@ public class FormStep1Fragment extends Fragment {
 
     static String local_path_str_image;
     static boolean imageSelect;
+    String web_path_str_image ;
 
     TextView personalInfoTv;
-    ImageView profileImageFarmer;
+    CircleImageView profileImageFarmer;
 
     public FormStep1Fragment() {
         // Required empty public constructor
@@ -67,6 +73,10 @@ public class FormStep1Fragment extends Fragment {
         address = v.findViewById(R.id.address_form);
         district = v.findViewById(R.id.district_spinner_form);
         epicAadhaar = v.findViewById(R.id.epic_aadhaar_form);
+
+        farmersName = v.findViewById(R.id.farmers_name);
+        farmersContact = v.findViewById(R.id.farmers_phone_number);
+        welcomeTv = v.findViewById(R.id.welcome_header);
 
         personalInfoTv = v.findViewById(R.id.pi_header_tv);
         profileImageFarmer = v.findViewById(R.id.profile_image_farmer);
@@ -87,7 +97,11 @@ public class FormStep1Fragment extends Fragment {
             }
         });
 
-
+        //SET WELCOME
+        welcomeTv.setText(welcome);
+        //SET NAME
+        farmersName.setText(mName);
+        farmersContact.setText(mContact);
         //SET THE HINT
         fathersName.setHint(FormMainActivity.hintFathersName);
         address.setHint(FormMainActivity.hintAddress);
@@ -102,6 +116,13 @@ public class FormStep1Fragment extends Fragment {
         int spinnerPosition = adapter.getPosition(mDistrict);
         district.setSelection(spinnerPosition);
 
+        //POPULATE ALL PICTURE IF PRESENT LOCALLY
+        local_path_str_image = sharedPreferences.getString("image_local","");
+
+        if(!local_path_str_image.equals("")){
+            Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_image);
+            profileImageFarmer.setImageBitmap(profilePictureBitmap2);
+        }
         //IF DATA PRESENT POPULATE
         approvalStatus(mApprove);
         return v;
@@ -113,6 +134,7 @@ public class FormStep1Fragment extends Fragment {
         try {
             switch (requestCode) {
                 case 1://PROFILE PICTURE SELECT
+                    Log.d("TAG", "Esey " );
                     Uri fileUri = data.getData();
                     local_path_str_image = getRealPathFromURI(getContext(), fileUri);
                     imageSelect = true;
@@ -120,11 +142,11 @@ public class FormStep1Fragment extends Fragment {
                     sharedPreferences.edit().putString("image_local", local_path_str_image).apply();
 
                     Bitmap profilePictureBitmap = BitmapFactory.decodeFile(local_path_str_image);
-                    //pond1_iv.setImageBitmap(profilePictureBitmap);
+                    profileImageFarmer.setImageBitmap(profilePictureBitmap);
                     break;
             }
         } catch (Exception e) {
-            // Log.e(TAG, "Exception in onActivityResult : " + e.getMessage());
+             Log.e("TAG", "Exception in onActivityResult : " + e.getMessage());
         }
     }
     public String getRealPathFromURI(Context context, Uri contentUri) {
@@ -150,6 +172,13 @@ public class FormStep1Fragment extends Fragment {
                 fathersName.setText(sharedPreferences.getString("fname",""));
                 address.setText(sharedPreferences.getString("address",""));
                 epicAadhaar.setText(sharedPreferences.getString("epic_no",""));
+                web_path_str_image = sharedPreferences.getString("image_web","");
+
+                //PROFILE IMAGE
+                if(!web_path_str_image.equals("")){
+                    Picasso.get().load(MainActivity.MAIN_URL+"public/image/"+web_path_str_image).into(profileImageFarmer);
+                    Log.d("TAG","Image location IF TES");
+                }
                 break;
             case 1:
                 break;

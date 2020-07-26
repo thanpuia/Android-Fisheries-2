@@ -1,5 +1,6 @@
 package com.give.android_fisheries_2.farmer;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -71,6 +72,14 @@ public class FarmerCenterActivity extends AppCompatActivity {
     String MY_SCHEME_URL;
     String MY_USER_POND_URL;
 
+    String uploadYourForm;
+    String formSubmitted;
+    String formRejected;
+    String formApproved;
+    String serverError;
+
+    String language;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         this.menu = menu;
@@ -106,14 +115,14 @@ public class FarmerCenterActivity extends AppCompatActivity {
                             sharedPreferences.edit().putInt("languageCheckedItem",0).apply();break;
                         case 1: sharedPreferences.edit().putString("language","Mizo").apply();
                             sharedPreferences.edit().putInt("languageCheckedItem",1).apply();break;
-
                     }
                 }
             });
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-
+                  finish();
+                    startActivity(getIntent());
                 }
             });
             android.app.AlertDialog alertDialog = builder.create();
@@ -136,6 +145,10 @@ public class FarmerCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_center);
+        final ActionBar actionBar = getSupportActionBar();
+        getSupportActionBar().setCustomView(R.layout.m_toolbar_farmer);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );
+
         tehsil = new ArrayList<>();
         PermissionListener permissionlistener = new PermissionListener() {
             @Override
@@ -177,6 +190,18 @@ public class FarmerCenterActivity extends AppCompatActivity {
         mId = sharedPreferences.getInt("mId",0);
         //changeLook(0);farmerDashboardTextView
         farmerDashboardTextView.setText("Checking status...");
+
+        //Label LANGUAGE
+        language = sharedPreferences.getString("language","");
+        if(language.matches("English")){
+            uploadYourForm = getString(R.string.uploadYourDataEnglish);formSubmitted = getString(R.string.formSubmittedEnglish);
+            formRejected = getString(R.string.formRejectedEnglish);formApproved = getString(R.string.formApprovedEnglish);
+            serverError = getString(R.string.serverErrorEnglish);
+        }else{
+            uploadYourForm = getString(R.string.uploadYourDataMizo);formSubmitted = getString(R.string.formSubmittedMizo);
+            formRejected = getString(R.string.formRejectedMizo);formApproved = getString(R.string.formApprovedMizo);
+            serverError = getString(R.string.serverErrorMizo);
+        }
 
         //DOWNLOAD HELPLINE NUMBER
         //String urlHelpline = "http://192.168.43.205:8000/api/helpline/";
@@ -360,15 +385,15 @@ public class FarmerCenterActivity extends AppCompatActivity {
         switch (status) {
             case 0:
                 farmerDashboardButtonString = "Open Form";
-                farmerDashboardTextviewString = "Upload your data";
+                farmerDashboardTextviewString = uploadYourForm;
                 break;
             case 1:
                 farmerDashboardButtonString = "Download ID";
-                farmerDashboardTextviewString = "Data approved";
+                farmerDashboardTextviewString = formApproved;
                 break;
             case 2:
                 farmerDashboardButtonString = "Re-Submit";
-                farmerDashboardTextviewString = "Data Rejected";
+                farmerDashboardTextviewString = formRejected;
                 break;
             case 3:
                 farmerDashboardButtonString = "Edit";
@@ -376,17 +401,18 @@ public class FarmerCenterActivity extends AppCompatActivity {
                 break;
             case 4:
                 farmerDashboardButtonString = "Edit";
-                farmerDashboardTextviewString = "Form submitted\nPending Approval";
+                farmerDashboardTextviewString = formSubmitted;
                 break;
             case 5:
                 farmerDashboardButtonString = "Server error";
-                farmerDashboardTextviewString = "Server not reachable :(";
+                farmerDashboardTextviewString = serverError;
                 //farmerDashboardButton.setEnabled(false);
                 break;
             default:
                 break;
         }
         farmerDashboardTextView.setText(farmerDashboardTextviewString);
+        farmerDashboardTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         //farmerDashboardButton.setText(farmerDashboardButtonString);
     }
 

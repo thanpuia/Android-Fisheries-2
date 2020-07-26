@@ -26,6 +26,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import static com.give.android_fisheries_2.farmer.form.FormMainActivity.formMainButton;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -49,9 +51,9 @@ public class FormStep4Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View v = inflater.inflate(R.layout.fragment_form_step4, container, false);
         sharedPreferences = v.getContext().getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
-
         mMapView = v.findViewById(R.id.mapViewNew);
         saveLocation = v.findViewById(R.id.save_location_header_tv);
 
@@ -77,6 +79,8 @@ public class FormStep4Fragment extends Fragment {
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                 googleMap.setMyLocationEnabled(true);
                 googleMap.setPadding(0,180,0,0);
+                formMainButton.setVisibility(View.VISIBLE);
+
                 if(googleMap!=null){
                     googleMap.setOnMyLocationClickListener(new GoogleMap.OnMyLocationClickListener() {
                         @Override
@@ -91,6 +95,7 @@ public class FormStep4Fragment extends Fragment {
                                     //     .tilt(40)                   // Sets the tilt of the camera to 30 degrees
                                     .build();                   // Creates a CameraPosition from the builder
                             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
                         }
                     });
                 }

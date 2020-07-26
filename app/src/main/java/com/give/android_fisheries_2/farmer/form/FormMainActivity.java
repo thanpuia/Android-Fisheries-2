@@ -52,16 +52,16 @@ public class FormMainActivity extends AppCompatActivity {
     Fragment fragment4;
 
     ImageView imageViewStep;
-    Button formMainButton;
+    static Button formMainButton;
     ProgressBar progressBarForm;
 
     //VARIABLE FOR UPLOADING DATA
     static int mApprove;
     String method;
     String createOrEditUrl;
-    String mToken;
-    String mContact;
-    String mName;
+    static String mToken;
+    static String mContact;
+    static String mName;
     int mId;
 
     String DATA_UPLOAD_URL_CREATE;
@@ -90,6 +90,8 @@ public class FormMainActivity extends AppCompatActivity {
     static String hintTehsil;
     static String hintArea;
     static String hintPondsPicture;
+
+    static String welcome;
 
     String language;
 
@@ -145,6 +147,7 @@ public class FormMainActivity extends AppCompatActivity {
         mId = sharedPreferences.getInt("mId",0);
         pondId = sharedPreferences.getString("pondId","");
         local_path_str_image = sharedPreferences.getString("image_local","");
+        web_path_str_image  = sharedPreferences.getString("image_web","");
 
         DATA_UPLOAD_URL_CREATE = MainActivity.MAIN_URL+"api/fishponds/create";
         DATA_UPLOAD_URL_EDIT = MainActivity.MAIN_URL+"api/fishponds/edit/";
@@ -187,6 +190,7 @@ public class FormMainActivity extends AppCompatActivity {
               hintArea = getString(R.string.hintAreaEnglish);
               hintPondsPicture = getString(R.string.hintPondsPictureEnglish);
 
+              welcome = getString(R.string.welcomeEnglish);
 
         }else{
             errorFathersName = getString(R.string.errorFathersNameMizo);
@@ -211,6 +215,8 @@ public class FormMainActivity extends AppCompatActivity {
             hintTehsil  = getString(R.string.hintTehsilMizo);
             hintArea = getString(R.string.hintAreaMizo);
             hintPondsPicture = getString(R.string.hintPondsPictureMizo);
+
+            welcome = getString(R.string.welcomeMizo);
         }
 
         fragmentManager.beginTransaction()
@@ -240,20 +246,24 @@ public class FormMainActivity extends AppCompatActivity {
                 Toasty.error(this,errorSelectDistrict,Toasty.LENGTH_SHORT).show();
             }else if(epicAadhaar.matches("")){
                 FormStep1Fragment.epicAadhaar.setError(errorEpic);
-            }else{
-                //SAVED AND GOTO NEXT IF ONLY ALL ARE FILLED
-                //SAVED TO SHARED PREFERENCE
-                sharedPreferences.edit().putString("fname",fathersName).apply();
-                sharedPreferences.edit().putString("address",address).apply();
-                sharedPreferences.edit().putString("district",district).apply();
-                sharedPreferences.edit().putString("epic_no",epicAadhaar).apply();
+            }else if(web_path_str_image.matches("")&&local_path_str_image.matches("")) {
+                Toasty.error(this,"Select Profile Picture",Toasty.LENGTH_SHORT).show();
 
-                fragmentManager.beginTransaction()
-                        .replace(R.id.form_main_frame_layout,fragment2)
-                        .commit();
+            }else {
+                    //SAVED AND GOTO NEXT IF ONLY ALL ARE FILLED
+                    //SAVED TO SHARED PREFERENCE
+                    sharedPreferences.edit().putString("fname",fathersName).apply();
+                    sharedPreferences.edit().putString("address",address).apply();
+                    sharedPreferences.edit().putString("district",district).apply();
+                    sharedPreferences.edit().putString("epic_no",epicAadhaar).apply();
 
-                imageViewStep.setImageResource(R.drawable.dot2);
-                formPage = 2;
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.form_main_frame_layout,fragment2)
+                            .commit();
+
+                    imageViewStep.setImageResource(R.drawable.dot2);
+                    formPage = 2;
+
             }
 
         }else if(formPage == 2){
@@ -310,6 +320,8 @@ public class FormMainActivity extends AppCompatActivity {
                         .commit();
                 formPage = 4;
                 formMainButton.setText("SUBMIT");
+                formMainButton.setVisibility(View.GONE);
+
             }
 
 

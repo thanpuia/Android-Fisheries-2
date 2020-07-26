@@ -73,7 +73,15 @@
     <string name="labelLakeInfoEnglish">Lake Information</string>
     <string name="labelUploadPondsPictureEnglish">Upload Ponds Picture</string>
     <string name="labelSaveLocationEnglish">Save Location</string>
-            //HINT
+    <string name="welcomeEnglish">Welcome</string>
+
+    <string name="uploadYourDataEnglish">Upload Your Data</string>
+    <string name="formSubmittedEnglish">Form submitted \nPending Approlval</string>
+    <string name="formRejectedEnglish">Form rejected</string>
+    <string name="formApprovedEnglish">Form approved</string>
+    <string name="serverErrorEnglish">Server error :(</string>
+
+    //HINT
     <string name="hintFathersNameEnglish">Father\'s name</string>
     <string name="hintAddressEnglish">Address</string>
     <string name="hintSelectDistrictEnglish">District</string>
@@ -98,7 +106,16 @@
     <string name="labelLakeInfoMizo">Dil Chanchin</string>
     <string name="labelUploadPondsPictureMizo">Dil Thlalak</string>
     <string name="labelSaveLocationMizo">Dil Awmna Hmun</string>
-            //HINT
+
+    <string name="uploadYourDataMizo">Form thehluh tur</string>
+    <string name="formSubmittedMizo">Form endik turin a awm mek</string>
+    <string name="formRejectedMizo">Form hnawl a ni</string>
+    <string name="formApprovedMizo">Form endik a ni</string>
+    <string name="serverErrorMizo">Khawlpui lam a chiang lo :(</string>
+
+    <string name="welcomeMizo">Chibai</string>
+
+    //HINT
     <string name="hintFathersNameMizo">Pa Hming</string>
     <string name="hintAddressMizo">Khua/Veng</string>
     <string name="hintSelectDistrictMizo">District</string>

@@ -19,12 +19,12 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image_farmer"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:background="@drawable/button_circle_color"
-                android:padding="12dp"
+
                 android:src="@drawable/ic_person_grey_24dp" />
             <ImageView
                 android:layout_width="wrap_content"
@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Welcome"
             android:textColor="#fff"
+            android:textSize="25dp"
             android:layout_toRightOf="@id/profile_image_frame_layout"/>
         <TextView
             android:id="@+id/farmers_name"
@@ -46,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="Farmer's Name"
             android:textColor="#fff"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:layout_toRightOf="@id/profile_image_frame_layout"
             android:layout_below="@id/welcome_header"/>
@@ -109,6 +110,7 @@
             android:id="@+id/district_spinner_form"
             android:layout_width="match_parent"
             android:layout_height="45dp"
+            android:paddingLeft="14dp"
             android:layout_below="@id/address_form"/>
         <EditText
             android:id="@+id/epic_aadhaar_form"

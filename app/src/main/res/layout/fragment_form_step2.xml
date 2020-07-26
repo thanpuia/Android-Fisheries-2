@@ -40,6 +40,8 @@
         android:id="@+id/tehsil_spinner_form"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:paddingLeft="12dp"
+
         android:layout_below="@id/location_of_pond_form"/>
     <EditText
         android:id="@+id/area_form"
