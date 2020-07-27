@@ -22,8 +22,12 @@
         android:roundIcon="@mipmap/ic_fish_logo_ic_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".farmer.form.FormMainActivity"
-            android:theme="@style/AppTheme.NoActionBar" ></activity>
+        <activity android:name=".farmer.ContactUsActivity"
+            android:theme="@style/AppThemeFarmer" />
+
+        <activity
+            android:name=".farmer.form.FormMainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".farmer.FarmerIdActivity"
             android:theme="@style/AppThemeFarmer" />

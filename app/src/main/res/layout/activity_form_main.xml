@@ -7,18 +7,29 @@
     tools:context=".farmer.form.FormMainActivity"
     android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/prgressBarForm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:visibility="invisible"/>
+
     <FrameLayout
         android:id="@+id/form_main_frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/progressBarLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#65000000"
+        android:visibility="invisible"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progressBarForm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible"/>
+    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"

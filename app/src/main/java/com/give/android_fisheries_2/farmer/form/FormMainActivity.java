@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
@@ -53,7 +54,8 @@ public class FormMainActivity extends AppCompatActivity {
 
     ImageView imageViewStep;
     static Button formMainButton;
-    ProgressBar progressBarForm;
+    //ProgressBar progressBarForm;
+    LinearLayout prgressBarLinearLayout;
 
     //VARIABLE FOR UPLOADING DATA
     static int mApprove;
@@ -159,7 +161,8 @@ public class FormMainActivity extends AppCompatActivity {
 
         imageViewStep = findViewById(R.id.imageview_step);
         formMainButton = findViewById(R.id.form_main_button);
-        progressBarForm = findViewById(R.id.prgressBarForm);
+        //progressBarForm = findViewById(R.id.prgressBarForm);
+        prgressBarLinearLayout = findViewById(R.id.progressBarLinearLayout);
 
         formPage = 1;
         fragmentManager = getSupportFragmentManager();
@@ -332,10 +335,9 @@ public class FormMainActivity extends AppCompatActivity {
                 Log.d("TAG","MAP not move");
             }else{
                 Log.d("TAG",""+mName+mContact+fathersName+address+district+epicAadhaar+locationOfPonds+tehsil+area+scheme+local_path_str_pond1+lat+lng);
-
                 //hide and show
                 formMainButton.setVisibility(View.INVISIBLE);
-                progressBarForm.setVisibility(View.VISIBLE);
+                prgressBarLinearLayout.setVisibility(View.VISIBLE);
                 //SENT DATA TO SERVER
                 if(mApprove==0){
                     method = "POST";
@@ -395,7 +397,7 @@ public class FormMainActivity extends AppCompatActivity {
                         Log.d("TAG","URL 1: "+result);
                         //::::::FOR NOW ONLY BECAUSE SECOND API IS NOT CALLED::::::
                         formMainButton.setVisibility(View.VISIBLE);
-                        progressBarForm.setVisibility(GONE);
+                        prgressBarLinearLayout.setVisibility(GONE);
                         if(result!=null) Toasty.success(getApplicationContext(),"Upload Successfully!",Toasty.LENGTH_SHORT).show();
                         else Toasty.error(getApplicationContext(),"Sorry, server out of reach",Toasty.LENGTH_SHORT).show();
                         finish();
@@ -404,7 +406,6 @@ public class FormMainActivity extends AppCompatActivity {
                     }
                 });
             }
-
         }
     }
 

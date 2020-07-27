@@ -59,8 +59,9 @@ public class FarmerCenterActivity extends AppCompatActivity {
     int mId;
     List<String> schemes;
     String mySchemeInString;
-    String helpline_contact;
-    String helpline_name;
+
+    static String helpline_contact;
+    static String helpline_name;
 
     List<String> tehsil;
 
@@ -102,7 +103,6 @@ public class FarmerCenterActivity extends AppCompatActivity {
                 finish();
                 startActivity(getIntent());
         }else if (item.getItemId() == R.id.language){
-
             android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
             builder.setTitle("Select Language");
             String[] language = {"English","Mizo"};
@@ -127,16 +127,18 @@ public class FarmerCenterActivity extends AppCompatActivity {
             });
             android.app.AlertDialog alertDialog = builder.create();
             alertDialog.show();
-
         }
-        else if (item.getItemId() == R.id.log_out) {
+       else if (item.getItemId() == R.id.contact_us){
+            //Toasty.info(this,"Contact us and some other page will be shown",Toasty.LENGTH_SHORT).show();
+            startActivity(new Intent(this,ContactUsActivity.class));
+            //finish();
+       }
+       else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             finish();
             startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|
                     Intent.FLAG_ACTIVITY_CLEAR_TASK |
                     Intent.FLAG_ACTIVITY_NEW_TASK));
-        }else if (item.getItemId() == R.id.contact_us){
-            Toasty.info(this,"Contact us and some other page will be shown",Toasty.LENGTH_SHORT).show();
         }
         return true;
     }
@@ -145,6 +147,7 @@ public class FarmerCenterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_farmer_center);
+
         final ActionBar actionBar = getSupportActionBar();
         getSupportActionBar().setCustomView(R.layout.m_toolbar_farmer);
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME );

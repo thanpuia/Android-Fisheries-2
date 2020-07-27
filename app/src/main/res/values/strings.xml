@@ -56,10 +56,13 @@
     <string name="register_here"><u>Not yet register! Click here</u></string>
     <string name="login_here"><u>Already register. Click here to Login?</u></string>
 
+    <string name="contact_us">Directorate of Fisheries\n
+                                New Capital Complex, Khatla\n
+                                Aizawl, Mizoram</string>
 
     //LANGUAGE
-        //ENGLISH
-            //ERROR
+    //ENGLISH
+    //ERROR
     <string name="errorFathersNameEnglish">Father\'s name not entered</string>
     <string name="errorAddressEnglish">Address not entered</string>
     <string name="errorSelectDistrictEnglish">District not selected</string>
@@ -68,7 +71,7 @@
     <string name="errorTehsilEnglish">Tehsil not selected</string>
     <string name="errorAreaEnglish">Area not entered</string>
     <string name="errorPondsPictureEnglish">Choose atleast one pond picture</string>
-            //LABEL
+    //LABEL
     <string name="labelPersonalInfoEnglish">Personal Information</string>
     <string name="labelLakeInfoEnglish">Lake Information</string>
     <string name="labelUploadPondsPictureEnglish">Upload Ponds Picture</string>
@@ -91,8 +94,8 @@
     <string name="hintAreaEnglish">Area (in hectares)</string>
     <string name="hintPondsPictureEnglish">Select ponds picture</string>
 
-        //MIZO
-            //ERROR
+    //MIZO
+    //ERROR
     <string name="errorFathersNameMizo">Pa Hming awm lo</string>
     <string name="errorAddressMizo">Veng leh khua awm lo</string>
     <string name="errorSelectDistrictMizo">District thlang lo</string>
@@ -101,7 +104,7 @@
     <string name="errorTehsilMizo">Tehsil thlang lo</string>
     <string name="errorAreaMizo">Dil zau zawng awm</string>
     <string name="errorPondsPictureMizo">Dil thlalak pakhat tal thlan tur</string>
-            //LABEL
+    //LABEL
     <string name="labelPersonalInfoMizo">Mahni Chanchin</string>
     <string name="labelLakeInfoMizo">Dil Chanchin</string>
     <string name="labelUploadPondsPictureMizo">Dil Thlalak</string>
