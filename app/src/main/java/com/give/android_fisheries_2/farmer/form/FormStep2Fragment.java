@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.SchemeListAdapter;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -34,9 +35,13 @@ import static com.give.android_fisheries_2.farmer.form.FormMainActivity.mApprove
  */
 public class FormStep2Fragment extends Fragment {
     ArrayList<String> tehsilArrList;
-    static EditText locationOfPond;
+    /*static EditText locationOfPond;
+    static EditText areaOfPond;*/
+    static MaterialEditText locationOfPond;
+    static MaterialEditText areaOfPond;
+
     static Spinner tehsilofPond;
-    static EditText areaOfPond;
+
     TextView labelLakeInformation;
     SharedPreferences sharedPreferences;
     String[] schemes;
@@ -63,8 +68,10 @@ public class FormStep2Fragment extends Fragment {
         labelLakeInformation.setText(FormMainActivity.labelLakeInformation);
 
         //SET THE HINT
-        locationOfPond.setHint(FormMainActivity.hintLocationOfPond);
-        areaOfPond.setHint(FormMainActivity.hintArea);
+       /* locationOfPond.setHint(FormMainActivity.hintLocationOfPond);
+        areaOfPond.setHint(FormMainActivity.hintArea);*/
+        locationOfPond.setFloatingLabelText(FormMainActivity.hintLocationOfPond);
+        areaOfPond.setFloatingLabelText(FormMainActivity.hintArea);
 
         //SET TEHSIL SPINNER
         tehsilArrList= stringToArrayList(sharedPreferences.getString("all_tehsil","")) ;

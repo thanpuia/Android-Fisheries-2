@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
+import com.rengwuxian.materialedittext.MaterialEditText;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -44,10 +45,17 @@ public class FormStep1Fragment extends Fragment {
     TextView farmersContact;
     TextView welcomeTv;
 
+  /*
     static EditText fathersName;
     static EditText address;
     static Spinner district;
     static EditText epicAadhaar;
+    */
+
+    static MaterialEditText fathersName;
+    static MaterialEditText address;
+    static Spinner district;
+    static MaterialEditText epicAadhaar;
 
     static String local_path_str_image;
     static boolean imageSelect;
@@ -103,9 +111,14 @@ public class FormStep1Fragment extends Fragment {
         farmersName.setText(mName);
         farmersContact.setText(mContact);
         //SET THE HINT
+        /*
         fathersName.setHint(FormMainActivity.hintFathersName);
         address.setHint(FormMainActivity.hintAddress);
         epicAadhaar.setHint(FormMainActivity.hintEpic);
+*/
+        fathersName.setFloatingLabelText(FormMainActivity.hintFathersName);
+        address.setFloatingLabelText(FormMainActivity.hintAddress);
+        epicAadhaar.setFloatingLabelText(FormMainActivity.hintEpic);
 
         //SET DISTRICT SPINNER
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(),R.array.districts,android.R.layout.simple_spinner_dropdown_item);

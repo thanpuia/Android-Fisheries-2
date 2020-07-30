@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".farmer.form.FormStep2Fragment"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
@@ -25,16 +26,29 @@
         android:layout_centerHorizontal="true"
         android:textSize="25dp"/>
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/location_of_pond_form"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/li_header_tv"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:hint="Location of Pond"-->
+<!--        android:maxLines="1"-->
+<!--        android:inputType="textCapSentences"-->
+<!--        android:paddingLeft="@dimen/farmer_form_edittext_padding_left"-->
+<!--        />-->
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/location_of_pond_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/li_header_tv"
         android:layout_marginTop="20dp"
-        android:hint="Location of Pond"
-        android:maxLines="1"
+         android:maxLines="1"
         android:inputType="textCapSentences"
         android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAlwaysShown="true"
+        app:met_floatingLabelText="Location of Pond"
         />
     <Spinner
         android:id="@+id/tehsil_spinner_form"
@@ -43,15 +57,27 @@
         android:paddingLeft="12dp"
 
         android:layout_below="@id/location_of_pond_form"/>
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/area_form"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/tehsil_spinner_form"-->
+<!--        android:hint="Area (in hectares)"-->
+<!--        android:maxLines="1"-->
+<!--        android:inputType="textCapSentences"-->
+<!--        android:paddingLeft="@dimen/farmer_form_edittext_padding_left"-->
+<!--        />-->
+    <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/area_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tehsil_spinner_form"
-        android:hint="Area (in hectares)"
-        android:maxLines="1"
+         android:maxLines="1"
         android:inputType="textCapSentences"
         android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelAlwaysShown="true"
+        app:met_floatingLabelText="Area (in hectares)"
         />
 
     <TextView

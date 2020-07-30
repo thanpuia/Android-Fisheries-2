@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".farmer.form.FormStep1Fragment"
     android:id="@+id/body_relative_layout">
 
@@ -47,7 +48,8 @@
             android:layout_height="wrap_content"
             android:text="Farmer's Name"
             android:textColor="#fff"
-            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:layout_marginTop="15dp"
             android:textStyle="bold"
             android:layout_toRightOf="@id/profile_image_frame_layout"
             android:layout_below="@id/welcome_header"/>
@@ -85,43 +87,78 @@
             android:layout_centerHorizontal="true"
             android:textSize="25dp"/>
 
-        <EditText
+<!--        <EditText-->
+<!--            android:id="@+id/fathers_name_form"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/pi_header_tv"-->
+<!--            android:hint="Father's Name"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"-->
+<!--            android:inputType="textCapSentences"-->
+<!--            android:maxLines="1"/>-->
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/fathers_name_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/pi_header_tv"
-            android:hint="Father's Name"
-            android:layout_marginTop="20dp"
+             android:layout_marginTop="20dp"
             android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
             android:inputType="textCapSentences"
-            android:maxLines="1"/>
+            android:maxLines="1"
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Father's Name"/>
 
-        <EditText
+<!--        <EditText-->
+<!--            android:id="@+id/address_form"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/fathers_name_form"-->
+<!--            android:hint="Address"-->
+<!--            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"-->
+<!--            android:inputType="textCapSentences"-->
+<!--            android:maxLines="1"-->
+<!--            />-->
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/address_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fathers_name_form"
-            android:hint="Address"
-            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
+             android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
             android:inputType="textCapSentences"
             android:maxLines="1"
-            />
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="Address"/>
+
         <Spinner
             android:id="@+id/district_spinner_form"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:paddingLeft="14dp"
             android:layout_below="@id/address_form"/>
-        <EditText
+<!--        <EditText-->
+<!--            android:id="@+id/epic_aadhaar_form"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@id/district_spinner_form"-->
+<!--            android:hint="EPIC No/Aadhaar No"-->
+<!--            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"-->
+<!--            android:inputType="textCapCharacters"-->
+<!--            android:maxLines="1"-->
+<!--            />-->
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/epic_aadhaar_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/district_spinner_form"
-            android:hint="EPIC No/Aadhaar No"
-            android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
+             android:paddingLeft="@dimen/farmer_form_edittext_padding_left"
             android:inputType="textCapCharacters"
             android:maxLines="1"
-            />
+            app:met_floatingLabel="highlight"
+            app:met_floatingLabelAlwaysShown="true"
+            app:met_floatingLabelText="EPIC No/Aadhaar No"/>
 
     </RelativeLayout>
 

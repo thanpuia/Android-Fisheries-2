@@ -126,25 +126,25 @@ public class FormStep3Fragment extends Fragment {
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond1);
             pond1_iv.setImageBitmap(profilePictureBitmap2);
             pond1_tv.setText("Edit");
-            pond1_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+            pond1_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
         }
         if(!local_path_str_pond2.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond2);
             pond2_iv.setImageBitmap(profilePictureBitmap2);
             pond2_tv.setText("Edit");
-            pond2_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+            pond2_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
         }
         if(!local_path_str_pond3.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond3);
             pond3_iv.setImageBitmap(profilePictureBitmap2);
             pond3_tv.setText("Edit");
-            pond3_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+            pond3_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
         }
         if(!local_path_str_pond4.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond4);
             pond4_iv.setImageBitmap(profilePictureBitmap2);
             pond4_tv.setText("Edit");
-            pond4_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+            pond4_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
         }
 
         //PONDS PICTURE ONCLICK
