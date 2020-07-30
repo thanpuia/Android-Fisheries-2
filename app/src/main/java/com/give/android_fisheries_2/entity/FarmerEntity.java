@@ -19,12 +19,13 @@ public class FarmerEntity {
     String pond2;
     String pond3;
     String pond4;
+    String approve;
 
 
     public FarmerEntity() {
     }
 
-    public FarmerEntity(String name, String contact, String fname, String address, String district, String locationOfPond, String tehsil, String area, String epicOrAadhaar, String nameOfScheme, String image, double lat, double lng, String pond1, String pond2, String pond3, String pond4) {
+    public FarmerEntity(String name, String contact, String fname, String address, String district, String locationOfPond, String tehsil, String area, String epicOrAadhaar, String nameOfScheme, String image, double lat, double lng, String pond1, String pond2, String pond3, String pond4, String approve) {
         this.name = name;
         this.contact = contact;
         this.fname = fname;
@@ -42,6 +43,7 @@ public class FarmerEntity {
         this.pond2 = pond2;
         this.pond3 = pond3;
         this.pond4 = pond4;
+        this.approve = approve;
     }
 
     public String getName() {
@@ -178,5 +180,13 @@ public class FarmerEntity {
 
     public void setPond4(String pond4) {
         this.pond4 = pond4;
+    }
+
+    public String getApprove() {
+        return approve;
+    }
+
+    public void setApprove(String approve) {
+        this.approve = approve;
     }
 }

@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-        <TextView
+       <!-- <TextView
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,25 +22,26 @@
             android:id="@+id/name_value"
             android:textSize="@dimen/text_size_fisheries_small"
             android:text="name_value"
-            android:layout_toRightOf="@+id/name"
-            />
-        <TextView
-            android:layout_below="@id/name"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/contact"
-            android:textSize="@dimen/text_size_fisheries_small"
-            android:text="Contact: "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/contact_value"
-            android:textSize="@dimen/text_size_fisheries_small"
-            android:text="name_value"
-            android:layout_toRightOf="@+id/contact"
-            android:layout_below="@id/name_value"
-            />
+            android:layout_toRightOf="@+id/name"/>-->
+
+<!--        <TextView-->
+<!--            android:layout_below="@id/name"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/contact"-->
+<!--            android:textSize="@dimen/text_size_fisheries_small"-->
+<!--            android:text="Contact: "/>-->
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/contact_value"-->
+<!--            android:textSize="@dimen/text_size_fisheries_small"-->
+<!--            android:text="name_value"-->
+<!--            android:layout_toRightOf="@+id/contact"-->
+<!--            android:layout_below="@id/name_value"-->
+<!--            />-->
+
         <TextView
             android:textStyle="bold"
             android:layout_width="wrap_content"
@@ -48,7 +49,7 @@
             android:id="@+id/fname"
             android:textSize="@dimen/text_size_fisheries_small"
             android:text="Father's Name: "
-            android:layout_below="@id/contact"
+
             />
         <TextView
             android:layout_width="wrap_content"
@@ -56,7 +57,7 @@
             android:id="@+id/fname_value"
             android:textSize="@dimen/text_size_fisheries_small"
             android:text="fname_value"
-            android:layout_below="@id/contact_value"
+
             android:layout_toRightOf="@+id/fname"/>
         <TextView
             android:textStyle="bold"
@@ -163,7 +164,7 @@
             android:layout_marginTop="15dp"
             android:id="@+id/message_farmer_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_below="@id/scheme_value"
             android:layout_alignParentRight="true"
             android:background="@color/colorPrimary"

@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.chrisbanes.photoview.PhotoView;
 import com.give.android_fisheries_2.MainActivity;
 import com.give.android_fisheries_2.R;
 import com.give.android_fisheries_2.adapter.FarmerListAdapter;
@@ -46,6 +48,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -194,9 +198,9 @@ public class FarmerListActivity extends AppCompatActivity {
                                                     String pond2 = singleRow.getString("pondImage_two");
                                                     String pond3 = singleRow.getString("pondImage_three");
                                                     String pond4 = singleRow.getString("pondImage_four");
+                                                    String approve = singleRow.getString("approve");
 
-
-                                                    FarmerEntity mFarmerEntity= new FarmerEntity(name,contact,fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng,pond1,pond2,pond3,pond4);
+                                                    FarmerEntity mFarmerEntity= new FarmerEntity(name,contact,fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng,pond1,pond2,pond3,pond4,approve);
                                                     farmerEntities.add(mFarmerEntity);
                                                 }
                                                 listAdapterAdder(getApplicationContext(),farmerEntities);
@@ -293,21 +297,23 @@ public class FarmerListActivity extends AppCompatActivity {
                                 String pond2 = singleRow.getString("pondImage_two");
                                 String pond3 = singleRow.getString("pondImage_three");
                                 String pond4 = singleRow.getString("pondImage_four");
+                                String approve = singleRow.getString("approve");
 
-                                FarmerEntity mFarmerEntity= new FarmerEntity(name,contact,fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng,pond1,pond2,pond3,pond4);
+                                FarmerEntity mFarmerEntity= new FarmerEntity(name,contact,fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng,pond1,pond2,pond3,pond4,approve);
                                 farmerEntities.add(mFarmerEntity);
                             }
                             farmerListAdapter = new FarmerListAdapter(farmerEntities, getApplicationContext());
                             farmerRecyclerView.setAdapter(farmerListAdapter);
 
-                            //ONCLICK LIST
+                             //ONCLICK LIST
                             farmerRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), farmerRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(View view, final int position) {
                                     LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
+
                                     //Call the alert box
                                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                                    builder.setTitle(farmerEntities.get(position).getName() + "'s Details");
+                                    builder.setTitle(farmerEntities.get(position).getName() + "'s Details\n"+farmerEntities.get(position).getContact());
 
                                     //SET THE CUSTOM LAYOUT
                                     View customLayout = layoutInflater.inflate(R.layout.custom_farmer_list_details, null);
@@ -317,8 +323,8 @@ public class FarmerListActivity extends AppCompatActivity {
                                     final TextView name, contact, fname, address, district, tehsil, area, epic, scheme;
                                     Button messageFarmerButton;
                                     messageFarmerButton = customLayout.findViewById(R.id.message_farmer_button);
-                                    name = customLayout.findViewById(R.id.name_value);
-                                    contact = customLayout.findViewById(R.id.contact_value);
+//                                    name = customLayout.findViewById(R.id.name_value);
+//                                    contact = customLayout.findViewById(R.id.contact_value);
                                     fname = customLayout.findViewById(R.id.fname_value);
                                     address = customLayout.findViewById(R.id.address_value);
                                     district = customLayout.findViewById(R.id.district_value);
@@ -340,8 +346,8 @@ public class FarmerListActivity extends AppCompatActivity {
                                     });
 
                                     //DEFINITION
-                                    name.setText(farmerEntities.get(position).getName());
-                                    contact.setText(farmerEntities.get(position).getContact());
+//                                    name.setText(farmerEntities.get(position).getName());
+//                                    contact.setText(farmerEntities.get(position).getContact());
                                     fname.setText(farmerEntities.get(position).getFname());
                                     district.setText(farmerEntities.get(position).getDistrict());
                                     address.setText(farmerEntities.get(position).getAddress());
@@ -564,8 +570,9 @@ public class FarmerListActivity extends AppCompatActivity {
                                 String pond2 = singleRow.getString("pondImage_two");
                                 String pond3 = singleRow.getString("pondImage_three");
                                 String pond4 = singleRow.getString("pondImage_four");
+                                String approve = singleRow.getString("approve");
 
-                                FarmerEntity mFarmerEntity= new FarmerEntity(name,contact,fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng,pond1,pond2,pond3,pond4);
+                                FarmerEntity mFarmerEntity= new FarmerEntity(name,contact,fname,address,district,location_of_pond,tehsil,area,epicOrAadhaar,nameOfScheme,image,lat,lng,pond1,pond2,pond3,pond4,approve);
                                 farmerEntities.add(mFarmerEntity);
                             }
                           listAdapterAdder(c,farmerEntities);
@@ -603,6 +610,9 @@ public class FarmerListActivity extends AppCompatActivity {
                 doubleBackToExitPressedOnce = false;
             }
         }, 2000);
+
+
     }
+
 
 }
