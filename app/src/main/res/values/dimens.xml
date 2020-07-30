@@ -16,4 +16,5 @@
     <dimen name="farmer_data_upload_space_between_edittext">30dp</dimen>
     <dimen name="farmer_form_edittext_padding_left">20dp</dimen>
 
+    <dimen name="admin_farmer_details_dialog">3dp</dimen>
 </resources>

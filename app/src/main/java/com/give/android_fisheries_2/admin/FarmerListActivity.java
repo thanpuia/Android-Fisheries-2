@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -313,18 +316,23 @@ public class FarmerListActivity extends AppCompatActivity {
 
                                     //Call the alert box
                                     AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                                    builder.setTitle(farmerEntities.get(position).getName() + "'s Details\n"+farmerEntities.get(position).getContact());
+                                    //builder.setTitle(farmerEntities.get(position).getName() + "'s Details\n"+farmerEntities.get(position).getContact());
 
                                     //SET THE CUSTOM LAYOUT
                                     View customLayout = layoutInflater.inflate(R.layout.custom_farmer_list_details, null);
                                     builder.setView(customLayout);
 
                                     //DECLARATION AND INITIALIZATION
-                                    final TextView name, contact, fname, address, district, tehsil, area, epic, scheme;
-                                    Button messageFarmerButton;
-                                    messageFarmerButton = customLayout.findViewById(R.id.message_farmer_button);
+                                    final TextView name, contact, fname, address, district, tehsil, area, epic, scheme,farmerName,farmerContact;
+                                    final ImageView profilePictureImageView;
+
+                                    //Button messageFarmerButton;
+                                  //  messageFarmerButton = customLayout.findViewById(R.id.message_farmer_button);
 //                                    name = customLayout.findViewById(R.id.name_value);
 //                                    contact = customLayout.findViewById(R.id.contact_value);
+                                    profilePictureImageView = customLayout.findViewById(R.id.circular_imageview_dialog_pro_pic);
+                                    farmerName = customLayout.findViewById(R.id.textview_dialog_farmersname);
+                                    farmerContact = customLayout.findViewById(R.id.textview_dialog_farmerscontact);
                                     fname = customLayout.findViewById(R.id.fname_value);
                                     address = customLayout.findViewById(R.id.address_value);
                                     district = customLayout.findViewById(R.id.district_value);
@@ -333,7 +341,7 @@ public class FarmerListActivity extends AppCompatActivity {
                                     epic = customLayout.findViewById(R.id.epic_value);
                                     scheme = customLayout.findViewById(R.id.scheme_value);
 
-                                    messageFarmerButton.setOnClickListener(new View.OnClickListener() {
+/*                                    messageFarmerButton.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             Intent intent = new Intent (getApplicationContext(),SmsActivity.class);
@@ -343,29 +351,65 @@ public class FarmerListActivity extends AppCompatActivity {
                                             startActivity(intent);
                                             finish();
                                         }
-                                    });
+                                    });*/
 
                                     //DEFINITION
 //                                    name.setText(farmerEntities.get(position).getName());
 //                                    contact.setText(farmerEntities.get(position).getContact());
-                                    fname.setText(farmerEntities.get(position).getFname());
-                                    district.setText(farmerEntities.get(position).getDistrict());
-                                    address.setText(farmerEntities.get(position).getAddress());
-                                    tehsil.setText(farmerEntities.get(position).getTehsil());
-                                    area.setText(farmerEntities.get(position).getArea());
-                                    epic.setText(farmerEntities.get(position).getEpicOrAadhaar());
-                                    scheme.setText(farmerEntities.get(position).getNameOfScheme());
+
+                                    //IMAGE VIEW
+                                    Picasso.get()
+                                            .load(MainActivity.MAIN_URL+"public/image/"+farmerEntities.get(position).getImage())
+                                            .placeholder(R.drawable.ic_fish_good)
+                                            .error(R.mipmap.ic_fish_logo_ic)
+                                            .into(profilePictureImageView);
+
+                                    farmerName.setText(farmerEntities.get(position).getName());
+                                    farmerContact.setText(farmerEntities.get(position).getContact());
+
+                                    fname.setText(": "+farmerEntities.get(position).getFname());
+                                    district.setText(": "+farmerEntities.get(position).getDistrict());
+                                    address.setText(": "+farmerEntities.get(position).getAddress());
+                                    tehsil.setText(": "+farmerEntities.get(position).getTehsil());
+                                    area.setText(": "+farmerEntities.get(position).getArea());
+                                    epic.setText(": "+farmerEntities.get(position).getEpicOrAadhaar());
+                                    scheme.setText(": "+farmerEntities.get(position).getNameOfScheme());
 
 
-                                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+                                    builder.setPositiveButton("SMS", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
-
+                                            Intent intent = new Intent (getApplicationContext(),SmsActivity.class);
+                                            intent.putExtra("sms",true);
+                                            intent.putExtra("name",farmerEntities.get(position).getName());
+                                            intent.putExtra("contact",farmerEntities.get(position).getContact());
+                                            startActivity(intent);
+                                            finish();
                                         }
                                     });
-                                    builder.setNegativeButton("Map", new DialogInterface.OnClickListener() {
+                                    builder.setNegativeButton("CALL", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
+
+                                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                                // TODO: Consider calling
+                                                //    ActivityCompat#requestPermissions
+                                                // here to request the missing permissions, and then overriding
+                                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                                //                                          int[] grantResults)
+                                                // to handle the case where the user grants the permission. See the documentation
+                                                // for ActivityCompat#requestPermissions for more details.
+                                                return;
+                                            }
+                                            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +farmerEntities.get(position).getContact())));
+                                        }
+                                    });
+
+                                    builder.setNeutralButton("MAP", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
                                             startActivity(new Intent(getApplicationContext(), FishPondMapActivity.class)
                                                     .putExtra("lat", farmerEntities.get(position).getLat())
                                                     .putExtra("lng", farmerEntities.get(position).getLng())
@@ -382,26 +426,10 @@ public class FarmerListActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                    builder.setNeutralButton("Call", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                                                // TODO: Consider calling
-                                                //    ActivityCompat#requestPermissions
-                                                // here to request the missing permissions, and then overriding
-                                                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                                //                                          int[] grantResults)
-                                                // to handle the case where the user grants the permission. See the documentation
-                                                // for ActivityCompat#requestPermissions for more details.
-                                                return;
-                                            }
-                                            startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" +farmerEntities.get(position).getContact())));
-
-                                        }
-                                    });
-
                                     AlertDialog dialog = builder.create();
+
                                     dialog.show();
+
                                     Log.d("TAG","FARMER NAMe: "+farmerEntities.get(position).getName());
                                 }
 

@@ -27,7 +27,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public final static  String MAIN_URL = "http://192.168.43.205:8000/";
+    //public final static  String MAIN_URL = "http://192.168.43.205:8000/"; 10.180.243.48
+    public final static  String MAIN_URL = "http://10.180.243.48:8000/";
     SharedPreferences sharedPreferences;
     Boolean mLoginStatus;
     String mRole;

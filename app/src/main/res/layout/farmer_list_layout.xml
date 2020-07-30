@@ -51,6 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="Farmer's Address"
                 android:layout_below="@+id/name_tv"
+                android:singleLine="true"
                 android:layout_toRightOf="@id/profile_imageCirleImageView"
                 />
 
