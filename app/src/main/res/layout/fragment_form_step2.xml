@@ -87,7 +87,7 @@
         android:text="Scheme"
         android:layout_below="@id/area_form"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp"
+        android:textSize="20dp"
         android:layout_marginTop="30dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -97,6 +97,6 @@
         android:textSize="@dimen/text_size_fisheries"
         android:layout_height="wrap_content"
         android:layout_below="@id/scheme_header_form"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="@dimen/farmer_data_upload_space_between_edittext"/>
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"/>
 </RelativeLayout>

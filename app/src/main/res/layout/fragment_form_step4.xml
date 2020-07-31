@@ -2,23 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".farmer.form.FormStep4Fragment">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapViewNew"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapViewNew"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/map_size" />
+        </LinearLayout>
+
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:src="@drawable/ic_my_location"
             android:layout_centerInParent="true"/>
+
 <!--        <Button-->
 <!--            android:id="@+id/locationsavedClick"-->
 <!--            android:layout_width="match_parent"-->

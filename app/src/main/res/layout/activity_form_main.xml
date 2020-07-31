@@ -4,70 +4,81 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".farmer.form.FormMainActivity"
-    android:orientation="vertical">
+    tools:context=".farmer.form.FormMainActivity">
 
-
-    <FrameLayout
-        android:id="@+id/form_main_frame_layout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/progressBarLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#65000000"
-        android:visibility="invisible"
-        android:gravity="center">
-
-        <ProgressBar
-            android:id="@+id/progressBarForm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:visibility="visible"/>
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:id="@+id/form_main_button"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:text="NEXT"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:textSize="20dp"
-            android:onClick="nextClick"/>
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/form_main_button"
-            android:layout_alignParentBottom="true"
-            android:gravity="center|bottom"
-            android:foregroundGravity="bottom"
-            android:background="#9CFFFFFF">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/imageview_step"
-                android:layout_width="120dp"
-                android:layout_height="25dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="3dp"
-                android:src="@mipmap/ic_launcher"/>
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/progressBarLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#65000000"
+                android:gravity="center"
+                android:visibility="invisible">
+
+                <ProgressBar
+                    android:id="@+id/progressBarForm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/form_main_frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp" />
 
 
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/form_main_frame_layout">
+
+                <Button
+                    android:id="@+id/form_main_button"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/colorPrimary"
+                    android:onClick="nextClick"
+                    android:text="NEXT"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/form_main_button"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="20dp"
+                    android:background="#9CFFFFFF"
+                    android:foregroundGravity="bottom"
+                    android:gravity="center|bottom">
+
+                    <ImageView
+                        android:id="@+id/imageview_step"
+                        android:layout_width="120dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginBottom="3dp"
+                        android:src="@mipmap/ic_launcher" />
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
+
 
 </RelativeLayout>

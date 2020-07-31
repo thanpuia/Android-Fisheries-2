@@ -29,7 +29,7 @@ import static com.give.android_fisheries_2.farmer.FarmerCenterActivity.helpline_
 
 public class ContactUsActivity extends AppCompatActivity {
 
-    TextView contactusPhone;
+    //TextView contactusPhone;
     RelativeLayout relative_layout_contactus;
     Menu menu;
     SharedPreferences sharedPreferences;
@@ -105,13 +105,13 @@ public class ContactUsActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("com.example.root.sharedpreferences", Context.MODE_PRIVATE);
 
-        contactusPhone = findViewById(R.id.contactus_phone);
+        //contactusPhone = findViewById(R.id.contactus_phone);
         relative_layout_contactus = findViewById(R.id.relative_layout_contactus);
 
         relative_layout_contactus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ContactUsActivity.this);
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(ContactUsActivity.this);
                 builder.setTitle("Contact "+helpline_name);
                 builder.setMessage("Call "+helpline_contact);
                 builder.setPositiveButton("Call", new DialogInterface.OnClickListener() {
@@ -134,7 +134,7 @@ public class ContactUsActivity extends AppCompatActivity {
                 builder.setNegativeButton("Cancel",null);
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
-
+*/
 
 //                String uri = "tel:" + helpline_contact.trim();
 //                Intent intent = new Intent(Intent.ACTION_CALL);
@@ -152,6 +152,33 @@ public class ContactUsActivity extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
-        contactusPhone.setText(helpline_contact);
+        //contactusPhone.setText(helpline_contact);
+    }
+
+    public void callNowButton(View view) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ContactUsActivity.this);
+        builder.setTitle("Contact "+helpline_name);
+        builder.setMessage("Call "+helpline_contact);
+        builder.setPositiveButton("Call", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
+                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + helpline_contact.trim())));
+            }
+        });
+
+        builder.setNegativeButton("Cancel",null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

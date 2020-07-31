@@ -7,84 +7,88 @@
     android:orientation="vertical"
     tools:context=".registration.LoginActivity">
 
-
-
-
-    <LinearLayout
-        android:id="@+id/loginFormLinearLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="20dp"
-
-        android:background="#fff">
-
-        <ImageView
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_marginTop="5dp"
-            android:src="@drawable/fish_logo"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            android:contentDescription="TODO" />
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/loginFormLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp"
+            android:layout_alignParentBottom="true"
+            android:background="#fff">
 
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/loginContact"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_local_phone_black_24dp"
-                android:drawablePadding="6dp"
-                android:maxLines="1"
-                android:inputType="phone"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                android:textSize="@dimen/text_size_fisheries"
-                android:background="@drawable/rectangle_edittext"
-                app:met_floatingLabelText="Phone" />
-
-            <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/loginPassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_password_icon"
-                android:drawablePadding="6dp"
-                android:maxLines="1"
-                android:inputType="textVisiblePassword"
-                app:met_floatingLabel="highlight"
-                app:met_floatingLabelAlwaysShown="true"
-                android:textSize="@dimen/text_size_fisheries"
-
-                app:met_floatingLabelText="Password" />
-
-            <Button
-                android:id="@+id/loginInButton"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
+            <ImageView
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/colorPrimary"
-                android:onClick="mLoginButtonClick"
-                android:text="Login"
-                android:textSize="@dimen/text_size_fisheries"
-                android:textColor="#FFF" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:src="@drawable/fish_logo"
+                android:layout_marginBottom="20dp"
                 android:layout_gravity="center"
-                android:onClick="notYetRegisterClick"
-                android:padding="15dp"
-                android:layout_marginBottom="50dp"
-                android:text="@string/register_here"/>
+                android:contentDescription="TODO" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/loginContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_local_phone_black_24dp"
+                    android:drawablePadding="6dp"
+                    android:maxLines="1"
+                    android:inputType="phone"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelAlwaysShown="true"
+                    android:textSize="@dimen/text_size_fisheries"
+                    android:background="@drawable/rectangle_edittext"
+                    app:met_floatingLabelText="Phone" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/loginPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_password_icon"
+                    android:drawablePadding="6dp"
+                    android:maxLines="1"
+                    android:inputType="textVisiblePassword"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelAlwaysShown="true"
+                    android:textSize="@dimen/text_size_fisheries"
+
+                    app:met_floatingLabelText="Password" />
+
+                <Button
+                    android:id="@+id/loginInButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorPrimary"
+                    android:onClick="mLoginButtonClick"
+                    android:text="Login"
+                    android:textSize="@dimen/text_size_fisheries"
+                    android:textColor="#FFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:onClick="notYetRegisterClick"
+                    android:padding="15dp"
+                    android:layout_marginBottom="50dp"
+                    android:text="@string/register_here"/>
+            </LinearLayout>
+
         </LinearLayout>
 
+    </ScrollView>
 
-    </LinearLayout>
+
 
 
     <LinearLayout

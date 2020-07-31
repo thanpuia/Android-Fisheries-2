@@ -48,6 +48,7 @@ dependencies {
     implementation 'gun0912.ted:tedpermission:2.2.3'
     implementation 'com.tapadoo.android:alerter:6.1.0'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    compile 'com.github.ganfra:material-spinner:2.0.0'
     //   api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 }

@@ -126,25 +126,32 @@ public class FormStep3Fragment extends Fragment {
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond1);
             pond1_iv.setImageBitmap(profilePictureBitmap2);
             pond1_tv.setText("Edit");
-            pond1_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
+            pond1_tv.setTextColor(getContext().getResources().getColor(R.color.white1));
+            pond1_tv.setBackgroundResource(R.drawable.rounded_textview);
         }
         if(!local_path_str_pond2.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond2);
             pond2_iv.setImageBitmap(profilePictureBitmap2);
             pond2_tv.setText("Edit");
-            pond2_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
+            pond2_tv.setTextColor(getContext().getResources().getColor(R.color.white1));
+            pond2_tv.setBackgroundResource(R.drawable.rounded_textview);
+
         }
         if(!local_path_str_pond3.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond3);
             pond3_iv.setImageBitmap(profilePictureBitmap2);
             pond3_tv.setText("Edit");
-            pond3_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
+            pond3_tv.setTextColor(getContext().getResources().getColor(R.color.white1));
+            pond3_tv.setBackgroundResource(R.drawable.rounded_textview);
+
         }
         if(!local_path_str_pond4.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_pond4);
             pond4_iv.setImageBitmap(profilePictureBitmap2);
             pond4_tv.setText("Edit");
-            pond4_tv.setTextColor(getContext().getResources().getColor(R.color.black_80));
+            pond4_tv.setTextColor(getContext().getResources().getColor(R.color.white1));
+            pond4_tv.setBackgroundResource(R.drawable.rounded_textview);
+
         }
 
         //PONDS PICTURE ONCLICK
@@ -227,6 +234,7 @@ public class FormStep3Fragment extends Fragment {
                 case 11:
                     pond1_tv.setText("Edit");
                     pond1_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond1_tv.setBackgroundResource(R.drawable.rounded_textview);
 
                     Uri fileUri_11 = data.getData();
                     local_path_str_pond1 = getRealPathFromURI(getContext(), fileUri_11);
@@ -240,6 +248,8 @@ public class FormStep3Fragment extends Fragment {
                 case 12:
                     pond2_tv.setText("Edit");
                     pond2_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond2_tv.setBackgroundResource(R.drawable.rounded_textview);
+
                     Uri fileUri_12 = data.getData();
                     local_path_str_pond2 = getRealPathFromURI(getContext(), fileUri_12);
                     pond2 = new File(local_path_str_pond2);
@@ -252,6 +262,9 @@ public class FormStep3Fragment extends Fragment {
                 case 13:
                     pond3_tv.setText("Edit");
                     pond3_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond3_tv.setBackgroundResource(R.drawable.rounded_textview);
+
+
                     Uri fileUri_13 = data.getData();
                     local_path_str_pond3 = getRealPathFromURI(getContext(), fileUri_13);
                     pond3 = new File(local_path_str_pond3);
@@ -264,6 +277,8 @@ public class FormStep3Fragment extends Fragment {
                 case 14:
                     pond4_tv.setText("Edit");
                     pond4_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond4_tv.setBackgroundResource(R.drawable.rounded_textview);
+
                     Uri fileUri_14 = data.getData();
                     local_path_str_pond4 = getRealPathFromURI(getContext(), fileUri_14);
                     pond4 = new File(local_path_str_pond4);
@@ -311,6 +326,8 @@ public class FormStep3Fragment extends Fragment {
                     Log.d("TAG","Image location IF TES");
                     pond1_tv.setText("Edit");
                     pond1_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond1_tv.setBackgroundResource(R.drawable.rounded_textview);
+
 
                 }else
                     Log.d("TAG","else");
@@ -320,6 +337,7 @@ public class FormStep3Fragment extends Fragment {
                     Log.d("TAG","Image location IF TES");
                     pond2_tv.setText("Edit");
                     pond2_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond2_tv.setBackgroundResource(R.drawable.rounded_textview);
 
                 }else
                     Log.d("TAG","else");
@@ -329,6 +347,8 @@ public class FormStep3Fragment extends Fragment {
                     Log.d("TAG","Image location IF TES");
                     pond3_tv.setText("Edit");
                     pond3_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond3_tv.setBackgroundResource(R.drawable.rounded_textview);
+
 
                 }else
                     Log.d("TAG","else");
@@ -338,6 +358,7 @@ public class FormStep3Fragment extends Fragment {
                     Log.d("TAG","Image location IF TES");
                     pond4_tv.setText("Edit");
                     pond4_tv.setTextColor(getContext().getResources().getColor(R.color.white2));
+                    pond4_tv.setBackgroundResource(R.drawable.rounded_textview);
 
                 }else
                     Log.d("TAG","else");

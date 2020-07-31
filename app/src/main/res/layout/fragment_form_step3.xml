@@ -34,8 +34,7 @@
         <FrameLayout
             android:id="@+id/pond1_framelayout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
->
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/pond1_iv"
@@ -46,16 +45,16 @@
                 android:padding="0dp"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop" />
+
             <TextView
                 android:id="@+id/pond1_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:text="+\nAdd Picture"
-                android:background="@drawable/rounded_textview"
-                android:padding="12dp"
+                 android:padding="12dp"
+                android:gravity="center"
                 android:textSize="15dp"
                 android:textAlignment="center"
-
                 android:layout_gravity="center"/>
         </FrameLayout>
 
@@ -77,14 +76,15 @@
                 android:scaleType="centerCrop"/>
             <TextView
                 android:id="@+id/pond2_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:text="+\nAdd Picture"
                 android:textSize="15dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_textview"
-                android:padding="12dp"
+                 android:padding="12dp"
+                android:gravity="center"
+
                 />
         </FrameLayout>
 
@@ -108,14 +108,15 @@
                 android:scaleType="centerCrop"/>
             <TextView
                 android:id="@+id/pond3_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:text="+\nAdd Picture"
                 android:textSize="15dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_textview"
-                android:padding="12dp"/>
+                 android:padding="12dp"
+                android:gravity="center"
+                />
         </FrameLayout>
 
         <FrameLayout
@@ -138,14 +139,15 @@
                 android:scaleType="centerCrop"/>
             <TextView
                 android:id="@+id/pond4_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:text="+\nAdd Picture"
                 android:textSize="15dp"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_textview"
-                android:padding="12dp"/>
+                 android:padding="12dp"
+                android:gravity="center"
+                />
         </FrameLayout>
     </RelativeLayout>
 

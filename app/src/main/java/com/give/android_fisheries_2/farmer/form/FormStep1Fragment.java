@@ -31,6 +31,7 @@ import java.io.File;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import es.dmoral.toasty.Toasty;
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 import static com.give.android_fisheries_2.farmer.form.FormMainActivity.*;
 
@@ -54,7 +55,8 @@ public class FormStep1Fragment extends Fragment {
 
     static MaterialEditText fathersName;
     static MaterialEditText address;
-    static Spinner district;
+    //static Spinner district;
+    static MaterialSpinner district;
     static MaterialEditText epicAadhaar;
 
     static String local_path_str_image;

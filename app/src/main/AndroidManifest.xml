@@ -49,12 +49,19 @@
             android:name=".farmer.FarmerCenterActivity"
             android:theme="@style/AppThemeFarmer" />
         <activity android:name=".admin.AdminCenterActivity" />
+
+
         <activity
             android:name=".registration.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+       />
         <activity
             android:name=".registration.RegistrationActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize"/>
+
+
+
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme">
