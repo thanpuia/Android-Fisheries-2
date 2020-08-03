@@ -1,12 +1,15 @@
 package com.give.android_fisheries_2.farmer.form;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -63,9 +66,10 @@ public class FormStep4Fragment extends Fragment {
 
         mMapView.onCreate(savedInstanceState);
         mMapView.onResume();
-        try{
+        try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
         mMapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(GoogleMap mGoogleMap) {
@@ -77,8 +81,18 @@ public class FormStep4Fragment extends Fragment {
                         .zoom(8)                   // Sets the zoom
                         .build();                   // Creates a CameraPosition from the builder
                 googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 googleMap.setMyLocationEnabled(true);
-                googleMap.setPadding(0,180,0,0);
+                googleMap.setPadding(0,300,0,0);
                 formMainButton.setVisibility(View.VISIBLE);
 
                 if(googleMap!=null){

@@ -116,8 +116,7 @@ public class FormStep1Fragment extends Fragment {
         /*
         fathersName.setHint(FormMainActivity.hintFathersName);
         address.setHint(FormMainActivity.hintAddress);
-        epicAadhaar.setHint(FormMainActivity.hintEpic);
-*/
+        epicAadhaar.setHint(FormMainActivity.hintEpic);*/
         fathersName.setFloatingLabelText(FormMainActivity.hintFathersName);
         address.setFloatingLabelText(FormMainActivity.hintAddress);
         epicAadhaar.setFloatingLabelText(FormMainActivity.hintEpic);
@@ -133,8 +132,7 @@ public class FormStep1Fragment extends Fragment {
 
         //POPULATE ALL PICTURE IF PRESENT LOCALLY
         local_path_str_image = sharedPreferences.getString("image_local","");
-
-        if(!local_path_str_image.equals("")){
+         if(!local_path_str_image.equals("")){
             Bitmap profilePictureBitmap2 = BitmapFactory.decodeFile(local_path_str_image);
             profileImageFarmer.setImageBitmap(profilePictureBitmap2);
         }
@@ -187,10 +185,12 @@ public class FormStep1Fragment extends Fragment {
                 fathersName.setText(sharedPreferences.getString("fname",""));
                 address.setText(sharedPreferences.getString("address",""));
                 epicAadhaar.setText(sharedPreferences.getString("epic_no",""));
+
                 web_path_str_image = sharedPreferences.getString("image_web","");
 
                 //PROFILE IMAGE
                 if(!web_path_str_image.equals("")){
+
                     Picasso.get().load(MainActivity.MAIN_URL+"public/image/"+web_path_str_image).into(profileImageFarmer);
                     Log.d("TAG","Image location IF TES");
                 }

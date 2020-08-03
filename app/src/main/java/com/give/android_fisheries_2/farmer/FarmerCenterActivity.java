@@ -133,6 +133,11 @@ public class FarmerCenterActivity extends AppCompatActivity {
             startActivity(new Intent(this,ContactUsActivity.class));
             //finish();
        }
+        else if (item.getItemId() == R.id.documents){
+            //Toasty.info(this,"Contact us and some other page will be shown",Toasty.LENGTH_SHORT).show();
+            startActivity(new Intent(this,DocumentsActivity.class));
+            //finish();
+        }
        else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             finish();

@@ -6,6 +6,10 @@
             android:id="@+id/contact_us"/>
         <item android:title="Language"
             android:id="@+id/language"/>
+        <item android:title="Documents"
+            android:id="@+id/documents"/>
+
+
         <group>
                 <item android:title="Logout"
                     android:id="@+id/log_out"/>

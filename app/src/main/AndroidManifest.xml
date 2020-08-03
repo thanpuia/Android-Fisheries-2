@@ -22,9 +22,14 @@
         android:roundIcon="@mipmap/ic_fish_logo_ic_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".farmer.ContactUsActivity"
+        <activity android:name=".farmer.WebViewActivity"
+            android:theme="@style/AppThemeFarmer"
+            ></activity>
+        <activity android:name=".farmer.DocumentsActivity"
+            android:theme="@style/AppThemeFarmer"/>
+        <activity
+            android:name=".farmer.ContactUsActivity"
             android:theme="@style/AppThemeFarmer" />
-
         <activity
             android:name=".farmer.form.FormMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -49,19 +54,13 @@
             android:name=".farmer.FarmerCenterActivity"
             android:theme="@style/AppThemeFarmer" />
         <activity android:name=".admin.AdminCenterActivity" />
-
-
         <activity
             android:name=".registration.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-       />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".registration.RegistrationActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize"/>
-
-
-
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".SplashScreen"
             android:theme="@style/SplashTheme">

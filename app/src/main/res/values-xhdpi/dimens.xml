@@ -18,5 +18,5 @@
 
     <dimen name="admin_farmer_details_dialog">3dp</dimen>
     <dimen name="map_size">450dp</dimen>
-
+<!--xdpi Longcheer D-->
 </resources>

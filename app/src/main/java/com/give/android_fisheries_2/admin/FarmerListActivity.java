@@ -45,6 +45,7 @@ import com.give.android_fisheries_2.adapter.FarmerListAdapter;
 import com.give.android_fisheries_2.adapter.RecyclerItemClickListener;
 import com.give.android_fisheries_2.adapter.SchemeListAdapter;
 import com.give.android_fisheries_2.entity.FarmerEntity;
+import com.give.android_fisheries_2.farmer.DocumentsActivity;
 import com.give.android_fisheries_2.registration.LoginActivity;
 import com.give.android_fisheries_2.registration.Logout;
 import com.google.gson.JsonArray;
@@ -114,7 +115,12 @@ public class FarmerListActivity extends AppCompatActivity {
             startActivity(getIntent());
         } else if (item.getItemId() == R.id.filter_list) {
             filtersBtnClick();
-        } else if (item.getItemId() == R.id.log_out) {
+
+
+        }  else if (item.getItemId() == R.id.documents){
+             startActivity(new Intent(this, DocumentsActivity.class));
+
+         } else if (item.getItemId() == R.id.log_out) {
             new Logout(getApplicationContext());
             finish();
             startActivity(new Intent(this, LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|

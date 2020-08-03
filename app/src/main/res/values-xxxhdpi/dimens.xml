@@ -17,6 +17,6 @@
     <dimen name="farmer_form_edittext_padding_left">20dp</dimen>
 
     <dimen name="admin_farmer_details_dialog">3dp</dimen>
-    <dimen name="map_size">550dp</dimen>
+    <dimen name="map_size">640dp</dimen>
 
 </resources>

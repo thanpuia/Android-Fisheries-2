@@ -4,6 +4,8 @@
             android:id="@+id/refresh_page"/>
         <item android:title="Filter List"
             android:id="@+id/filter_list"/>
+        <item android:title="Documents"
+            android:id="@+id/documents"/>
         <item android:title="Logout"
             android:id="@+id/log_out"/>
 </menu>
