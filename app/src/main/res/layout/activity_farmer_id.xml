@@ -65,82 +65,6 @@
         android:text="@string/app_name"/>
 
 
-    <TextView
-        android:id="@+id/contact_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contact: "
-        android:layout_below="@id/name_value"
-        android:layout_toRightOf="@+id/profile_image"
-        />
-    <TextView
-        android:id="@+id/contact_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="contact"
-        android:layout_below="@id/name_value"
-        android:layout_toRightOf="@id/contact_label"
-        />
-
-
-
-    <TextView
-        android:id="@+id/fathers_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Father's Name: "
-        android:layout_below="@id/contact_label"
-        android:layout_toRightOf="@+id/profile_image"
-        />
-    <TextView
-        android:id="@+id/fathers_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="Fathers"
-        android:layout_below="@id/contact_value"
-        android:layout_toRightOf="@id/fathers_label"/>
-
-
-
-    <TextView
-        android:id="@+id/tehsil_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tehsil: "
-        android:layout_below="@id/fathers_label"
-        android:layout_toRightOf="@+id/profile_image"
-        />
-    <TextView
-        android:id="@+id/tehsil_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="tehsil"
-        android:layout_below="@id/fathers_value"
-        android:layout_toRightOf="@id/tehsil_label"/>
-
-
-    <TextView
-        android:id="@+id/district_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="District: "
-        android:layout_below="@id/tehsil_label"
-        android:layout_toRightOf="@+id/profile_image"
-        />
-    <TextView
-        android:id="@+id/district_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="district"
-        android:layout_below="@id/tehsil_value"
-        android:layout_toRightOf="@id/district_label"/>
-
-
-
 <!--    <TextView-->
 <!--        android:id="@+id/location_label"-->
 <!--        android:layout_width="wrap_content"-->
@@ -158,51 +82,117 @@
 <!--        android:layout_below="@id/district_value"-->
 <!--        android:layout_toRightOf="@id/location_label"/>-->
 
-
-
-    <TextView
-        android:id="@+id/area_label"
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Area: "
-        android:layout_below="@id/district_label"
+        android:scrollHorizontally="false"
+        android:layout_below="@id/name_value"
         android:layout_toRightOf="@+id/profile_image"
-        />
-    <TextView
-        android:id="@+id/area_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="area"
-        android:layout_below="@id/district_value"
-        android:layout_toRightOf="@id/area_label"/>
+
+        android:stretchColumns="1">
+
+        <TableRow android:layout_margin="@dimen/admin_farmer_details_dialog">
+            <TextView
+                android:id="@+id/contact_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact"
+
+                />
+            <TextView
+                android:id="@+id/contact_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:text="contact"
+
+                />
+        </TableRow>
+
+        <TableRow android:layout_margin="@dimen/admin_farmer_details_dialog">
+            <TextView
+                android:id="@+id/fathers_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Father's Name"
+
+                />
+            <TextView
+                android:id="@+id/fathers_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:text="Fathers"
+          />
+
+        </TableRow>
+
+        <TableRow android:layout_margin="@dimen/admin_farmer_details_dialog">
+
+            <TextView
+                android:id="@+id/tehsil_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tehsil"
+
+                />
+            <TextView
+                android:id="@+id/tehsil_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:text="tehsil"/>
+
+        </TableRow>
+        <TableRow android:layout_margin="@dimen/admin_farmer_details_dialog">
+            <TextView
+                android:id="@+id/district_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="District"
+                 />
+            <TextView
+                android:id="@+id/district_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:text="district"/>
 
 
+        </TableRow>
+        <TableRow android:layout_margin="@dimen/admin_farmer_details_dialog">
+            <TextView
+                android:id="@+id/area_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Area"
+                />
+            <TextView
+                android:id="@+id/area_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:text="area"/>
 
-    <TextView
-        android:id="@+id/scheme_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scheme: "
-        android:layout_below="@id/area_label"
-        android:layout_toRightOf="@+id/profile_image"
-        />
-    <TextView
-        android:id="@+id/scheme_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black_80"
-        android:text="scheme"
-        android:layout_below="@id/area_value"
-        android:layout_toRightOf="@id/scheme_label"/>
+        </TableRow>
+        <TableRow android:layout_margin="@dimen/admin_farmer_details_dialog">
+
+            <TextView
+                android:id="@+id/scheme_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scheme"
+                />
+            <TextView
+                android:id="@+id/scheme_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black_80"
+                android:text="scheme"/>
 
 
+        </TableRow>
 
-
-
-
-
-
-
+    </TableLayout>
 
 </RelativeLayout>

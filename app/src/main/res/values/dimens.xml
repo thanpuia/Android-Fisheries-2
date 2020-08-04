@@ -17,4 +17,6 @@
     <dimen name="farmer_form_edittext_padding_left">20dp</dimen>
 
     <dimen name="admin_farmer_details_dialog">3dp</dimen>
+    <dimen name="bottom_nav_height">50dp</dimen>
+    <dimen name="bottom_nav_text_size">9dp</dimen>
 </resources>

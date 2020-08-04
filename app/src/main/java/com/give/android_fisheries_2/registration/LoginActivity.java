@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -37,6 +38,8 @@ public class LoginActivity extends AppCompatActivity {
     Button loginButton;
     String LOGIN_URL;
 
+    //DEBUG
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,11 +53,13 @@ public class LoginActivity extends AppCompatActivity {
         loginLinearLayout = findViewById(R.id.loginFormLinearLayout);
         simpleProgressBarLinearLayout = findViewById(R.id.simpleProgressBarLinearLayout);
         loginButton = findViewById(R.id.loginInButton);
+
     }
 
     public void mLoginButtonClick(View view) {
         String mLoginContact ;
         String mLoginPassword ;
+
 
         //::::BOTH FIELDS ARE EMPTY
         if( loginContact.getText().toString().matches("") &&   loginPassword.getText().toString().matches("")){

@@ -59,6 +59,7 @@
         android:inputType="text"
         android:lines="1"
         android:textColorHint="#777272"
+        android:paddingLeft="10dp"
         android:drawableLeft="@drawable/ic_search_black_24dp"
         android:textColor="#000"
         android:imeOptions="actionDone"/>

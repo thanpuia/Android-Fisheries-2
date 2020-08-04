@@ -10,7 +10,7 @@
         android:id="@+id/top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#E0E0EA"
+        android:background="#E7E7EC"
         android:padding="5dp"
         android:layout_alignParentTop="true">
 
@@ -60,7 +60,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/top"
         android:id="@+id/farmerRecyclerList"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"/>
 
@@ -68,7 +68,7 @@
     <LinearLayout
         android:id="@+id/bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/bottom_nav_height"
         android:layout_alignParentBottom="true"
         android:background="#DFDFDF">
 
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:text="FARMERS"
             android:drawableTop="@drawable/btn_farmer"
-            android:textSize="10dp"
+            android:textSize="@dimen/bottom_nav_text_size"
             android:paddingTop="10dp"
             android:background="@drawable/button_transparent_shadow"
             android:onClick="farmersBtnClick1"
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:text="SMS"
             android:drawableTop="@drawable/btn_sms"
-            android:textSize="10dp"
+            android:textSize="@dimen/bottom_nav_text_size"
             android:paddingTop="10dp"
             android:background="@drawable/button_transparent_shadow"
             android:onClick="smsBtnClick1"

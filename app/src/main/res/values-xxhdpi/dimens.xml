@@ -18,5 +18,8 @@
 
     <dimen name="admin_farmer_details_dialog">3dp</dimen>
     <dimen name="map_size">600dp</dimen>
-<!--//1080x2220 440dpi-->
+
+    <dimen name="bottom_nav_height">62dp</dimen>
+    <dimen name="bottom_nav_text_size">12dp</dimen>
+<!--//1080x2220 440dpi zonuna phone ag-->
 </resources>

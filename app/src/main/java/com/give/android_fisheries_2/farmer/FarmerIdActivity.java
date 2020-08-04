@@ -172,13 +172,13 @@ public class FarmerIdActivity extends AppCompatActivity {
         idContact = findViewById(R.id.contact_value);
         idDistrict = findViewById(R.id.district_value);
 
-        idName.setText(sharedPreferences.getString("mName",""));
-        idTehsil.setText(sharedPreferences.getString("tehsil",""));
-        idArea.setText(sharedPreferences.getString("area",""));
-        idScheme.setText(sharedPreferences.getString("name_of_scheme",""));
-        idFathersName.setText(sharedPreferences.getString("fname",""));
-        idContact.setText(sharedPreferences.getString("mContact",""));
-        idDistrict.setText(sharedPreferences.getString("district",""));
+        idName.setText(": "+sharedPreferences.getString("mName",""));
+        idTehsil.setText(": "+sharedPreferences.getString("tehsil",""));
+        idArea.setText(": "+sharedPreferences.getString("area",""));
+        idScheme.setText(": "+sharedPreferences.getString("name_of_scheme",""));
+        idFathersName.setText(": "+sharedPreferences.getString("fname",""));
+        idContact.setText(": "+sharedPreferences.getString("mContact",""));
+        idDistrict.setText(": "+sharedPreferences.getString("district",""));
 
         String image_web = sharedPreferences.getString("image_web","");
         if(image_web.matches("")){
